@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @page { size: A4 landscape; margin: 0; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Times New Roman", serif;
+      background: #0f5f2f;
+    }
+    .sheet {
+      width: 297mm;
+      height: 210mm;
+      margin: 0 auto;
+      background: #fdfcf8;
+      border: 14px solid #0f5f2f;
+      padding: 18mm 18mm 12mm;
+      position: relative;
+      background-image:
+        linear-gradient(135deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.01) 48%, rgba(255,255,255,0.6) 100%);
+    }
+    .top-band {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      line-height: 1.4;
+    }
+    .top-block {
+      width: 45%;
+    }
+    .top-block strong {
+      display: block;
+      text-transform: uppercase;
+    }
+    .header {
+      text-align: center;
+      margin: 6mm 0;
+    }
+    .flag {
+      width: 120px;
+      height: 70px;
+      margin: 0 auto 6px;
+      background: linear-gradient(#00AA44 0 33%, #FCDD09 0 66%, #EF3340 0);
+      border: 2px solid #000;
+      position: relative;
+    }
+    .flag::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 28px;
+      height: 28px;
+      background: #0066cc;
+      border-radius: 50%;
+    }
+    .flag::before {
+      content: "★";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fcdd09;
+      font-size: 18px;
+      z-index: 2;
+    }
+    .header .title {
+      font-weight: bold;
+      font-size: 16px;
+      text-transform: uppercase;
+      margin: 2px 0;
+    }
+    .header .subtitle {
+      font-weight: bold;
+      font-size: 20px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+    .photo-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 10mm 0 6mm;
+    }
+    .photo-slot {
+      width: 90px;
+      height: 115px;
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-size: 11px;
+      background: #f3f3f3;
+    }
+    .photo-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .person-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8mm;
+    }
+    .person-block .row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+    .label {
+      font-weight: bold;
+      width: 48%;
+      line-height: 1.2;
+    }
+    .value {
+      width: 50%;
+      border-bottom: 1px solid #000;
+      min-height: 16px;
+      text-align: left;
+      padding: 1px 2px;
+      line-height: 1.2;
+    }
+    .dual-line {
+      display: block;
+      font-size: 10px;
+      line-height: 1.15;
+    }
+    .dates-grid {
+      margin-top: 6mm;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6mm;
+      font-size: 11px;
+    }
+    .date-group .value {
+      display: flex;
+      gap: 4px;
+      border: none;
+    }
+    .date-cell {
+      flex: 1;
+      border-bottom: 1px solid #000;
+      text-align: center;
+      padding: 1px 0;
+    }
+    .location-grid {
+      margin-top: 6mm;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5mm 8mm;
+      font-size: 11px;
+    }
+    .signature-row {
+      margin-top: 10mm;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 6mm;
+      font-size: 11px;
+      text-align: center;
+    }
+    .line {
+      border-bottom: 1px solid #000;
+      min-height: 18px;
+      margin: 6px 0 2px;
+    }
+    .seal {
+      position: absolute;
+      right: 28mm;
+      bottom: 20mm;
+      width: 70px;
+      height: 70px;
+      border: 2px solid #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 11px;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="top-band">
+      <div class="top-block">
+        <strong>የጋብቻ መዝገብ ቅጽ ቁጥር<br>Marriage Register Form Number</strong>
+        <span>MR-2024-001</span><br>
+        <strong>የጋብቻ ምዝገባ የተለየ መለያ ቁጥር<br>Marriage Registration Unique Identification Number</strong>
+        <span>CERT-test-marriage-exact-123-1763543919585</span>
+      </div>
+      <div class="top-block" style="text-align: right;">
+        <strong>የሚስት የትውልድ ምዝገባ መለያ ቁጥር<br>Wife's Birth Registration Unique Identification Number</strong>
+        <span></span><br>
+        <strong>የባል የትውልድ ምዝገባ መለያ ቁጥር<br>Husband's Birth Registration Unique Identification Number</strong>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="header">
+      <div class="flag"></div>
+      <div class="title">በኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊ ሪፐብሊክ የወሳኝ ኩነት ምዝገባ</div>
+      <div class="title">Federal Democratic Republic of Ethiopia Vital Event Registration</div>
+      <div class="subtitle">የጋብቻ ምስክር ወረቀት / Marriage Certificate</div>
+    </div>
+
+    <div class="photo-row">
+      <div class="photo-slot">
+        <img src="" alt="Wife Photo">
+      </div>
+      <div class="photo-slot">
+        <img src="" alt="Husband Photo">
+      </div>
+    </div>
+
+    <div class="person-grid">
+      <div class="person-block">
+        <div class="row">
+          <div class="label">የሚስት ስም / Wife's Name</div>
+          <div class="value">ሂሩት ተስፋዬ<br>Hirut Tesfaye</div>
+        </div>
+        <div class="row">
+          <div class="label">የአባት ስም / Father's Name</div>
+          <div class="value">ተስፋዬ በቀለ<br>Tesfaye Bekele</div>
+        </div>
+        <div class="row">
+          <div class="label">የአያት ስም / Grand Father's Name</div>
+          <div class="value">በቀለ ወልደ<br>Bekele Wolde</div>
+        </div>
+        <div class="row">
+          <div class="label dual-line">የትውልድ ቀን<br>Date of Birth</div>
+          <div class="value" style="display:flex; gap:4px;">
+            <div class="date-cell">May</div>
+            <div class="date-cell">15</div>
+            <div class="date-cell">1995</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">ዜግነት / Nationality</div>
+          <div class="value">ኢትዮጵያዊ<br>Ethiopian</div>
+        </div>
+      </div>
+
+      <div class="person-block">
+        <div class="row">
+          <div class="label">የባል ስም / Husband's Name</div>
+          <div class="value">ዳዊት አሰፋ<br>Dawit Assefa</div>
+        </div>
+        <div class="row">
+          <div class="label">የአባት ስም / Father's Name</div>
+          <div class="value">አሰፋ ከበደ<br>Assefa Kebede</div>
+        </div>
+        <div class="row">
+          <div class="label">የአያት ስም / Grand Father's Name</div>
+          <div class="value">ከበደ ማርያም<br>Kebede Mariam</div>
+        </div>
+        <div class="row">
+          <div class="label dual-line">የትውልድ ቀን<br>Date of Birth</div>
+          <div class="value" style="display:flex; gap:4px;">
+            <div class="date-cell">August</div>
+            <div class="date-cell">22</div>
+            <div class="date-cell">1990</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">ዜግነት / Nationality</div>
+          <div class="value">ኢትዮጵያዊ<br>Ethiopian</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dates-grid">
+      <div class="date-group">
+        <div class="label">የጋብቻ ቀን / Date of Marriage</div>
+        <div class="value">
+          <div class="date-cell">January</div>
+          <div class="date-cell">18</div>
+          <div class="date-cell">2024</div>
+        </div>
+      </div>
+      <div class="date-group">
+        <div class="label">የጋብቻ ምዝገባ ቀን / Date of Marriage Registration</div>
+        <div class="value">
+          <div class="date-cell">January</div>
+          <div class="date-cell">20</div>
+          <div class="date-cell">2024</div>
+        </div>
+      </div>
+      <div class="date-group">
+        <div class="label">የምስክር ወረቀት የተሰጠበት ቀን / Date of Certificate Issued</div>
+        <div class="value">
+          <div class="date-cell">November</div>
+          <div class="date-cell">19</div>
+          <div class="date-cell">2025</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="location-grid">
+      <div>
+        <div class="label">ክልል/ከተማ አስተዳደር<br>Region/City Administration</div>
+        <div class="value">አዲስ አበባ<br>Addis Ababa</div>
+      </div>
+      <div>
+        <div class="label">ዞን/ከተማ አስተዳደር<br>Zone/City Administration</div>
+        <div class="value">መካከለኛ<br>Central</div>
+      </div>
+      <div>
+        <div class="label">ከተማ<br>City</div>
+        <div class="value">አዲስ አበባ<br>Addis Ababa</div>
+      </div>
+      <div>
+        <div class="label">ንቅስ ከተማ<br>Sub City</div>
+        <div class="value">ቦሌ<br>Bole</div>
+      </div>
+      <div>
+        <div class="label">ወረዳ/ልዩ ወረዳ<br>Woreda / Special Woreda</div>
+        <div class="value">Bole Sub City<br>Bole Sub City</div>
+      </div>
+      <div>
+        <div class="label">ቀበሌ<br>Kebele</div>
+        <div class="value">Kebele 01<br>Kebele 01</div>
+      </div>
+    </div>
+
+    <div class="signature-row">
+      <div>
+        <div>የክብር መዝገብ ሹም ስም / Name of Civil Registrar</div>
+        <div class="line"></div>
+        <div>Alemayehu Tadesse<br>Alemayehu Tadesse</div>
+      </div>
+      <div>
+        <div>የአባት ስም / Father's Name</div>
+        <div class="line"></div>
+        <div><br></div>
+      </div>
+      <div>
+        <div>የአያት ስም / Grand Father's Name</div>
+        <div class="line"></div>
+        <div><br></div>
+      </div>
+    </div>
+
+    <div class="signature-row" style="margin-top: 6mm;">
+      <div>
+        <div>አስማት / Signature</div>
+        <div class="line"></div>
+      </div>
+      <div>
+        <div>ማህተም / Seal</div>
+        <div class="line"></div>
+      </div>
+      <div>
+        <div>የምዝጋቢ ፊርማ / Registrar Signature</div>
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <div class="seal">ማሕተም<br>SEAL</div>
+  </div>
+</body>
+</html>

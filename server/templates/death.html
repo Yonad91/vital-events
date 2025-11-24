@@ -1,0 +1,493 @@
+
+<!DOCTYPE html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8">
+  <title>የሞት ማስረጃ ወረቀት / Death Certificate</title>
+  <style>
+    @page { size: A4 landscape; margin: 0; }
+    * { box-sizing: border-box; }
+    html, body { 
+      width: 297mm; 
+      height: 210mm; 
+      margin: 0; 
+      padding: 0; 
+      overflow: hidden;
+    }
+    body {
+      background: #f6f6ef url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+      font-family: 'Noto Sans Ethiopic', Arial, Helvetica, sans-serif;
+      margin: 0;
+      height: 210mm;
+      position: relative;
+    }
+    .outer-border {
+      border: 10px solid #83613c;
+      height: 190mm;
+      width: 277mm;
+      margin: 10mm 10mm 10mm 10mm;
+      padding: 0;
+      box-sizing: border-box;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .inner {
+      border: 2px solid #bcbcbc;
+      background: none;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      position: relative;
+      padding: 8px 12px;
+      overflow: hidden;
+    }
+    .top-left-reg {
+      position: absolute;
+      top: 8px;
+      left: 12px;
+      font-size: 9px;
+      line-height: 1.2;
+    }
+    .top-right-reg {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      text-align: right;
+      font-size: 9px;
+      line-height: 1.2;
+    }
+    .reg-label-am {
+      font-weight: bold;
+      font-size: 10px;
+      display: block;
+    }
+    .reg-dotline {
+      display: inline-block;
+      border-bottom: 1px dotted #555;
+      min-width: 80px;
+      font-size: 10px;
+      padding: 0 2px 1px 2px;
+      margin-top: 1px;
+    }
+    .flagcenter { 
+      margin: 0 auto 4px auto; 
+      display: block; 
+      text-align: center;
+    }
+    .flagcenter img { 
+      height: 38px; 
+      display: block;
+      margin: 0 auto; 
+    }
+    .header-block {
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.1;
+      margin-top: 2px;
+      margin-bottom: 4px;
+    }
+    .big-bold-title { font-size: 22px; margin-top: 1px; font-weight: bold; }
+    .big-bold-2 { font-size: 18px; margin-top: 1px; font-weight: bold; }
+    .small-topper { font-size: 12px; font-weight: 600; }
+    .certificate-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      font-size: 10px;
+      line-height: 1.15;
+    }
+    .certificate-table td {
+      vertical-align: top;
+      padding: 1px 6px;
+    }
+    .field-cell {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .label-col {
+      min-width: 75px;
+      max-width: 75px;
+      flex-shrink: 0;
+    }
+    .value-col {
+      flex: 1;
+      min-width: 0;
+    }
+    .label-am {
+      font-weight: bold;
+      font-size: 11px;
+      line-height: 1.1;
+      display: block;
+    }
+    .label-en {
+      font-size: 9px;
+      color: #2e2e2e;
+      line-height: 1.1;
+      display: block;
+      font-weight: normal;
+    }
+    .dotline {
+      display: inline-block;
+      border-bottom: 1px dotted #555;
+      min-width: 60px;
+      font-size: 11px;
+      padding: 0 2px 1px 2px;
+      margin-top: 1px;
+    }
+    .date-inline {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 3px;
+      white-space: nowrap;
+    }
+    .date-dotline {
+      display: inline-block;
+      border-bottom: 1px dotted #555;
+      width: 45px;
+      font-size: 10px;
+      text-align: center;
+      padding: 0 2px 1px 2px;
+    }
+    .sig-box, .seal-box {
+      border-bottom: 1.2px solid #444;
+      min-width: 80px;
+      height: 22px;
+      width: 90%;
+      display: block;
+      margin-top: 2px;
+    }
+    .sig-label, .seal-label { 
+      font-size: 10px; 
+      margin-top: 4px; 
+    }
+    .main-content {
+      margin-top: 6px;
+    }
+    .horizontal-flow-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+      line-height: 1.15;
+    }
+    .horizontal-flow-table td {
+      vertical-align: top;
+      padding: 4px 6px;
+    }
+    .horizontal-flow-table tr {
+      margin-bottom: 8px;
+    }
+    .photo-section {
+      text-align: center;
+    }
+    .photo-placeholder {
+      width: 85px;
+      height: 105px;
+      border: 2px solid #000;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .photo-placeholder-text {
+      font-size: 7px;
+      color: #999;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .photo-seal {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 25px;
+      height: 25px;
+      border: 1px solid #000;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5px;
+      font-weight: bold;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+<div class="outer-border">
+ <div class="inner">
+  <div class="top-left-reg">
+    <span class="reg-label-am">የሞት መዝገብ ቅፅ ቁጥር</span>
+    <span class="reg-dotline">{{registrationRecordFormNumber}}</span>
+      </div>
+  <div class="top-right-reg">
+    <div>
+      <span class="reg-label-am">የሞት መዝገብ አንደኛ መለያ ቁጥር</span>
+      <span class="reg-dotline">{{certificateId}}</span>
+      </div>
+    <div style="margin-top: 3px;">
+      <span class="reg-label-am">የልደት መዝገብ አንደኛ መለያ ቁጥር</span>
+      <span class="reg-dotline">{{deceasedBirthRegistrationId}}</span>
+      </div>
+    </div>
+  <div class="flagcenter"><img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg" alt="Ethiopian Flag"></div>
+  <div class="header-block">
+    <span class="small-topper">በኢትዮጵያ ፌደራል ዲሞክራሲያዊ ሪፖብሊክ የህዝት ምዝገባ ባለስልጣን</span><br>
+    <span style="font-size:11px;"><b>Federal Democratic Republic of Ethiopia Vital Event Registration</b></span><br>
+    <span class="big-bold-title">የሞት ማስረጃ ወረቀት</span><br>
+    <span class="big-bold-2">Death Certificate</span>
+    </div>
+  <div class="main-content">
+    <table class="horizontal-flow-table">
+      <tr>
+        <td colspan="3"></td>
+        <td style="width: 25%;">
+          <div class="photo-section">
+            <div class="photo-placeholder">
+              <img src="{{photoPrimary}}" alt="Photo" style="display: {{photoPrimaryDisplay}};">
+              <div class="photo-placeholder-text" style="display: {{photoPlaceholderDisplay}};">Photo</div>
+              <div class="photo-seal">የኢትዮጵያ<br>የወሳኝ<br>ኩነት<br>ምዝገባ</div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr style="margin-top: 15px; padding-top: 15px;">
+        <td style="width: 25%;">
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">የሟች ስም</span>
+              <span class="label-en">Deceased's Name</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{deceasedNameAmharic}}<br>{{deceasedName}}</span>
+            </div>
+          </div>
+        </td>
+        <td style="width: 25%;">
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">የአባቱ ስም</span>
+              <span class="label-en">Father's Name</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{deceasedFatherNameAmharic}}<br>{{deceasedFatherName}}</span>
+            </div>
+          </div>
+        </td>
+        <td style="width: 25%;">
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">የአያቱ ስም</span>
+              <span class="label-en">Grandfather's Name</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{deceasedGrandfatherNameAmharic}}<br>{{deceasedGrandfatherName}}</span>
+            </div>
+          </div>
+        </td>
+        <td style="width: 25%;">
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">ማዕረግ</span>
+              <span class="label-en">Title</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{deceasedTitleAmharic}}<br>{{deceasedTitle}}</span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr style="margin-top: 10px;">
+        <td>
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">ፆታ</span>
+              <span class="label-en">Sex</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{deceasedSexAmharic}}<br>{{deceasedSex}}</span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">{{deceasedBirthDateEc}} E.C የትውልድ ቀን</span>
+              <span class="label-en">{{deceasedBirthDateGc}} G.C Date of Birth</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline"></span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">ዜግነት</span>
+              <span class="label-en">Nationality</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{deceasedNationalityAmharic}}<br>{{deceasedNationality}}</span>
+            </div>
+          </div>
+        </td>
+        <td></td>
+      </tr>
+      <tr style="margin-top: 10px;">
+        <td>
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">የሞት ቦታ: ክልል</span>
+              <span class="label-en">Place of Death: Region</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{deathPlaceRegionAmharic}}<br>{{deathPlaceRegion}}</span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">ዞን</span>
+              <span class="label-en">Zone</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{deathPlaceZoneAmharic}}<br>{{deathPlaceZone}}</span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">ወረዳ</span>
+              <span class="label-en">Woreda</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{deathPlaceWoredaAmharic}}<br>{{deathPlaceWoreda}}</span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">ከተማ</span>
+              <span class="label-en">City</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{deathPlaceCityAmharic}}<br>{{deathPlaceCity}}</span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr style="margin-top: 10px;">
+        <td>
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">ንቅስ ከተማ</span>
+              <span class="label-en">Sub City</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{deathPlaceSubCityAmharic}}<br>{{deathPlaceSubCity}}</span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">ቀበሌ</span>
+              <span class="label-en">Kebele</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{deathPlaceKebeleAmharic}}<br>{{deathPlaceKebele}}</span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">{{deathDateEc}} E.C የሞት ቀን</span>
+              <span class="label-en">{{deathDateGc}} G.C Date of Death</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline"></span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">{{registrationDateEc}} E.C የሞት መዝገብ ቀን</span>
+              <span class="label-en">{{registrationDateGc}} G.C Date of Death Registration</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline"></span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr style="margin-top: 10px;">
+        <td>
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">{{issueDateEc}} E.C የማስረጃው ቀን</span>
+              <span class="label-en">{{issueDateGc}} G.C Date of Certificate Issued</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline"></span>
+            </div>
+          </div>
+        </td>
+        <td colspan="2">
+          <div class="field-cell">
+            <div class="label-col">
+              <span class="label-am">የህዝብ መዝገብ ሰራተኛ</span>
+              <span class="label-en">Name of Civil Registrar</span>
+            </div>
+            <div class="value-col">
+              <span class="dotline">{{registrarNameAmharic}} {{registrarFatherNameAmharic}} {{registrarGrandNameAmharic}}<br>{{registrarName}} {{registrarFatherName}} {{registrarGrandName}}</span>
+            </div>
+          </div>
+        </td>
+        <td></td>
+      </tr>
+      <tr style="margin-top: 10px;">
+        <td colspan="4" style="text-align: center; padding-top: 10px;">
+          <div style="display: inline-block; margin-right: 60px;">
+            <div class="sig-label">
+              <span class="label-am">ፊርማ</span>
+              <span class="label-en">Signature</span>
+            </div>
+            <span class="sig-box"></span>
+          </div>
+          <div style="display: inline-block;">
+            <div class="seal-label">
+              <span class="label-am">ማህተም</span>
+              <span class="label-en">Seal</span>
+            </div>
+            <span class="seal-box"></span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;700&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      (async function() {
+        try {
+          const remoteUrl = window.ETH_GEO_REMOTE_URL;
+          let loaded = false;
+
+          function isValidGeo(obj) {
+            if (!obj || typeof obj !== 'object') return false;
+            const regions = Object.keys(obj);
+            if (regions.length === 0) return false;
+            // Expect each region to have zones object with woreda arrays
+            for (const r of regions) {
+              const region = obj[r];
+              if (!region || typeof region !== 'object') return false;
+              if (!region.zones || typeof region.zones !== 'object') return false;
+              const zones = Object.keys(region.zones);
+              if (zones.length === 0) return false;
+              for (const z of zones) {
+                const zone = region.zones[z];
+                if (!zone || !Array.isArray(zone.woredas)) return false;
+              }
+            }
+            return true;
+          }
+          try {
+            const r1 = await fetch(remoteUrl, { cache: 'no-store' });
+            if (r1.ok) {
+              const d1 = await r1.json();
+              if (isValidGeo(d1)) {
+                window.ETH_GEO_DATA = d1;
+                loaded = true;
+              }
+            }
+          } catch {}
+
+          if (!loaded) {
+            const res = await fetch('/geo/ethiopia-ethgeo.json', { cache: 'no-store' });
+            if (res.ok) {
+              const data = await res.json();
+              if (isValidGeo(data)) {
+                window.ETH_GEO_DATA = data;
+                loaded = true;
+              }
+            }
+          }
+        } catch (e) {
+          // ignore; fallback to built-in subset in src/lib/geo.js
+        }
+      })();
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

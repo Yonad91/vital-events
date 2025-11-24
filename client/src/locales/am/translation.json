@@ -1,0 +1,96 @@
+{
+  "app": {
+    "title": "የደብረ ብርሃን ወሳኝ ኩነቶች መመዝገቢያ ስርአት",
+    "language": "ቋንቋ",
+    "english": "እንግሊዝኛ",
+    "amharic": "አማርኛ",
+    "logout": "መውጣት"
+  },
+  "nav": {
+    "registrant": "መመዝገቢ",
+    "hospital": "ሆስፒታል",
+    "churchMosque": "ቤተ ክርስቲያን/መስጊድ",
+    "registrar": "ረጂስትራር",
+    "officeManager": "የቢሮ አስተዳዳሪ",
+    "admin": "ስርአት አድሚን",
+    "workflow": "የስራ ሂደት"
+  },
+  "common": {
+    "search": "ፈልግ",
+    "status": "ሁኔታ",
+    "actions": "እርምጃዎች",
+    "approve": "አጽድቅ",
+    "reject": "አልቅ",
+    "view": "አሳይ",
+    "submit": "አስገባ",
+    "save": "አስቀምጥ",
+    "cancel": "ሰርዝ",
+    "download": "አውርድ",
+    "pending": "በመጠባበቅ ላይ",
+    "approved": "ተጸድቋል",
+    "rejected": "ተቀርዷል",
+    "from": "ከ",
+    "to": "ወደ",
+    "date": "ቀን",
+    "type": "ዓይነት",
+    "name": "ስም",
+    "birth": "ልደት",
+    "death": "ሞት",
+    "marriage": "ጋብቻ",
+    "statistics": "ስታቲስቲክስ",
+    "total": "ጠቅላላ",
+    "upload": "አፍስስ",
+    "docUpload": "ሰነዶች መጫኛ"
+  },
+  "registrant": {
+    "title": "የመመዝገቢ ዳሽቦርድ",
+    "registerEvent": "ክስተት መመዝገብ",
+    "eventType": "የክስተት ዓይነት",
+    "place": "ቦታ",
+    "details": "ዝርዝሮች",
+    "track": "የቀረቡ መዝገቦች",
+    "requestCertificate": "ማረጋገጫ መጠየቅ",
+    "certificate": "ማረጋገጫ"
+  },
+  "hospital": {
+    "title": "የሆስፒታል ዳሽቦርድ",
+    "reportBirth": "የልደት ክስተት ሪፖርት",
+    "motherName": "የእናት ስም",
+    "childName": "የሕፃን ስም",
+    "location": "ቦታ"
+  },
+  "churchMosque": {
+    "title": "የቤተ ክርስቲያን/መስጊድ ዳሽቦርድ",
+    "reportDeath": "የሞት ክስተት ሪፖርት",
+    "reportMarriage": "የጋብቻ ክስተት ሪፖርት",
+    "person": "ግለሰብ",
+    "cause": "ምክንያት",
+    "bride": "ሙሽራ",
+    "groom": "ወንዶ ሙሽር",
+    "witnesses": "ምስክሮች"
+  },
+  "registrar": {
+    "title": "የረጂስትራር ዳሽቦርድ",
+    "incoming": "ገቢ መዝገቦች",
+    "validate": "መረጃ ማረጋገጥ",
+    "issueCertificate": "ማረጋገጫ መስጠት",
+    "duplicateCheck": "ድርብ ማረጋገጥ"
+  },
+  "officeManager": {
+    "title": "የቢሮ አስተዳዳሪ ዳሽቦርድ",
+    "overview": "እይታ",
+    "generateReports": "ሪፖርቶች መፍጠር",
+    "disputes": "ክርክሮች",
+    "backups": "ቅጂዎች"
+  },
+  "admin": {
+    "title": "የስርአት አድሚን ዳሽቦርድ",
+    "manageUsers": "ተጠቃሚዎችን አስተዳድር",
+    "addUser": "አዲስ ተጠቃሚ መጨመር",
+    "role": "ሚና",
+    "email": "ኢሜይል",
+    "institution": "ተቋም",
+    "configure": "የስርአት ማቀናበር",
+    "verify": "መለያ ማረጋገጥ"
+  }
+}

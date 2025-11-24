@@ -1,0 +1,12 @@
+{
+  "editor.fontFamily": "'Cascadia Code', 'Noto Sans Ethiopic', Consolas, 'Courier New', 'Segoe UI Symbol', 'Nyala', 'Abyssinica SIL', monospace",
+  "files.encoding": "utf8",
+  "files.autoGuessEncoding": true,
+  "editor.renderWhitespace": "all",
+  "editor.unicodeHighlight.ambiguousCharacters": true,
+  "editor.unicodeHighlight.invisibleCharacters": true
+
+}
+
+
+

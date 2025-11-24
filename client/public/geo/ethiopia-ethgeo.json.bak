@@ -1,0 +1,6236 @@
+{
+  "Central Ethiopia Regional State": {
+    "en": "Central Ethiopia Regional State",
+    "am": "Central Ethiopia Regional State",
+    "zones": {
+      "Gurage": {
+        "en": "Gurage",
+        "am": "ጉራጌ",
+        "woredas": [
+          {
+            "en": "Butajira",
+            "am": "ቡታጅራ"
+          },
+          {
+            "en": "Abeshge",
+            "am": "Abeshge"
+          },
+          {
+            "en": "Cheha",
+            "am": "Cheha"
+          },
+          {
+            "en": "Endegagn",
+            "am": "Endegagn"
+          },
+          {
+            "en": "Enemorina Eaner",
+            "am": "Enemorina Eaner"
+          },
+          {
+            "en": "Ezha",
+            "am": "Ezha"
+          },
+          {
+            "en": "Geta",
+            "am": "Geta"
+          },
+          {
+            "en": "Gumer",
+            "am": "Gumer"
+          },
+          {
+            "en": "Kebena",
+            "am": "Kebena"
+          },
+          {
+            "en": "Gedebano Gutazer Welene",
+            "am": "Gedebano Gutazer Welene"
+          },
+          {
+            "en": "Mareko",
+            "am": "Mareko"
+          },
+          {
+            "en": "Meskane",
+            "am": "Meskane"
+          },
+          {
+            "en": "Muhor Na Aklil",
+            "am": "Muhor Na Aklil"
+          },
+          {
+            "en": "Welkite",
+            "am": "Welkite"
+          },
+          {
+            "en": "Sodo",
+            "am": "Sodo"
+          },
+          {
+            "en": "Dorcha",
+            "am": "Dorcha"
+          },
+          {
+            "en": "Yebara Sawuke",
+            "am": "Yebara Sawuke"
+          },
+          {
+            "en": "Mehur Aklil",
+            "am": "Mehur Aklil"
+          },
+          {
+            "en": "Gedebano",
+            "am": "Gedebano"
+          },
+          {
+            "en": "Bui",
+            "am": "Bui"
+          },
+          {
+            "en": "Kela",
+            "am": "Kela"
+          },
+          {
+            "en": "Guchere",
+            "am": "Guchere"
+          },
+          {
+            "en": "Dachina",
+            "am": "Dachina"
+          },
+          {
+            "en": "Agena",
+            "am": "Agena"
+          },
+          {
+            "en": "Yem",
+            "am": "Yem"
+          },
+          {
+            "en": "Misrak Meskan",
+            "am": "Misrak Meskan"
+          },
+          {
+            "en": "South Sodo",
+            "am": "South Sodo"
+          },
+          {
+            "en": "Dano",
+            "am": "Dano"
+          }
+        ]
+      },
+      "Hadiya": {
+        "en": "Hadiya",
+        "am": "Hadiya",
+        "woredas": [
+          {
+            "en": "Ana Lemo",
+            "am": "Ana Lemo"
+          },
+          {
+            "en": "Duna",
+            "am": "Duna"
+          },
+          {
+            "en": "Gibe",
+            "am": "Gibe"
+          },
+          {
+            "en": "Gomibora",
+            "am": "Gomibora"
+          },
+          {
+            "en": "Lemo",
+            "am": "Lemo"
+          },
+          {
+            "en": "Mirab Badawacho",
+            "am": "Mirab Badawacho"
+          },
+          {
+            "en": "Misha",
+            "am": "Misha"
+          },
+          {
+            "en": "Misraq Badawacho",
+            "am": "Misraq Badawacho"
+          },
+          {
+            "en": "Shashogo",
+            "am": "Shashogo"
+          },
+          {
+            "en": "Soro",
+            "am": "Soro"
+          },
+          {
+            "en": "Hosaena",
+            "am": "Hosaena"
+          },
+          {
+            "en": "Goferemeda",
+            "am": "Goferemeda"
+          },
+          {
+            "en": "Limu",
+            "am": "Limu"
+          },
+          {
+            "en": "Weralalo",
+            "am": "Weralalo"
+          }
+        ]
+      },
+      "Kembata Tembaro": {
+        "en": "Kembata Tembaro",
+        "am": "Kembata Tembaro",
+        "woredas": [
+          {
+            "en": "Angacha",
+            "am": "Angacha"
+          },
+          {
+            "en": "Damboya",
+            "am": "Damboya"
+          },
+          {
+            "en": "Doyogena",
+            "am": "Doyogena"
+          },
+          {
+            "en": "Hadero Tunto",
+            "am": "Hadero Tunto"
+          },
+          {
+            "en": "Kacha Bira",
+            "am": "Kacha Bira"
+          },
+          {
+            "en": "Kedida Gamela",
+            "am": "Kedida Gamela"
+          },
+          {
+            "en": "Tembaro",
+            "am": "Tembaro"
+          },
+          {
+            "en": "Durame",
+            "am": "Durame"
+          },
+          {
+            "en": "Shinshicho",
+            "am": "Shinshicho"
+          },
+          {
+            "en": "Adero",
+            "am": "Adero"
+          },
+          {
+            "en": "Mudula",
+            "am": "Mudula"
+          }
+        ]
+      },
+      "Silte": {
+        "en": "Silte",
+        "am": "Silte",
+        "woredas": [
+          {
+            "en": "Misrak Azernet",
+            "am": "Misrak Azernet"
+          },
+          {
+            "en": "Lanfero",
+            "am": "Lanfero"
+          },
+          {
+            "en": "Alcho Wuriro",
+            "am": "Alcho Wuriro"
+          },
+          {
+            "en": "Hulbarag",
+            "am": "Hulbarag"
+          }
+        ]
+      },
+      "Halaba": {
+        "en": "Halaba",
+        "am": "Halaba",
+        "woredas": [
+          {
+            "en": "Atote",
+            "am": "Atote"
+          },
+          {
+            "en": "Halaba",
+            "am": "Halaba"
+          }
+        ]
+      }
+    }
+  },
+  "Oromia": {
+    "en": "Oromia",
+    "am": "ኦሮሚያ",
+    "zones": {
+      "Arsi": {
+        "en": "Arsi",
+        "am": "አርሲ",
+        "woredas": [
+          {
+            "en": "Asella",
+            "am": "አሰላ"
+          },
+          {
+            "en": "Amigna",
+            "am": "Amigna"
+          },
+          {
+            "en": "Aseko",
+            "am": "Aseko"
+          },
+          {
+            "en": "Chole",
+            "am": "Chole"
+          },
+          {
+            "en": "Digeluna Tijo",
+            "am": "Digeluna Tijo"
+          },
+          {
+            "en": "Dodota",
+            "am": "Dodota"
+          },
+          {
+            "en": "Enkelo Wabe",
+            "am": "Enkelo Wabe"
+          },
+          {
+            "en": "Gololcha",
+            "am": "Gololcha"
+          },
+          {
+            "en": "Guna",
+            "am": "Guna"
+          },
+          {
+            "en": "Hitosa",
+            "am": "Hitosa"
+          },
+          {
+            "en": "Jeju",
+            "am": "Jeju"
+          },
+          {
+            "en": "Limuna Bilbilo",
+            "am": "Limuna Bilbilo"
+          },
+          {
+            "en": "Lude Hitosa",
+            "am": "Lude Hitosa"
+          },
+          {
+            "en": "Merti",
+            "am": "Merti"
+          },
+          {
+            "en": "Munesa",
+            "am": "Munesa"
+          },
+          {
+            "en": "Robe",
+            "am": "Robe"
+          },
+          {
+            "en": "Seru",
+            "am": "Seru"
+          },
+          {
+            "en": "Sire",
+            "am": "Sire"
+          },
+          {
+            "en": "Sherka",
+            "am": "Sherka"
+          },
+          {
+            "en": "Tena",
+            "am": "Tena"
+          },
+          {
+            "en": "Tiyo",
+            "am": "Tiyo"
+          },
+          {
+            "en": "Ziway Dugda",
+            "am": "Ziway Dugda"
+          },
+          {
+            "en": "Bekoji",
+            "am": "Bekoji"
+          },
+          {
+            "en": "Lode Hetosa",
+            "am": "Lode Hetosa"
+          },
+          {
+            "en": "Chancho",
+            "am": "Chancho"
+          },
+          {
+            "en": "Hetosa",
+            "am": "Hetosa"
+          },
+          {
+            "en": "Boset",
+            "am": "Boset"
+          },
+          {
+            "en": "Marti",
+            "am": "Marti"
+          },
+          {
+            "en": "Robee",
+            "am": "Robee"
+          },
+          {
+            "en": "Diksiis",
+            "am": "Diksiis"
+          },
+          {
+            "en": "Bale",
+            "am": "Bale"
+          },
+          {
+            "en": "Shirka",
+            "am": "Shirka"
+          },
+          {
+            "en": "Cole",
+            "am": "Cole"
+          },
+          {
+            "en": "Ticho",
+            "am": "Ticho"
+          },
+          {
+            "en": "Digaluna Tijo",
+            "am": "Digaluna Tijo"
+          },
+          {
+            "en": "Tikur Wuha",
+            "am": "Tikur Wuha"
+          },
+          {
+            "en": "Chiro",
+            "am": "Chiro"
+          },
+          {
+            "en": "Shashemene",
+            "am": "Shashemene"
+          },
+          {
+            "en": "Golocha",
+            "am": "Golocha"
+          },
+          {
+            "en": "Honkola Wabe",
+            "am": "Honkola Wabe"
+          },
+          {
+            "en": "Shanan Koolu",
+            "am": "Shanan Koolu"
+          },
+          {
+            "en": "Munessa",
+            "am": "Munessa"
+          },
+          {
+            "en": "Iteya",
+            "am": "Iteya"
+          },
+          {
+            "en": "Bele Gesgar",
+            "am": "Bele Gesgar"
+          },
+          {
+            "en": "Tew",
+            "am": "Tew"
+          },
+          {
+            "en": "Hankola Wabe",
+            "am": "Hankola Wabe"
+          },
+          {
+            "en": "Bale Gasger",
+            "am": "Bale Gasger"
+          },
+          {
+            "en": "Sudee",
+            "am": "Sudee"
+          },
+          {
+            "en": "Jaju",
+            "am": "Jaju"
+          }
+        ]
+      },
+      "North Shewa": {
+        "en": "North Shewa",
+        "am": "ሰሜን ሸዋ",
+        "woredas": [
+          {
+            "en": "Angolalla Terana Asagirt",
+            "am": "Angolalla Terana Asagirt"
+          },
+          {
+            "en": "Artuma Fursina Jile",
+            "am": "Artuma Fursina Jile"
+          },
+          {
+            "en": "Mam Midrina Lalo Midir",
+            "am": "Mam Midrina Lalo Midir"
+          },
+          {
+            "en": "Angolalla Tera",
+            "am": "Angolalla Tera"
+          },
+          {
+            "en": "Ankober",
+            "am": "Ankober"
+          },
+          {
+            "en": "Antsokiyana Gemza",
+            "am": "Antsokiyana Gemza"
+          },
+          {
+            "en": "Asagirt",
+            "am": "Asagirt"
+          },
+          {
+            "en": "Basona Werana",
+            "am": "Basona Werana"
+          },
+          {
+            "en": "Berehet",
+            "am": "Berehet"
+          },
+          {
+            "en": "Efratana Gidim",
+            "am": "Efratana Gidim"
+          },
+          {
+            "en": "Ensaro",
+            "am": "Ensaro"
+          },
+          {
+            "en": "Geshe",
+            "am": "Geshe"
+          },
+          {
+            "en": "Hagere Mariamna Kesem",
+            "am": "Hagere Mariamna Kesem"
+          },
+          {
+            "en": "Kewet",
+            "am": "Kewet"
+          },
+          {
+            "en": "Menjarna Shenkora",
+            "am": "Menjarna Shenkora"
+          },
+          {
+            "en": "Menz Gera Midir",
+            "am": "Menz Gera Midir"
+          },
+          {
+            "en": "Menz Lalo Midir",
+            "am": "Menz Lalo Midir"
+          },
+          {
+            "en": "Menz Mama Midir",
+            "am": "Menz Mama Midir"
+          },
+          {
+            "en": "Merhabiete",
+            "am": "Merhabiete"
+          },
+          {
+            "en": "Mojana Wadera",
+            "am": "Mojana Wadera"
+          },
+          {
+            "en": "Moretna Jiru",
+            "am": "Moretna Jiru"
+          },
+          {
+            "en": "Siyadebrina Wayu",
+            "am": "Siyadebrina Wayu"
+          },
+          {
+            "en": "Termaber",
+            "am": "Termaber"
+          },
+          {
+            "en": "Abichuna Gne'a",
+            "am": "Abichuna Gne'a"
+          },
+          {
+            "en": "Aleltu",
+            "am": "Aleltu"
+          },
+          {
+            "en": "Debre Libanos",
+            "am": "Debre Libanos"
+          },
+          {
+            "en": "Degem",
+            "am": "Degem"
+          },
+          {
+            "en": "Gerar Jarso",
+            "am": "Gerar Jarso"
+          },
+          {
+            "en": "Hidabu Abote",
+            "am": "Hidabu Abote"
+          },
+          {
+            "en": "Jidojidda",
+            "am": "Jidojidda"
+          },
+          {
+            "en": "Kembibit",
+            "am": "Kembibit"
+          },
+          {
+            "en": "Sendafa",
+            "am": "Sendafa"
+          },
+          {
+            "en": "Wara Jarso",
+            "am": "Wara Jarso"
+          },
+          {
+            "en": "Wuchalemuke turi",
+            "am": "Wuchalemuke turi"
+          },
+          {
+            "en": "Menz Keya Gebreal",
+            "am": "Menz Keya Gebreal"
+          },
+          {
+            "en": "Dawa Chefa",
+            "am": "Dawa Chefa"
+          },
+          {
+            "en": "Hidebu Abote",
+            "am": "Hidebu Abote"
+          },
+          {
+            "en": "Fiche",
+            "am": "Fiche"
+          },
+          {
+            "en": "Dera",
+            "am": "Dera"
+          },
+          {
+            "en": "Alemiya",
+            "am": "Alemiya"
+          },
+          {
+            "en": "Gefersa Guche",
+            "am": "Gefersa Guche"
+          },
+          {
+            "en": "Wuchale",
+            "am": "Wuchale"
+          },
+          {
+            "en": "Mendida",
+            "am": "Mendida"
+          },
+          {
+            "en": "Yaya Gulele",
+            "am": "Yaya Gulele"
+          },
+          {
+            "en": "Yaye Gulele",
+            "am": "Yaye Gulele"
+          },
+          {
+            "en": "Wore Jarso",
+            "am": "Wore Jarso"
+          },
+          {
+            "en": "Adere Ejersa",
+            "am": "Adere Ejersa"
+          },
+          {
+            "en": "Debre Birhan",
+            "am": "Debre Birhan"
+          },
+          {
+            "en": "Jeda",
+            "am": "Jeda"
+          },
+          {
+            "en": "Wachale",
+            "am": "Wachale"
+          },
+          {
+            "en": "Kuyu Gerba Guracha",
+            "am": "Kuyu Gerba Guracha"
+          }
+        ]
+      },
+      "West Shewa": {
+        "en": "West Shewa",
+        "am": "West Shewa",
+        "woredas": [
+          {
+            "en": "Chefe Golana Dewerahmedo",
+            "am": "Chefe Golana Dewerahmedo"
+          },
+          {
+            "en": "Gera Midirna Keya Gebriel",
+            "am": "Gera Midirna Keya Gebriel"
+          },
+          {
+            "en": "Abuna Ginde Beret",
+            "am": "Abuna Ginde Beret"
+          },
+          {
+            "en": "Ada'a Berga",
+            "am": "Ada'a Berga"
+          },
+          {
+            "en": "Ginchi",
+            "am": "Ginchi"
+          },
+          {
+            "en": "Bako Tibe",
+            "am": "Bako Tibe"
+          },
+          {
+            "en": "Cheliya",
+            "am": "Cheliya"
+          },
+          {
+            "en": "Dano",
+            "am": "Dano"
+          },
+          {
+            "en": "Dendi",
+            "am": "Dendi"
+          },
+          {
+            "en": "Ejere",
+            "am": "Ejere"
+          },
+          {
+            "en": "Elfata",
+            "am": "Elfata"
+          },
+          {
+            "en": "Jaldu",
+            "am": "Jaldu"
+          },
+          {
+            "en": "Jibat",
+            "am": "Jibat"
+          },
+          {
+            "en": "Meta Robi",
+            "am": "Meta Robi"
+          },
+          {
+            "en": "Midakegn",
+            "am": "Midakegn"
+          },
+          {
+            "en": "Nono",
+            "am": "Nono"
+          },
+          {
+            "en": "Dire Enchini",
+            "am": "Dire Enchini"
+          },
+          {
+            "en": "Toke Kutaye",
+            "am": "Toke Kutaye"
+          },
+          {
+            "en": "coobii",
+            "am": "coobii"
+          },
+          {
+            "en": "Goojjoo",
+            "am": "Goojjoo"
+          },
+          {
+            "en": "ejersa lafoo",
+            "am": "ejersa lafoo"
+          },
+          {
+            "en": "Ambo",
+            "am": "Ambo"
+          },
+          {
+            "en": "Bishoftu",
+            "am": "Bishoftu"
+          },
+          {
+            "en": "Dandi",
+            "am": "Dandi"
+          },
+          {
+            "en": "Gende Gara",
+            "am": "Gende Gara"
+          },
+          {
+            "en": "Meta walqite",
+            "am": "Meta walqite"
+          },
+          {
+            "en": "Duba",
+            "am": "Duba"
+          },
+          {
+            "en": "liban jawwi",
+            "am": "liban jawwi"
+          },
+          {
+            "en": "Cobi",
+            "am": "Cobi"
+          },
+          {
+            "en": "Ejersa Lafa",
+            "am": "Ejersa Lafa"
+          },
+          {
+            "en": "Abuna Gindbert",
+            "am": "Abuna Gindbert"
+          },
+          {
+            "en": "Ilu Gelan",
+            "am": "Ilu Gelan"
+          },
+          {
+            "en": "Danandi",
+            "am": "Danandi"
+          },
+          {
+            "en": "Jeldu",
+            "am": "Jeldu"
+          },
+          {
+            "en": "Bacho",
+            "am": "Bacho"
+          },
+          {
+            "en": "Liti Mado",
+            "am": "Liti Mado"
+          },
+          {
+            "en": "Gobu Sayo",
+            "am": "Gobu Sayo"
+          }
+        ]
+      },
+      "Finfine Zuria Oromiya Liyu Zone": {
+        "en": "Finfine Zuria Oromiya Liyu Zone",
+        "am": "Finfine Zuria Oromiya Liyu Zone",
+        "woredas": [
+          {
+            "en": "Burayu",
+            "am": "Burayu"
+          },
+          {
+            "en": "Sululta",
+            "am": "Sululta"
+          },
+          {
+            "en": "Akaki",
+            "am": "Akaki"
+          },
+          {
+            "en": "Sebeta Awas",
+            "am": "Sebeta Awas"
+          },
+          {
+            "en": "Legatafo",
+            "am": "Legatafo"
+          },
+          {
+            "en": "Holeta Genet",
+            "am": "Holeta Genet"
+          },
+          {
+            "en": "Welmera",
+            "am": "Welmera"
+          },
+          {
+            "en": "Gelan",
+            "am": "Gelan"
+          },
+          {
+            "en": "Sendafa Bake",
+            "am": "Sendafa Bake"
+          },
+          {
+            "en": "Berek",
+            "am": "Berek"
+          },
+          {
+            "en": "Bereh",
+            "am": "Bereh"
+          },
+          {
+            "en": "Legetafo",
+            "am": "Legetafo"
+          },
+          {
+            "en": "Holeta",
+            "am": "Holeta"
+          }
+        ]
+      },
+      "Bale": {
+        "en": "Bale",
+        "am": "Bale",
+        "woredas": [
+          {
+            "en": "Agarfa",
+            "am": "Agarfa"
+          },
+          {
+            "en": "Berbere",
+            "am": "Berbere"
+          },
+          {
+            "en": "Dawe Kachen",
+            "am": "Dawe Kachen"
+          },
+          {
+            "en": "Dawe Serara",
+            "am": "Dawe Serara"
+          },
+          {
+            "en": "Delo Menna",
+            "am": "Delo Menna"
+          },
+          {
+            "en": "Dinsho",
+            "am": "Dinsho"
+          },
+          {
+            "en": "Gasera",
+            "am": "Gasera"
+          },
+          {
+            "en": "Ginir",
+            "am": "Ginir"
+          },
+          {
+            "en": "Goro",
+            "am": "Goro"
+          },
+          {
+            "en": "Guradamole",
+            "am": "Guradamole"
+          },
+          {
+            "en": "Meda Welabu",
+            "am": "Meda Welabu"
+          },
+          {
+            "en": "Raytu",
+            "am": "Raytu"
+          },
+          {
+            "en": "Seweyna",
+            "am": "Seweyna"
+          },
+          {
+            "en": "Sinana",
+            "am": "Sinana"
+          },
+          {
+            "en": "Harena Buluk",
+            "am": "Harena Buluk"
+          },
+          {
+            "en": "Bale Robe",
+            "am": "Bale Robe"
+          },
+          {
+            "en": "Goba",
+            "am": "Goba"
+          },
+          {
+            "en": "Jarra",
+            "am": "Jarra"
+          },
+          {
+            "en": "Golocha",
+            "am": "Golocha"
+          }
+        ]
+      },
+      "Borena": {
+        "en": "Borena",
+        "am": "Borena",
+        "woredas": [
+          {
+            "en": "Abaya",
+            "am": "Abaya"
+          },
+          {
+            "en": "Arero",
+            "am": "Arero"
+          },
+          {
+            "en": "Dire",
+            "am": "Dire"
+          },
+          {
+            "en": "Dugda Dawa",
+            "am": "Dugda Dawa"
+          },
+          {
+            "en": "Gelana",
+            "am": "Gelana"
+          },
+          {
+            "en": "Moyale",
+            "am": "Moyale"
+          },
+          {
+            "en": "Teltele",
+            "am": "Teltele"
+          },
+          {
+            "en": "Yabelo",
+            "am": "Yabelo"
+          },
+          {
+            "en": "Dehas",
+            "am": "Dehas"
+          },
+          {
+            "en": "Dillo",
+            "am": "Dillo"
+          },
+          {
+            "en": "Malka Soda",
+            "am": "Malka Soda"
+          },
+          {
+            "en": "Dubuluk",
+            "am": "Dubuluk"
+          },
+          {
+            "en": "Gomole",
+            "am": "Gomole"
+          },
+          {
+            "en": "Wacile",
+            "am": "Wacile"
+          },
+          {
+            "en": "Miyo",
+            "am": "Miyo"
+          }
+        ]
+      },
+      "East Hararghe": {
+        "en": "East Hararghe",
+        "am": "East Hararghe",
+        "woredas": [
+          {
+            "en": "Bedeno",
+            "am": "Bedeno"
+          },
+          {
+            "en": "Chinaksen",
+            "am": "Chinaksen"
+          },
+          {
+            "en": "Deder",
+            "am": "Deder"
+          },
+          {
+            "en": "Fedis",
+            "am": "Fedis"
+          },
+          {
+            "en": "Girawa",
+            "am": "Girawa"
+          },
+          {
+            "en": "Gola Oda",
+            "am": "Gola Oda"
+          },
+          {
+            "en": "Gursum",
+            "am": "Gursum"
+          },
+          {
+            "en": "Haro Maya",
+            "am": "Haro Maya"
+          },
+          {
+            "en": "Jarso",
+            "am": "Jarso"
+          },
+          {
+            "en": "Kersa",
+            "am": "Kersa"
+          },
+          {
+            "en": "Kurfa Chele",
+            "am": "Kurfa Chele"
+          },
+          {
+            "en": "Malka Balo",
+            "am": "Malka Balo"
+          },
+          {
+            "en": "Meta",
+            "am": "Meta"
+          },
+          {
+            "en": "Meyumuluke",
+            "am": "Meyumuluke"
+          },
+          {
+            "en": "Midhega lola",
+            "am": "Midhega lola"
+          },
+          {
+            "en": "Alemaya",
+            "am": "Alemaya"
+          },
+          {
+            "en": "Harar",
+            "am": "Harar"
+          },
+          {
+            "en": "Amir-Nur",
+            "am": "Amir-Nur"
+          },
+          {
+            "en": "Shenkor",
+            "am": "Shenkor"
+          },
+          {
+            "en": "Jin'Eala",
+            "am": "Jin'Eala"
+          },
+          {
+            "en": "Aboker",
+            "am": "Aboker"
+          },
+          {
+            "en": "Sofi",
+            "am": "Sofi"
+          },
+          {
+            "en": "Erer",
+            "am": "Erer"
+          },
+          {
+            "en": "Dire-Teyara",
+            "am": "Dire-Teyara"
+          },
+          {
+            "en": "Abadir",
+            "am": "Abadir"
+          },
+          {
+            "en": "Hakim",
+            "am": "Hakim"
+          },
+          {
+            "en": "Shabe Sombo",
+            "am": "Shabe Sombo"
+          },
+          {
+            "en": "Ciro",
+            "am": "Ciro"
+          },
+          {
+            "en": "Babile",
+            "am": "Babile"
+          },
+          {
+            "en": "Goro Gutu",
+            "am": "Goro Gutu"
+          },
+          {
+            "en": "Guraya",
+            "am": "Guraya"
+          },
+          {
+            "en": "Kombolcha",
+            "am": "Kombolcha"
+          },
+          {
+            "en": "Goro Muti",
+            "am": "Goro Muti"
+          },
+          {
+            "en": "Melkabelu",
+            "am": "Melkabelu"
+          }
+        ]
+      },
+      "East Shewa": {
+        "en": "East Shewa",
+        "am": "East Shewa",
+        "woredas": [
+          {
+            "en": "Ada'a",
+            "am": "Ada'a"
+          },
+          {
+            "en": "Adama Naannoo",
+            "am": "Adama Naannoo"
+          },
+          {
+            "en": "Adami Tullu and Jido Kombolcha",
+            "am": "Adami Tullu and Jido Kombolcha"
+          },
+          {
+            "en": "Bora",
+            "am": "Bora"
+          },
+          {
+            "en": "Dugda",
+            "am": "Dugda"
+          },
+          {
+            "en": "Boset",
+            "am": "Boset"
+          },
+          {
+            "en": "Fentale",
+            "am": "Fentale"
+          },
+          {
+            "en": "Gimbichu",
+            "am": "Gimbichu"
+          },
+          {
+            "en": "Liben",
+            "am": "Liben"
+          },
+          {
+            "en": "Ziway/Batu",
+            "am": "Ziway/Batu"
+          },
+          {
+            "en": "Ada'a Chukala",
+            "am": "Ada'a Chukala"
+          },
+          {
+            "en": "Udee Dhankakaa",
+            "am": "Udee Dhankakaa"
+          },
+          {
+            "en": "Adama",
+            "am": "Adama"
+          },
+          {
+            "en": "Adami Tulu",
+            "am": "Adami Tulu"
+          },
+          {
+            "en": "Metehara",
+            "am": "Metehara"
+          },
+          {
+            "en": "Lome",
+            "am": "Lome"
+          },
+          {
+            "en": "Dukem",
+            "am": "Dukem"
+          },
+          {
+            "en": "Werda Limmu Gelila",
+            "am": "Werda Limmu Gelila"
+          },
+          {
+            "en": "Mojo",
+            "am": "Mojo"
+          }
+        ]
+      },
+      "East Welega": {
+        "en": "East Welega",
+        "am": "East Welega",
+        "woredas": [
+          {
+            "en": "Haro Limmu",
+            "am": "Haro Limmu"
+          },
+          {
+            "en": "Leka Dulecha",
+            "am": "Leka Dulecha"
+          },
+          {
+            "en": "Ibantu",
+            "am": "Ibantu"
+          },
+          {
+            "en": "Jimma Arjo",
+            "am": "Jimma Arjo"
+          },
+          {
+            "en": "Limmu",
+            "am": "Limmu"
+          },
+          {
+            "en": "Nunu Kumba",
+            "am": "Nunu Kumba"
+          },
+          {
+            "en": "Sasiga",
+            "am": "Sasiga"
+          },
+          {
+            "en": "Sibu Sire",
+            "am": "Sibu Sire"
+          },
+          {
+            "en": "Wama Hagalo",
+            "am": "Wama Hagalo"
+          },
+          {
+            "en": "Wayu Tuka",
+            "am": "Wayu Tuka"
+          },
+          {
+            "en": "Kiramu",
+            "am": "Kiramu"
+          },
+          {
+            "en": "Amuru Jarte",
+            "am": "Amuru Jarte"
+          },
+          {
+            "en": "Bila Seyo",
+            "am": "Bila Seyo"
+          },
+          {
+            "en": "Nekemte",
+            "am": "Nekemte"
+          },
+          {
+            "en": "Gidda",
+            "am": "Gidda"
+          },
+          {
+            "en": "Diga",
+            "am": "Diga"
+          },
+          {
+            "en": "Jardeg Jarte",
+            "am": "Jardeg Jarte"
+          },
+          {
+            "en": "Jima Arare",
+            "am": "Jima Arare"
+          },
+          {
+            "en": "Shanbu",
+            "am": "Shanbu"
+          },
+          {
+            "en": "Boneya Boshe",
+            "am": "Boneya Boshe"
+          },
+          {
+            "en": "Guto Wayu",
+            "am": "Guto Wayu"
+          },
+          {
+            "en": "Chaliya",
+            "am": "Chaliya"
+          },
+          {
+            "en": "Gobu Seyo",
+            "am": "Gobu Seyo"
+          },
+          {
+            "en": "Gudeya Bila",
+            "am": "Gudeya Bila"
+          },
+          {
+            "en": "Gida Ayana",
+            "am": "Gida Ayana"
+          },
+          {
+            "en": "Guto Gida",
+            "am": "Guto Gida"
+          },
+          {
+            "en": "Calalaki",
+            "am": "Calalaki"
+          },
+          {
+            "en": "Billo Boshe",
+            "am": "Billo Boshe"
+          },
+          {
+            "en": "Ayele",
+            "am": "Ayele"
+          }
+        ]
+      },
+      "Guji": {
+        "en": "Guji",
+        "am": "Guji",
+        "woredas": [
+          {
+            "en": "Adola",
+            "am": "Adola"
+          },
+          {
+            "en": "Ana Sora",
+            "am": "Ana Sora"
+          },
+          {
+            "en": "Bore",
+            "am": "Bore"
+          },
+          {
+            "en": "Dima",
+            "am": "Dima"
+          },
+          {
+            "en": "Girja",
+            "am": "Girja"
+          },
+          {
+            "en": "Hambela Wamena",
+            "am": "Hambela Wamena"
+          },
+          {
+            "en": "Harenfema",
+            "am": "Harenfema"
+          },
+          {
+            "en": "Kebri Mangest",
+            "am": "Kebri Mangest"
+          },
+          {
+            "en": "Odo Shakiso",
+            "am": "Odo Shakiso"
+          },
+          {
+            "en": "Uraga",
+            "am": "Uraga"
+          },
+          {
+            "en": "Wadera",
+            "am": "Wadera"
+          },
+          {
+            "en": "Adolana Wadera",
+            "am": "Adolana Wadera"
+          },
+          {
+            "en": "Negele Borana",
+            "am": "Negele Borana"
+          },
+          {
+            "en": "Liben",
+            "am": "Liben"
+          },
+          {
+            "en": "Genale",
+            "am": "Genale"
+          }
+        ]
+      },
+      "East Shewa East Welega": {
+        "en": "East Shewa East Welega",
+        "am": "East Shewa East Welega",
+        "woredas": [
+          {
+            "en": "Ziway",
+            "am": "Ziway"
+          },
+          {
+            "en": "Meki",
+            "am": "Meki"
+          },
+          {
+            "en": "Modjo",
+            "am": "Modjo"
+          }
+        ]
+      },
+      "Horo Gudru Welega": {
+        "en": "Horo Gudru Welega",
+        "am": "Horo Gudru Welega",
+        "woredas": [
+          {
+            "en": "Abay Chomen",
+            "am": "Abay Chomen"
+          },
+          {
+            "en": "Abe Dongoro",
+            "am": "Abe Dongoro"
+          },
+          {
+            "en": "Amuru",
+            "am": "Amuru"
+          },
+          {
+            "en": "Guduru",
+            "am": "Guduru"
+          },
+          {
+            "en": "Hababo Guduru",
+            "am": "Hababo Guduru"
+          },
+          {
+            "en": "Horo aanaa",
+            "am": "Horo aanaa"
+          },
+          {
+            "en": "Jardega Jarte",
+            "am": "Jardega Jarte"
+          },
+          {
+            "en": "Jimma Genete",
+            "am": "Jimma Genete"
+          },
+          {
+            "en": "Jimma Rare",
+            "am": "Jimma Rare"
+          },
+          {
+            "en": "Shambu",
+            "am": "Shambu"
+          },
+          {
+            "en": "Coman Guduru",
+            "am": "Coman Guduru"
+          },
+          {
+            "en": "Horo Buluq",
+            "am": "Horo Buluq"
+          },
+          {
+            "en": "Hareto",
+            "am": "Hareto"
+          },
+          {
+            "en": "Choman Gudru",
+            "am": "Choman Gudru"
+          },
+          {
+            "en": "Chomen Gudru",
+            "am": "Chomen Gudru"
+          },
+          {
+            "en": "Tulu",
+            "am": "Tulu"
+          },
+          {
+            "en": "Sulula Fincha’a",
+            "am": "Sulula Fincha’a"
+          }
+        ]
+      },
+      "Jimma": {
+        "en": "Jimma",
+        "am": "Jimma",
+        "woredas": [
+          {
+            "en": "Chora Botor",
+            "am": "Chora Botor"
+          },
+          {
+            "en": "Dedo",
+            "am": "Dedo"
+          },
+          {
+            "en": "Gera",
+            "am": "Gera"
+          },
+          {
+            "en": "Gomma",
+            "am": "Gomma"
+          },
+          {
+            "en": "Guma",
+            "am": "Guma"
+          },
+          {
+            "en": "Limmu Kosa",
+            "am": "Limmu Kosa"
+          },
+          {
+            "en": "Limmu Sakka",
+            "am": "Limmu Sakka"
+          },
+          {
+            "en": "Mana",
+            "am": "Mana"
+          },
+          {
+            "en": "Omo Nada",
+            "am": "Omo Nada"
+          },
+          {
+            "en": "Seka Chekorsa",
+            "am": "Seka Chekorsa"
+          },
+          {
+            "en": "Setema",
+            "am": "Setema"
+          },
+          {
+            "en": "Shebe Senbo",
+            "am": "Shebe Senbo"
+          },
+          {
+            "en": "Sigmo",
+            "am": "Sigmo"
+          },
+          {
+            "en": "Sokoru",
+            "am": "Sokoru"
+          },
+          {
+            "en": "Tiro Afeta",
+            "am": "Tiro Afeta"
+          },
+          {
+            "en": "Agaro",
+            "am": "Agaro"
+          },
+          {
+            "en": "Kersa",
+            "am": "Kersa"
+          },
+          {
+            "en": "Limu Genet",
+            "am": "Limu Genet"
+          },
+          {
+            "en": "Sekoru",
+            "am": "Sekoru"
+          },
+          {
+            "en": "Mencho",
+            "am": "Mencho"
+          },
+          {
+            "en": "Babtor Tolay",
+            "am": "Babtor Tolay"
+          },
+          {
+            "en": "Nono benja",
+            "am": "Nono benja"
+          }
+        ]
+      },
+      "Kelem Welega": {
+        "en": "Kelem Welega",
+        "am": "Kelem Welega",
+        "woredas": [
+          {
+            "en": "Anfillo",
+            "am": "Anfillo"
+          },
+          {
+            "en": "Dale Sedi",
+            "am": "Dale Sedi"
+          },
+          {
+            "en": "Dale Wabera",
+            "am": "Dale Wabera"
+          },
+          {
+            "en": "Gawo Kebe",
+            "am": "Gawo Kebe"
+          },
+          {
+            "en": "Gidami",
+            "am": "Gidami"
+          },
+          {
+            "en": "Hawa Gelan",
+            "am": "Hawa Gelan"
+          },
+          {
+            "en": "Jimma Horo",
+            "am": "Jimma Horo"
+          },
+          {
+            "en": "Lalo Kile Sayo",
+            "am": "Lalo Kile Sayo"
+          },
+          {
+            "en": "Lalo Kile",
+            "am": "Lalo Kile"
+          },
+          {
+            "en": "Sayo",
+            "am": "Sayo"
+          },
+          {
+            "en": "Yemalogi Welele",
+            "am": "Yemalogi Welele"
+          },
+          {
+            "en": "Sadi Chanka",
+            "am": "Sadi Chanka"
+          },
+          {
+            "en": "Dembi Dolo",
+            "am": "Dembi Dolo"
+          },
+          {
+            "en": "Kelem Welega",
+            "am": "Kelem Welega"
+          }
+        ]
+      },
+      "South West Shewa": {
+        "en": "South West Shewa",
+        "am": "South West Shewa",
+        "woredas": [
+          {
+            "en": "Kersana Malima",
+            "am": "Kersana Malima"
+          },
+          {
+            "en": "Sodo Dacha",
+            "am": "Sodo Dacha"
+          },
+          {
+            "en": "Tole",
+            "am": "Tole"
+          },
+          {
+            "en": "Wonchi",
+            "am": "Wonchi"
+          },
+          {
+            "en": "Sabbataa Awaas",
+            "am": "Sabbataa Awaas"
+          },
+          {
+            "en": "Seden Sodo",
+            "am": "Seden Sodo"
+          },
+          {
+            "en": "Fiche",
+            "am": "Fiche"
+          },
+          {
+            "en": "Woliso",
+            "am": "Woliso"
+          },
+          {
+            "en": "Elu",
+            "am": "Elu"
+          },
+          {
+            "en": "Amaya",
+            "am": "Amaya"
+          },
+          {
+            "en": "Becho",
+            "am": "Becho"
+          },
+          {
+            "en": "Jimma",
+            "am": "Jimma"
+          },
+          {
+            "en": "Goro",
+            "am": "Goro"
+          },
+          {
+            "en": "Ilu",
+            "am": "Ilu"
+          },
+          {
+            "en": "Dawo",
+            "am": "Dawo"
+          },
+          {
+            "en": "Dano",
+            "am": "Dano"
+          }
+        ]
+      },
+      "West Arsi": {
+        "en": "West Arsi",
+        "am": "West Arsi",
+        "woredas": [
+          {
+            "en": "Adaba",
+            "am": "Adaba"
+          },
+          {
+            "en": "Dodola",
+            "am": "Dodola"
+          },
+          {
+            "en": "Gedeb Asasa",
+            "am": "Gedeb Asasa"
+          },
+          {
+            "en": "Kofele",
+            "am": "Kofele"
+          },
+          {
+            "en": "Kokosa",
+            "am": "Kokosa"
+          },
+          {
+            "en": "Kore",
+            "am": "Kore"
+          },
+          {
+            "en": "Nensebo",
+            "am": "Nensebo"
+          },
+          {
+            "en": "Seraro",
+            "am": "Seraro"
+          },
+          {
+            "en": "Shala",
+            "am": "Shala"
+          },
+          {
+            "en": "Shashamene Zuria",
+            "am": "Shashamene Zuria"
+          },
+          {
+            "en": "Shashamane",
+            "am": "Shashamane"
+          },
+          {
+            "en": "Gedeb Hawasa",
+            "am": "Gedeb Hawasa"
+          },
+          {
+            "en": "Arsi Negele",
+            "am": "Arsi Negele"
+          },
+          {
+            "en": "Aji Bura",
+            "am": "Aji Bura"
+          },
+          {
+            "en": "Wendo",
+            "am": "Wendo"
+          },
+          {
+            "en": "Heben Arsi",
+            "am": "Heben Arsi"
+          },
+          {
+            "en": "Shire",
+            "am": "Shire"
+          },
+          {
+            "en": "Adaba ",
+            "am": "Adaba "
+          }
+        ]
+      },
+      "West Harerghe": {
+        "en": "West Harerghe",
+        "am": "West Harerghe",
+        "woredas": [
+          {
+            "en": "Anchar",
+            "am": "Anchar"
+          },
+          {
+            "en": "Badessa",
+            "am": "Badessa"
+          },
+          {
+            "en": "Boke",
+            "am": "Boke"
+          },
+          {
+            "en": "Chiro Zuria",
+            "am": "Chiro Zuria"
+          },
+          {
+            "en": "Gemechis",
+            "am": "Gemechis"
+          },
+          {
+            "en": "Darolebu",
+            "am": "Darolebu"
+          },
+          {
+            "en": "Doba",
+            "am": "Doba"
+          },
+          {
+            "en": "Guba Koricha",
+            "am": "Guba Koricha"
+          },
+          {
+            "en": "Habro",
+            "am": "Habro"
+          },
+          {
+            "en": "Kuni",
+            "am": "Kuni"
+          },
+          {
+            "en": "Shanan Dhuuggoo",
+            "am": "Shanan Dhuuggoo"
+          },
+          {
+            "en": "Mieso",
+            "am": "Mieso"
+          },
+          {
+            "en": "Tulo",
+            "am": "Tulo"
+          },
+          {
+            "en": "Hawi gudina",
+            "am": "Hawi gudina"
+          },
+          {
+            "en": "Burka Dimtu",
+            "am": "Burka Dimtu"
+          },
+          {
+            "en": "Gumbii Bordode",
+            "am": "Gumbii Bordode"
+          },
+          {
+            "en": "Chiro",
+            "am": "Chiro"
+          },
+          {
+            "en": "Ancher",
+            "am": "Ancher"
+          },
+          {
+            "en": "Mesela",
+            "am": "Mesela"
+          },
+          {
+            "en": "Anechar",
+            "am": "Anechar"
+          },
+          {
+            "en": "Hirna",
+            "am": "Hirna"
+          },
+          {
+            "en": "Shenen Dugo",
+            "am": "Shenen Dugo"
+          },
+          {
+            "en": "Odabultum",
+            "am": "Odabultum"
+          }
+        ]
+      },
+      "West Welega": {
+        "en": "West Welega",
+        "am": "West Welega",
+        "woredas": [
+          {
+            "en": "Ayra",
+            "am": "Ayra"
+          },
+          {
+            "en": "Babo Gambela",
+            "am": "Babo Gambela"
+          },
+          {
+            "en": "Begi",
+            "am": "Begi"
+          },
+          {
+            "en": "Boji Chokorsa",
+            "am": "Boji Chokorsa"
+          },
+          {
+            "en": "Boji Dirmaji",
+            "am": "Boji Dirmaji"
+          },
+          {
+            "en": "Genji",
+            "am": "Genji"
+          },
+          {
+            "en": "Guliso",
+            "am": "Guliso"
+          },
+          {
+            "en": "Haru",
+            "am": "Haru"
+          },
+          {
+            "en": "Homa",
+            "am": "Homa"
+          },
+          {
+            "en": "Kondala",
+            "am": "Kondala"
+          },
+          {
+            "en": "Lalo Asabi",
+            "am": "Lalo Asabi"
+          },
+          {
+            "en": "Kiltu Kara",
+            "am": "Kiltu Kara"
+          },
+          {
+            "en": "Mana Sibu",
+            "am": "Mana Sibu"
+          },
+          {
+            "en": "Nejo",
+            "am": "Nejo"
+          },
+          {
+            "en": "Nole Kaba",
+            "am": "Nole Kaba"
+          },
+          {
+            "en": "Sayo Nole",
+            "am": "Sayo Nole"
+          },
+          {
+            "en": "Yubdo",
+            "am": "Yubdo"
+          },
+          {
+            "en": "Ayra Guliso",
+            "am": "Ayra Guliso"
+          },
+          {
+            "en": "Gimbi",
+            "am": "Gimbi"
+          },
+          {
+            "en": "Lata",
+            "am": "Lata"
+          },
+          {
+            "en": "Leta Sibu",
+            "am": "Leta Sibu"
+          },
+          {
+            "en": "Ufudo",
+            "am": "Ufudo"
+          },
+          {
+            "en": "Jarso",
+            "am": "Jarso"
+          },
+          {
+            "en": "Seyo",
+            "am": "Seyo"
+          },
+          {
+            "en": "Tibe bako",
+            "am": "Tibe bako"
+          },
+          {
+            "en": "Gudeya",
+            "am": "Gudeya"
+          }
+        ]
+      },
+      "Oromia": {
+        "en": "Oromia",
+        "am": "Oromia",
+        "woredas": [
+          {
+            "en": "Bereh",
+            "am": "Bereh"
+          },
+          {
+            "en": "Mulo",
+            "am": "Mulo"
+          },
+          {
+            "en": "Walmara",
+            "am": "Walmara"
+          },
+          {
+            "en": "Berehna Aleltu",
+            "am": "Berehna Aleltu"
+          },
+          {
+            "en": "Sululta",
+            "am": "Sululta"
+          },
+          {
+            "en": "Sebeta",
+            "am": "Sebeta"
+          },
+          {
+            "en": "Dawoo",
+            "am": "Dawoo"
+          },
+          {
+            "en": "Ginde Beret",
+            "am": "Ginde Beret"
+          },
+          {
+            "en": "Hangatu",
+            "am": "Hangatu"
+          },
+          {
+            "en": "Keta",
+            "am": "Keta"
+          }
+        ]
+      },
+      "Arbuguba": {
+        "en": "Arbuguba",
+        "am": "Arbuguba",
+        "woredas": [
+          {
+            "en": "Barak",
+            "am": "Barak"
+          }
+        ]
+      },
+      "Illubabor": {
+        "en": "Illubabor",
+        "am": "Illubabor",
+        "woredas": [
+          {
+            "en": "Metu",
+            "am": "Metu"
+          },
+          {
+            "en": "Yayo",
+            "am": "Yayo"
+          },
+          {
+            "en": "Nono Sele'e",
+            "am": "Nono Sele'e"
+          },
+          {
+            "en": "Alle",
+            "am": "Alle"
+          },
+          {
+            "en": "Darimu",
+            "am": "Darimu"
+          },
+          {
+            "en": "Didu",
+            "am": "Didu"
+          },
+          {
+            "en": "Bechoo",
+            "am": "Bechoo"
+          },
+          {
+            "en": "Hurmu",
+            "am": "Hurmu"
+          }
+        ]
+      },
+      "Eluababor": {
+        "en": "Eluababor",
+        "am": "Eluababor",
+        "woredas": [
+          {
+            "en": "Alge Sachi",
+            "am": "Alge Sachi"
+          },
+          {
+            "en": "Hurumu",
+            "am": "Hurumu"
+          },
+          {
+            "en": "Yayu",
+            "am": "Yayu"
+          }
+        ]
+      },
+      "Metehara": {
+        "en": "Metehara",
+        "am": "Metehara",
+        "woredas": [
+          {
+            "en": "Antale",
+            "am": "Antale"
+          }
+        ]
+      },
+      "Buno Bedele": {
+        "en": "Buno Bedele",
+        "am": "Buno Bedele",
+        "woredas": [
+          {
+            "en": "Dedesa",
+            "am": "Dedesa"
+          },
+          {
+            "en": "Bedele",
+            "am": "Bedele"
+          },
+          {
+            "en": "Didesa",
+            "am": "Didesa"
+          },
+          {
+            "en": "Meko",
+            "am": "Meko"
+          }
+        ]
+      },
+      "West Guji": {
+        "en": "West Guji",
+        "am": "West Guji",
+        "woredas": [
+          {
+            "en": "Bule Hora",
+            "am": "Bule Hora"
+          }
+        ]
+      },
+      "North Welega": {
+        "en": "North Welega",
+        "am": "North Welega",
+        "woredas": [
+          {
+            "en": "Kuyu",
+            "am": "Kuyu"
+          }
+        ]
+      },
+      "Gammo": {
+        "en": "Gammo",
+        "am": "Gammo",
+        "woredas": [
+          {
+            "en": "Mendida",
+            "am": "Mendida"
+          }
+        ]
+      },
+      "Wollega": {
+        "en": "Wollega",
+        "am": "Wollega",
+        "woredas": [
+          {
+            "en": "Boji",
+            "am": "Boji"
+          },
+          {
+            "en": "Dale Sedi",
+            "am": "Dale Sedi"
+          }
+        ]
+      },
+      "Legedadi Legetafo": {
+        "en": "Legedadi Legetafo",
+        "am": "Legedadi Legetafo",
+        "woredas": [
+          {
+            "en": "Legedadi",
+            "am": "Legedadi"
+          }
+        ]
+      }
+    }
+  },
+  "Amhara": {
+    "en": "Amhara",
+    "am": "አማራ",
+    "zones": {
+      "Lay Gaient": {
+        "en": "Lay Gaient",
+        "am": "Lay Gaient",
+        "woredas": [
+          {
+            "en": "Nefas Mewcha",
+            "am": "Nefas Mewcha"
+          }
+        ]
+      },
+      "West Gojjam": {
+        "en": "West Gojjam",
+        "am": "ምዕራብ ጎጅጃም",
+        "woredas": [
+          {
+            "en": "Achefer",
+            "am": "Achefer"
+          },
+          {
+            "en": "Bure Wemberma",
+            "am": "Bure Wemberma"
+          },
+          {
+            "en": "Bahir Dar Zuria",
+            "am": "Bahir Dar Zuria"
+          },
+          {
+            "en": "Bure",
+            "am": "Bure"
+          },
+          {
+            "en": "Debub Achefer",
+            "am": "Debub Achefer"
+          },
+          {
+            "en": "Dega Damot",
+            "am": "Dega Damot"
+          },
+          {
+            "en": "Dembecha",
+            "am": "Dembecha"
+          },
+          {
+            "en": "Jabi Tehnan",
+            "am": "Jabi Tehnan"
+          },
+          {
+            "en": "Kuarit",
+            "am": "Kuarit"
+          },
+          {
+            "en": "Mecha",
+            "am": "Mecha"
+          },
+          {
+            "en": "Sekela",
+            "am": "Sekela"
+          },
+          {
+            "en": "Semien Achefer",
+            "am": "Semien Achefer"
+          },
+          {
+            "en": "Wemberma",
+            "am": "Wemberma"
+          },
+          {
+            "en": "Yilmana Densa",
+            "am": "Yilmana Densa"
+          },
+          {
+            "en": "Finote Selam",
+            "am": "Finote Selam"
+          },
+          {
+            "en": "Gonji Kolela",
+            "am": "Gonji Kolela"
+          },
+          {
+            "en": "GonjiKolela",
+            "am": "GonjiKolela"
+          },
+          {
+            "en": "Bahir Dar",
+            "am": "Bahir Dar"
+          },
+          {
+            "en": "Amabo",
+            "am": "Amabo"
+          },
+          {
+            "en": "Woreb",
+            "am": "Woreb"
+          },
+          {
+            "en": "Dagmawi",
+            "am": "Dagmawi"
+          },
+          {
+            "en": "Wenberma",
+            "am": "Wenberma"
+          },
+          {
+            "en": "Bure Damot",
+            "am": "Bure Damot"
+          },
+          {
+            "en": "Durbete",
+            "am": "Durbete"
+          }
+        ]
+      },
+      "South Gondar": {
+        "en": "South Gondar",
+        "am": "South Gondar",
+        "woredas": [
+          {
+            "en": "Belessa",
+            "am": "Belessa"
+          },
+          {
+            "en": "Dawuntna Delant",
+            "am": "Dawuntna Delant"
+          },
+          {
+            "en": "Dera",
+            "am": "Dera"
+          },
+          {
+            "en": "Ebenat",
+            "am": "Ebenat"
+          },
+          {
+            "en": "Farta",
+            "am": "Farta"
+          },
+          {
+            "en": "Fogera",
+            "am": "Fogera"
+          },
+          {
+            "en": "Guna Begemier",
+            "am": "Guna Begemier"
+          },
+          {
+            "en": "Kemekem",
+            "am": "Kemekem"
+          },
+          {
+            "en": "Lay Gayint",
+            "am": "Lay Gayint"
+          },
+          {
+            "en": "Mena Meketewa",
+            "am": "Mena Meketewa"
+          },
+          {
+            "en": "Mirab Este",
+            "am": "Mirab Este"
+          },
+          {
+            "en": "Misraq Este",
+            "am": "Misraq Este"
+          },
+          {
+            "en": "Sede Muja",
+            "am": "Sede Muja"
+          },
+          {
+            "en": "Simada",
+            "am": "Simada"
+          },
+          {
+            "en": "Tach Gayint",
+            "am": "Tach Gayint"
+          },
+          {
+            "en": "Woreta",
+            "am": "Woreta"
+          },
+          {
+            "en": "Debre Tabor",
+            "am": "Debre Tabor"
+          },
+          {
+            "en": "Este",
+            "am": "Este"
+          },
+          {
+            "en": "Anda Bet",
+            "am": "Anda Bet"
+          },
+          {
+            "en": "Denbia",
+            "am": "Denbia"
+          },
+          {
+            "en": "Dibu Kemkem",
+            "am": "Dibu Kemkem"
+          },
+          {
+            "en": "Limo Kemkem",
+            "am": "Limo Kemkem"
+          },
+          {
+            "en": "Addis Zemen",
+            "am": "Addis Zemen"
+          }
+        ]
+      },
+      "East Gojjam": {
+        "en": "East Gojjam",
+        "am": "East Gojjam",
+        "woredas": [
+          {
+            "en": "Aneded",
+            "am": "Aneded"
+          },
+          {
+            "en": "Awabel",
+            "am": "Awabel"
+          },
+          {
+            "en": "Baso Liben",
+            "am": "Baso Liben"
+          },
+          {
+            "en": "Bibugn",
+            "am": "Bibugn"
+          },
+          {
+            "en": "Debay Telatgen",
+            "am": "Debay Telatgen"
+          },
+          {
+            "en": "Debre Elias",
+            "am": "Debre Elias"
+          },
+          {
+            "en": "Dejen",
+            "am": "Dejen"
+          },
+          {
+            "en": "Enarj Enawga",
+            "am": "Enarj Enawga"
+          },
+          {
+            "en": "Enbise Sar Midir",
+            "am": "Enbise Sar Midir"
+          },
+          {
+            "en": "Enemay",
+            "am": "Enemay"
+          },
+          {
+            "en": "Goncha",
+            "am": "Goncha"
+          },
+          {
+            "en": "Goncha Siso Enese",
+            "am": "Goncha Siso Enese"
+          },
+          {
+            "en": "Guzamn",
+            "am": "Guzamn"
+          },
+          {
+            "en": "Hulet Ej Enese",
+            "am": "Hulet Ej Enese"
+          },
+          {
+            "en": "Machakel",
+            "am": "Machakel"
+          },
+          {
+            "en": "Shebel Berenta",
+            "am": "Shebel Berenta"
+          },
+          {
+            "en": "Sinan",
+            "am": "Sinan"
+          },
+          {
+            "en": "Mota",
+            "am": "Mota"
+          },
+          {
+            "en": "Debre Mark'os",
+            "am": "Debre Mark'os"
+          },
+          {
+            "en": "Shebelberta",
+            "am": "Shebelberta"
+          },
+          {
+            "en": "Adet",
+            "am": "Adet"
+          },
+          {
+            "en": "DebayTilat Gen",
+            "am": "DebayTilat Gen"
+          },
+          {
+            "en": "Nefse Sarmider",
+            "am": "Nefse Sarmider"
+          },
+          {
+            "en": "Bichena",
+            "am": "Bichena"
+          },
+          {
+            "en": "Senan",
+            "am": "Senan"
+          },
+          {
+            "en": "Dehana",
+            "am": "Dehana"
+          },
+          {
+            "en": "Behulet eju enese",
+            "am": "Behulet eju enese"
+          },
+          {
+            "en": "Sede",
+            "am": "Sede"
+          },
+          {
+            "en": "Amanuel",
+            "am": "Amanuel"
+          }
+        ]
+      },
+      "North Gondar": {
+        "en": "North Gondar",
+        "am": "North Gondar",
+        "woredas": [
+          {
+            "en": "Addi Arkay",
+            "am": "Addi Arkay"
+          },
+          {
+            "en": "Alefa",
+            "am": "Alefa"
+          },
+          {
+            "en": "Beyeda",
+            "am": "Beyeda"
+          },
+          {
+            "en": "Chilga",
+            "am": "Chilga"
+          },
+          {
+            "en": "Dabat",
+            "am": "Dabat"
+          },
+          {
+            "en": "Debarq",
+            "am": "Debarq"
+          },
+          {
+            "en": "Dembiya",
+            "am": "Dembiya"
+          },
+          {
+            "en": "Gondar",
+            "am": "Gondar"
+          },
+          {
+            "en": "Gondar Zuria",
+            "am": "Gondar Zuria"
+          },
+          {
+            "en": "Kuara",
+            "am": "Kuara"
+          },
+          {
+            "en": "Jan Amora",
+            "am": "Jan Amora"
+          },
+          {
+            "en": "Lay Armachiho",
+            "am": "Lay Armachiho"
+          },
+          {
+            "en": "Metemma",
+            "am": "Metemma"
+          },
+          {
+            "en": "Mirab Armachiho",
+            "am": "Mirab Armachiho"
+          },
+          {
+            "en": "Mirab Belessa",
+            "am": "Mirab Belessa"
+          },
+          {
+            "en": "Misraq Belessa",
+            "am": "Misraq Belessa"
+          },
+          {
+            "en": "Tselemt Woreda",
+            "am": "Tselemt Woreda"
+          },
+          {
+            "en": "Este",
+            "am": "Este"
+          },
+          {
+            "en": "Wogera",
+            "am": "Wogera"
+          },
+          {
+            "en": "Tekle Dengay",
+            "am": "Tekle Dengay"
+          },
+          {
+            "en": "Sanja",
+            "am": "Sanja"
+          },
+          {
+            "en": "Aykel",
+            "am": "Aykel"
+          },
+          {
+            "en": "Tacharmachiho",
+            "am": "Tacharmachiho"
+          }
+        ]
+      },
+      "South Wollo": {
+        "en": "South Wollo",
+        "am": "ደቡብ ወሎ",
+        "woredas": [
+          {
+            "en": "Argoba",
+            "am": "Argoba"
+          },
+          {
+            "en": "Albuko",
+            "am": "Albuko"
+          },
+          {
+            "en": "Amba Sel",
+            "am": "Amba Sel"
+          },
+          {
+            "en": "Debre Sina",
+            "am": "Debre Sina"
+          },
+          {
+            "en": "Dessie Town",
+            "am": "Dessie Town"
+          },
+          {
+            "en": "Dessie Zuria",
+            "am": "Dessie Zuria"
+          },
+          {
+            "en": "Jama",
+            "am": "Jama"
+          },
+          {
+            "en": "Kalu",
+            "am": "Kalu"
+          },
+          {
+            "en": "Kelala",
+            "am": "Kelala"
+          },
+          {
+            "en": "Kutaber",
+            "am": "Kutaber"
+          },
+          {
+            "en": "Legahida",
+            "am": "Legahida"
+          },
+          {
+            "en": "Legambo",
+            "am": "Legambo"
+          },
+          {
+            "en": "Magdala",
+            "am": "Magdala"
+          },
+          {
+            "en": "Mehal Sayint",
+            "am": "Mehal Sayint"
+          },
+          {
+            "en": "Sayint",
+            "am": "Sayint"
+          },
+          {
+            "en": "Tehuledere",
+            "am": "Tehuledere"
+          },
+          {
+            "en": "Tenta",
+            "am": "Tenta"
+          },
+          {
+            "en": "Wegde",
+            "am": "Wegde"
+          },
+          {
+            "en": "Were Ilu",
+            "am": "Were Ilu"
+          },
+          {
+            "en": "Were Babu",
+            "am": "Were Babu"
+          },
+          {
+            "en": "Kombolcha",
+            "am": "Kombolcha"
+          },
+          {
+            "en": "Hike",
+            "am": "Hike"
+          },
+          {
+            "en": "Harabu",
+            "am": "Harabu"
+          },
+          {
+            "en": "Kemise",
+            "am": "Kemise"
+          },
+          {
+            "en": "Wuchale",
+            "am": "Wuchale"
+          },
+          {
+            "en": "Borena",
+            "am": "Borena"
+          },
+          {
+            "en": "Mekdela",
+            "am": "Mekdela"
+          },
+          {
+            "en": "Mekaneselam",
+            "am": "Mekaneselam"
+          },
+          {
+            "en": "Bati",
+            "am": "Bati"
+          },
+          {
+            "en": "Abuko",
+            "am": "Abuko"
+          },
+          {
+            "en": "Tahuledere",
+            "am": "Tahuledere"
+          },
+          {
+            "en": "Wegeltena",
+            "am": "Wegeltena"
+          },
+          {
+            "en": "Bistima",
+            "am": "Bistima"
+          },
+          {
+            "en": "Gdey",
+            "am": "Gdey"
+          },
+          {
+            "en": "Legehida",
+            "am": "Legehida"
+          },
+          {
+            "en": "Delanta",
+            "am": "Delanta"
+          },
+          {
+            "en": "Efratana Gidim",
+            "am": "Efratana Gidim"
+          },
+          {
+            "en": "Legeda",
+            "am": "Legeda"
+          },
+          {
+            "en": "Werebabo",
+            "am": "Werebabo"
+          }
+        ]
+      },
+      "North Wollo": {
+        "en": "North Wollo",
+        "am": "North Wollo",
+        "woredas": [
+          {
+            "en": "Bugna",
+            "am": "Bugna"
+          },
+          {
+            "en": "Dawunt",
+            "am": "Dawunt"
+          },
+          {
+            "en": "Delanta",
+            "am": "Delanta"
+          },
+          {
+            "en": "Gidan",
+            "am": "Gidan"
+          },
+          {
+            "en": "Guba Lafto",
+            "am": "Guba Lafto"
+          },
+          {
+            "en": "Habru",
+            "am": "Habru"
+          },
+          {
+            "en": "Lasta",
+            "am": "Lasta"
+          },
+          {
+            "en": "Meket",
+            "am": "Meket"
+          },
+          {
+            "en": "Wadla",
+            "am": "Wadla"
+          },
+          {
+            "en": "Kobo",
+            "am": "Kobo"
+          },
+          {
+            "en": "Woldiya",
+            "am": "Woldiya"
+          },
+          {
+            "en": "Mersa",
+            "am": "Mersa"
+          },
+          {
+            "en": "Gshe",
+            "am": "Gshe"
+          },
+          {
+            "en": "Alamata",
+            "am": "Alamata"
+          },
+          {
+            "en": "Wadila",
+            "am": "Wadila"
+          },
+          {
+            "en": "Gazo",
+            "am": "Gazo"
+          },
+          {
+            "en": "Raya Kobo",
+            "am": "Raya Kobo"
+          },
+          {
+            "en": "Haburu",
+            "am": "Haburu"
+          },
+          {
+            "en": "Mekeyt",
+            "am": "Mekeyt"
+          },
+          {
+            "en": "Angot",
+            "am": "Angot"
+          },
+          {
+            "en": "Sokoloho",
+            "am": "Sokoloho"
+          }
+        ]
+      },
+      "Wag Hemra": {
+        "en": "Wag Hemra",
+        "am": "Wag Hemra",
+        "woredas": [
+          {
+            "en": "Aberegelle",
+            "am": "Aberegelle"
+          },
+          {
+            "en": "Dehana",
+            "am": "Dehana"
+          },
+          {
+            "en": "Sehala",
+            "am": "Sehala"
+          },
+          {
+            "en": "Soqota",
+            "am": "Soqota"
+          },
+          {
+            "en": "Soqota Zuria",
+            "am": "Soqota Zuria"
+          },
+          {
+            "en": "Zikuala",
+            "am": "Zikuala"
+          },
+          {
+            "en": "Gazgibla",
+            "am": "Gazgibla"
+          },
+          {
+            "en": "Dahna",
+            "am": "Dahna"
+          },
+          {
+            "en": "Wefla",
+            "am": "Wefla"
+          }
+        ]
+      },
+      "Bahirdar": {
+        "en": "Bahirdar",
+        "am": "Bahirdar",
+        "woredas": [
+          {
+            "en": "Elu",
+            "am": "Elu"
+          },
+          {
+            "en": "Becho",
+            "am": "Becho"
+          },
+          {
+            "en": "Dawo",
+            "am": "Dawo"
+          },
+          {
+            "en": "Yetedema",
+            "am": "Yetedema"
+          },
+          {
+            "en": "Tana",
+            "am": "Tana"
+          },
+          {
+            "en": "Abay Las",
+            "am": "Abay Las"
+          },
+          {
+            "en": "Atse Tewdros",
+            "am": "Atse Tewdros"
+          },
+          {
+            "en": "Genbot 20",
+            "am": "Genbot 20"
+          },
+          {
+            "en": "Yibab",
+            "am": "Yibab"
+          },
+          {
+            "en": "Belay Zeleke",
+            "am": "Belay Zeleke"
+          },
+          {
+            "en": "Abay mado",
+            "am": "Abay mado"
+          },
+          {
+            "en": "Meshenti",
+            "am": "Meshenti"
+          },
+          {
+            "en": "Dagmawi Minilik",
+            "am": "Dagmawi Minilik"
+          },
+          {
+            "en": "Medre Genet",
+            "am": "Medre Genet"
+          },
+          {
+            "en": "Felilo",
+            "am": "Felilo"
+          },
+          {
+            "en": "Adisalem",
+            "am": "Adisalem"
+          },
+          {
+            "en": "Hidar11",
+            "am": "Hidar11"
+          },
+          {
+            "en": "Shimabo",
+            "am": "Shimabo"
+          },
+          {
+            "en": "Woreb",
+            "am": "Woreb"
+          },
+          {
+            "en": "Shinbit",
+            "am": "Shinbit"
+          },
+          {
+            "en": "Dasira",
+            "am": "Dasira"
+          },
+          {
+            "en": "Marzeneb",
+            "am": "Marzeneb"
+          },
+          {
+            "en": "Tisabay",
+            "am": "Tisabay"
+          },
+          {
+            "en": "Hidase",
+            "am": "Hidase"
+          },
+          {
+            "en": "Sebatamit",
+            "am": "Sebatamit"
+          },
+          {
+            "en": "Gish Abay",
+            "am": "Gish Abay"
+          },
+          {
+            "en": "Amaya",
+            "am": "Amaya"
+          },
+          {
+            "en": "Dega Damot",
+            "am": "Dega Damot"
+          }
+        ]
+      },
+      "North Shewa": {
+        "en": "North Shewa",
+        "am": "ሰሜን ሸዋ",
+        "woredas": [
+          {
+            "en": "Tarma Ber",
+            "am": "Tarma Ber"
+          },
+          {
+            "en": "Berehet",
+            "am": "Berehet"
+          },
+          {
+            "en": "Menjar",
+            "am": "Menjar"
+          },
+          {
+            "en": "Menz Gera Midr",
+            "am": "Menz Gera Midr"
+          },
+          {
+            "en": "Shewarobit",
+            "am": "Shewarobit"
+          },
+          {
+            "en": "Antsokia",
+            "am": "Antsokia"
+          },
+          {
+            "en": "Chacha",
+            "am": "Chacha"
+          },
+          {
+            "en": "Medda",
+            "am": "Medda"
+          },
+          {
+            "en": "Minjar Shenkora",
+            "am": "Minjar Shenkora"
+          },
+          {
+            "en": "Merabete",
+            "am": "Merabete"
+          },
+          {
+            "en": "Angolela na tera",
+            "am": "Angolela na tera"
+          },
+          {
+            "en": "Hagremariam",
+            "am": "Hagremariam"
+          },
+          {
+            "en": "Ataye",
+            "am": "Ataye"
+          },
+          {
+            "en": "Basona Werana",
+            "am": "Basona Werana"
+          },
+          {
+            "en": "Abuchuna gnea",
+            "am": "Abuchuna gnea"
+          },
+          {
+            "en": "Seyadebre ena Wayu",
+            "am": "Seyadebre ena Wayu"
+          },
+          {
+            "en": "Ensaro",
+            "am": "Ensaro"
+          },
+          {
+            "en": "Enawari",
+            "am": "Enawari"
+          },
+          {
+            "en": "Dembi ena Girargie",
+            "am": "Dembi ena Girargie"
+          },
+          {
+            "en": "Kembebit",
+            "am": "Kembebit"
+          },
+          {
+            "en": "Menz Keya",
+            "am": "Menz Keya"
+          },
+          {
+            "en": "mojanawedera",
+            "am": "mojanawedera"
+          },
+          {
+            "en": "Mollale",
+            "am": "Mollale"
+          },
+          {
+            "en": "Lemi",
+            "am": "Lemi"
+          },
+          {
+            "en": "Menjar Shenkora",
+            "am": "Menjar Shenkora"
+          },
+          {
+            "en": "Menze Lalo",
+            "am": "Menze Lalo"
+          },
+          {
+            "en": "Menz mama",
+            "am": "Menz mama"
+          },
+          {
+            "en": "Mida Woremo",
+            "am": "Mida Woremo"
+          },
+          {
+            "en": "Asagirt",
+            "am": "Asagirt"
+          },
+          {
+            "en": "Geshe Rabele",
+            "am": "Geshe Rabele"
+          },
+          {
+            "en": "Meragna",
+            "am": "Meragna"
+          },
+          {
+            "en": "Zemero",
+            "am": "Zemero"
+          },
+          {
+            "en": "Gorebela",
+            "am": "Gorebela"
+          },
+          {
+            "en": "Gish",
+            "am": "Gish"
+          },
+          {
+            "en": "Gegeba",
+            "am": "Gegeba"
+          },
+          {
+            "en": "Kurba",
+            "am": "Kurba"
+          },
+          {
+            "en": "Efratana Gidim",
+            "am": "Efratana Gidim"
+          },
+          {
+            "en": "Siyadebrina Wayu",
+            "am": "Siyadebrina Wayu"
+          },
+          {
+            "en": "Gundo Meskel",
+            "am": "Gundo Meskel"
+          },
+          {
+            "en": "Ankober",
+            "am": "Ankober"
+          },
+          {
+            "en": "Debre Birhan",
+            "am": "Debre Birhan"
+          },
+          {
+            "en": "Mojana",
+            "am": "Mojana"
+          },
+          {
+            "en": "Moretna Jiru",
+            "am": "Moretna Jiru"
+          },
+          {
+            "en": "Senketa",
+            "am": "Senketa"
+          }
+        ]
+      },
+      "Agew Awi": {
+        "en": "Agew Awi",
+        "am": "Agew Awi",
+        "woredas": [
+          {
+            "en": "Dangila",
+            "am": "Dangila"
+          },
+          {
+            "en": "Ankasha Guagusa",
+            "am": "Ankasha Guagusa"
+          },
+          {
+            "en": "Faggeta Lekoma",
+            "am": "Faggeta Lekoma"
+          },
+          {
+            "en": "Jawi",
+            "am": "Jawi"
+          },
+          {
+            "en": "Ayehu Guagusa",
+            "am": "Ayehu Guagusa"
+          },
+          {
+            "en": "Metekel",
+            "am": "Metekel"
+          },
+          {
+            "en": "Buanbua",
+            "am": "Buanbua"
+          },
+          {
+            "en": "Zigem",
+            "am": "Zigem"
+          },
+          {
+            "en": "Enjibara",
+            "am": "Enjibara"
+          },
+          {
+            "en": "Guagusa Shekudad",
+            "am": "Guagusa Shekudad"
+          },
+          {
+            "en": "Banja Shekudad",
+            "am": "Banja Shekudad"
+          },
+          {
+            "en": "Gongo",
+            "am": "Gongo"
+          }
+        ]
+      },
+      "West Gonder": {
+        "en": "West Gonder",
+        "am": "West Gonder",
+        "woredas": [
+          {
+            "en": "AdagneAger Chako",
+            "am": "AdagneAger Chako"
+          }
+        ]
+      },
+      "Dagmawi Minilik": {
+        "en": "Dagmawi Minilik",
+        "am": "Dagmawi Minilik",
+        "woredas": [
+          {
+            "en": "Midregenet",
+            "am": "Midregenet"
+          }
+        ]
+      },
+      "Oromia Leyu zone": {
+        "en": "Oromia Leyu zone",
+        "am": "Oromia Leyu zone",
+        "woredas": [
+          {
+            "en": "Dwa Chefa",
+            "am": "Dwa Chefa"
+          },
+          {
+            "en": "Bati",
+            "am": "Bati"
+          },
+          {
+            "en": "Jile Timuga",
+            "am": "Jile Timuga"
+          }
+        ]
+      },
+      "Gebresso": {
+        "en": "Gebresso",
+        "am": "Gebresso",
+        "woredas": [
+          {
+            "en": "Gachene",
+            "am": "Gachene"
+          }
+        ]
+      },
+      "Central Gondar": {
+        "en": "Central Gondar",
+        "am": "Central Gondar",
+        "woredas": [
+          {
+            "en": "Makesegnit",
+            "am": "Makesegnit"
+          },
+          {
+            "en": "Takusa",
+            "am": "Takusa"
+          },
+          {
+            "en": "Wegera",
+            "am": "Wegera"
+          },
+          {
+            "en": "Gonder Zuriya",
+            "am": "Gonder Zuriya"
+          }
+        ]
+      },
+      "Awi": {
+        "en": "Awi",
+        "am": "Awi",
+        "woredas": [
+          {
+            "en": "Fageta Lekoma",
+            "am": "Fageta Lekoma"
+          },
+          {
+            "en": "Banja",
+            "am": "Banja"
+          },
+          {
+            "en": "Dangla",
+            "am": "Dangla"
+          },
+          {
+            "en": "Zigem",
+            "am": "Zigem"
+          },
+          {
+            "en": "Ankesha",
+            "am": "Ankesha"
+          },
+          {
+            "en": "Guangua",
+            "am": "Guangua"
+          }
+        ]
+      },
+      "Welkayit Tegede Setit Humera": {
+        "en": "Welkayit Tegede Setit Humera",
+        "am": "Welkayit Tegede Setit Humera",
+        "woredas": [
+          {
+            "en": "Tegede",
+            "am": "Tegede"
+          }
+        ]
+      }
+    }
+  },
+  "Afar": {
+    "en": "Afar",
+    "am": "አፋር",
+    "zones": {
+      "Kilbet Rasu": {
+        "en": "Kilbet Rasu",
+        "am": "Kilbet Rasu",
+        "woredas": [
+          {
+            "en": "Bidu",
+            "am": "Bidu"
+          },
+          {
+            "en": "Abala",
+            "am": "Abala"
+          },
+          {
+            "en": "Afdera",
+            "am": "Afdera"
+          },
+          {
+            "en": "Berhale",
+            "am": "Berhale"
+          },
+          {
+            "en": "Dallol",
+            "am": "Dallol"
+          },
+          {
+            "en": "Erebti",
+            "am": "Erebti"
+          },
+          {
+            "en": "Koneba",
+            "am": "Koneba"
+          },
+          {
+            "en": "Megale",
+            "am": "Megale"
+          }
+        ]
+      },
+      "Gabi Rasu": {
+        "en": "Gabi Rasu",
+        "am": "Gabi Rasu",
+        "woredas": [
+          {
+            "en": "Amibara",
+            "am": "Amibara"
+          },
+          {
+            "en": "wash Fentale",
+            "am": "wash Fentale"
+          },
+          {
+            "en": "Bure Mudaytu",
+            "am": "Bure Mudaytu"
+          },
+          {
+            "en": "Dulecha",
+            "am": "Dulecha"
+          },
+          {
+            "en": "Gewane",
+            "am": "Gewane"
+          },
+          {
+            "en": "canruka",
+            "am": "canruka"
+          },
+          {
+            "en": "Awash Fentale",
+            "am": "Awash Fentale"
+          }
+        ]
+      },
+      "Fantena Rasu": {
+        "en": "Fantena Rasu",
+        "am": "Fantena Rasu",
+        "woredas": [
+          {
+            "en": "Aura",
+            "am": "Aura"
+          },
+          {
+            "en": "Ewa",
+            "am": "Ewa"
+          },
+          {
+            "en": "Gulina",
+            "am": "Gulina"
+          },
+          {
+            "en": "Teru",
+            "am": "Teru"
+          },
+          {
+            "en": "Yalo",
+            "am": "Yalo"
+          }
+        ]
+      },
+      "Hari Rasu": {
+        "en": "Hari Rasu",
+        "am": "Hari Rasu",
+        "woredas": [
+          {
+            "en": "Telalak",
+            "am": "Telalak"
+          },
+          {
+            "en": "Simurobi Gele'alo",
+            "am": "Simurobi Gele'alo"
+          },
+          {
+            "en": "Hadele Ele",
+            "am": "Hadele Ele"
+          },
+          {
+            "en": "Dewe",
+            "am": "Dewe"
+          },
+          {
+            "en": "Dalifage",
+            "am": "Dalifage"
+          },
+          {
+            "en": "Shimurobi Gele'alo",
+            "am": "Shimurobi Gele'alo"
+          }
+        ]
+      },
+      "Awsi Rasu": {
+        "en": "Awsi Rasu",
+        "am": "Awsi Rasu",
+        "woredas": [
+          {
+            "en": "Afambo",
+            "am": "Afambo"
+          },
+          {
+            "en": "Chifra",
+            "am": "Chifra"
+          },
+          {
+            "en": "Dubti",
+            "am": "Dubti"
+          },
+          {
+            "en": "Elidar",
+            "am": "Elidar"
+          },
+          {
+            "en": "Kori",
+            "am": "Kori"
+          },
+          {
+            "en": "Mille",
+            "am": "Mille"
+          },
+          {
+            "en": "Ada'ar",
+            "am": "Ada'ar"
+          },
+          {
+            "en": "Semera",
+            "am": "Semera"
+          }
+        ]
+      },
+      "Zone 1": {
+        "en": "Zone 1",
+        "am": "Zone 1",
+        "woredas": [
+          {
+            "en": "Asayita",
+            "am": "Asayita"
+          }
+        ]
+      },
+      "Amibara": {
+        "en": "Amibara",
+        "am": "Amibara",
+        "woredas": [
+          {
+            "en": "Melkawarer",
+            "am": "Melkawarer"
+          }
+        ]
+      }
+    }
+  },
+  "Tigray": {
+    "en": "Tigray",
+    "am": "ትግራይ",
+    "zones": {
+      "Central Tigray": {
+        "en": "Central Tigray",
+        "am": "Central Tigray",
+        "woredas": [
+          {
+            "en": "Axsum",
+            "am": "Axsum"
+          },
+          {
+            "en": "Adwa",
+            "am": "Adwa"
+          },
+          {
+            "en": "Enticho",
+            "am": "Enticho"
+          },
+          {
+            "en": "Kola Tembien",
+            "am": "Kola Tembien"
+          },
+          {
+            "en": "La'ilay Maychew",
+            "am": "La'ilay Maychew"
+          },
+          {
+            "en": "Mereb Lehe",
+            "am": "Mereb Lehe"
+          },
+          {
+            "en": "Naeder Adet",
+            "am": "Naeder Adet"
+          },
+          {
+            "en": "Tahtay Maychew",
+            "am": "Tahtay Maychew"
+          },
+          {
+            "en": "Werie Lehe",
+            "am": "Werie Lehe"
+          },
+          {
+            "en": "Wikromaray",
+            "am": "Wikromaray"
+          },
+          {
+            "en": "Tanqua Abrgele",
+            "am": "Tanqua Abrgele"
+          },
+          {
+            "en": "Ahferom",
+            "am": "Ahferom"
+          },
+          {
+            "en": "Abyi  Adi",
+            "am": "Abyi  Adi"
+          },
+          {
+            "en": "Entalo Wejerat",
+            "am": "Entalo Wejerat"
+          }
+        ]
+      },
+      "South Tigray": {
+        "en": "South Tigray",
+        "am": "South Tigray",
+        "woredas": [
+          {
+            "en": "Alaje",
+            "am": "Alaje"
+          },
+          {
+            "en": "Endamehoni",
+            "am": "Endamehoni"
+          },
+          {
+            "en": "Ofla",
+            "am": "Ofla"
+          },
+          {
+            "en": "Raya Azebo",
+            "am": "Raya Azebo"
+          },
+          {
+            "en": "Alamata",
+            "am": "Alamata"
+          },
+          {
+            "en": "Korem",
+            "am": "Korem"
+          },
+          {
+            "en": "Maychew",
+            "am": "Maychew"
+          },
+          {
+            "en": "Della",
+            "am": "Della"
+          },
+          {
+            "en": "Mai Kadra",
+            "am": "Mai Kadra"
+          }
+        ]
+      },
+      "South East Tigray": {
+        "en": "South East Tigray",
+        "am": "South East Tigray",
+        "woredas": [
+          {
+            "en": "Enderta",
+            "am": "Enderta"
+          },
+          {
+            "en": "Hintalo Wajirat",
+            "am": "Hintalo Wajirat"
+          },
+          {
+            "en": "Samre",
+            "am": "Samre"
+          },
+          {
+            "en": "Seharti Samere",
+            "am": "Seharti Samere"
+          },
+          {
+            "en": "Emba Alaje",
+            "am": "Emba Alaje"
+          }
+        ]
+      },
+      "East Tigray": {
+        "en": "East Tigray",
+        "am": "East Tigray",
+        "woredas": [
+          {
+            "en": "Irob",
+            "am": "Irob"
+          },
+          {
+            "en": "Gulomahda",
+            "am": "Gulomahda"
+          },
+          {
+            "en": "Hawzen",
+            "am": "Hawzen"
+          },
+          {
+            "en": "Saesi Tsaedaemba",
+            "am": "Saesi Tsaedaemba"
+          },
+          {
+            "en": "Kilte Awulaelo",
+            "am": "Kilte Awulaelo"
+          },
+          {
+            "en": "Wukro",
+            "am": "Wukro"
+          },
+          {
+            "en": "Atsbi Wenberta",
+            "am": "Atsbi Wenberta"
+          },
+          {
+            "en": "Ganta Afeshum",
+            "am": "Ganta Afeshum"
+          },
+          {
+            "en": "Adigrat",
+            "am": "Adigrat"
+          }
+        ]
+      },
+      "West Tigray": {
+        "en": "West Tigray",
+        "am": "West Tigray",
+        "woredas": [
+          {
+            "en": "Kafta Humera",
+            "am": "Kafta Humera"
+          },
+          {
+            "en": "Tsegede",
+            "am": "Tsegede"
+          },
+          {
+            "en": "Welkait",
+            "am": "Welkait"
+          },
+          {
+            "en": "Degua Tembien",
+            "am": "Degua Tembien"
+          },
+          {
+            "en": "Yechila",
+            "am": "Yechila"
+          }
+        ]
+      },
+      "North West Tigray": {
+        "en": "North West Tigray",
+        "am": "North West Tigray",
+        "woredas": [
+          {
+            "en": "Asgede Tsimbela",
+            "am": "Asgede Tsimbela"
+          },
+          {
+            "en": "La'ilay Adiyabo",
+            "am": "La'ilay Adiyabo"
+          },
+          {
+            "en": "Medebay Zana",
+            "am": "Medebay Zana"
+          },
+          {
+            "en": "Tahtay Adiyabo",
+            "am": "Tahtay Adiyabo"
+          },
+          {
+            "en": "Tahtay Koraro",
+            "am": "Tahtay Koraro"
+          },
+          {
+            "en": "Shire",
+            "am": "Shire"
+          },
+          {
+            "en": "Tselemti",
+            "am": "Tselemti"
+          }
+        ]
+      },
+      "Mekelle": {
+        "en": "Mekelle",
+        "am": "Mekelle",
+        "woredas": [
+          {
+            "en": "Ayder",
+            "am": "Ayder"
+          },
+          {
+            "en": "Kuha",
+            "am": "Kuha"
+          },
+          {
+            "en": "Hadnet",
+            "am": "Hadnet"
+          },
+          {
+            "en": "Hawelti",
+            "am": "Hawelti"
+          },
+          {
+            "en": "Adi haqi",
+            "am": "Adi haqi"
+          },
+          {
+            "en": "Kedamay Weyane",
+            "am": "Kedamay Weyane"
+          },
+          {
+            "en": "Semen",
+            "am": "Semen"
+          },
+          {
+            "en": "May Weyni",
+            "am": "May Weyni"
+          }
+        ]
+      }
+    }
+  },
+  "Addis Ababa": {
+    "en": "Addis Ababa",
+    "am": "አዲስ አበባ",
+    "zones": {
+      "Bole": {
+        "en": "Bole",
+        "am": "Bole",
+        "woredas": [
+          {
+            "en": "Bole 02",
+            "am": "Bole 02"
+          },
+          {
+            "en": "Bole 08",
+            "am": "Bole 08"
+          },
+          {
+            "en": "Bole 09",
+            "am": "Bole 09"
+          },
+          {
+            "en": "Bole 03",
+            "am": "Bole 03"
+          },
+          {
+            "en": "Bole 06",
+            "am": "Bole 06"
+          },
+          {
+            "en": "Bole 15",
+            "am": "Bole 15"
+          },
+          {
+            "en": "Bole 13",
+            "am": "Bole 13"
+          },
+          {
+            "en": "Bole 01",
+            "am": "Bole 01"
+          },
+          {
+            "en": "Bole 05",
+            "am": "Bole 05"
+          },
+          {
+            "en": "Bole 07",
+            "am": "Bole 07"
+          },
+          {
+            "en": "Bole 10",
+            "am": "Bole 10"
+          },
+          {
+            "en": "Bole 12",
+            "am": "Bole 12"
+          },
+          {
+            "en": "Bole 14",
+            "am": "Bole 14"
+          },
+          {
+            "en": "Bole 04",
+            "am": "Bole 04"
+          },
+          {
+            "en": "Bole 11",
+            "am": "Bole 11"
+          }
+        ]
+      },
+      "Addis Ketema": {
+        "en": "Addis Ketema",
+        "am": "Addis Ketema",
+        "woredas": [
+          {
+            "en": "Guba",
+            "am": "Guba"
+          },
+          {
+            "en": "Addis Ketema 08",
+            "am": "Addis Ketema 08"
+          },
+          {
+            "en": "Addis Ketema 01",
+            "am": "Addis Ketema 01"
+          },
+          {
+            "en": "Addis Ketema 02",
+            "am": "Addis Ketema 02"
+          },
+          {
+            "en": "Addis Ketema 03",
+            "am": "Addis Ketema 03"
+          },
+          {
+            "en": "Addis Ketema 04",
+            "am": "Addis Ketema 04"
+          },
+          {
+            "en": "Addis Ketema 05",
+            "am": "Addis Ketema 05"
+          },
+          {
+            "en": "Addis Ketema 06",
+            "am": "Addis Ketema 06"
+          },
+          {
+            "en": "Addis Ketema 07",
+            "am": "Addis Ketema 07"
+          },
+          {
+            "en": "Addis Ketema 09",
+            "am": "Addis Ketema 09"
+          },
+          {
+            "en": "Addis Ketema 10",
+            "am": "Addis Ketema 10"
+          },
+          {
+            "en": "Addis Ketema 12",
+            "am": "Addis Ketema 12"
+          },
+          {
+            "en": "Addis Ketema 11",
+            "am": "Addis Ketema 11"
+          }
+        ]
+      },
+      "Lideta": {
+        "en": "Lideta",
+        "am": "Lideta",
+        "woredas": [
+          {
+            "en": "lideta 07",
+            "am": "lideta 07"
+          },
+          {
+            "en": "Lideta 01",
+            "am": "Lideta 01"
+          },
+          {
+            "en": "Lideta  02",
+            "am": "Lideta  02"
+          },
+          {
+            "en": "Lideta  03",
+            "am": "Lideta  03"
+          },
+          {
+            "en": "Lideta  04",
+            "am": "Lideta  04"
+          },
+          {
+            "en": "Lideta  05",
+            "am": "Lideta  05"
+          },
+          {
+            "en": "Lideta  06",
+            "am": "Lideta  06"
+          },
+          {
+            "en": "Lideta  08",
+            "am": "Lideta  08"
+          },
+          {
+            "en": "Lideta  09",
+            "am": "Lideta  09"
+          },
+          {
+            "en": "Lideta  10",
+            "am": "Lideta  10"
+          },
+          {
+            "en": "Woreda 22",
+            "am": "Woreda 22"
+          }
+        ]
+      },
+      "Kirkos": {
+        "en": "Kirkos",
+        "am": "Kirkos",
+        "woredas": [
+          {
+            "en": "Kirkos 04",
+            "am": "Kirkos 04"
+          },
+          {
+            "en": "Kirkos 10",
+            "am": "Kirkos 10"
+          },
+          {
+            "en": "Kirkos 07",
+            "am": "Kirkos 07"
+          },
+          {
+            "en": "Kirkos 01",
+            "am": "Kirkos 01"
+          },
+          {
+            "en": "Kirkos 02",
+            "am": "Kirkos 02"
+          },
+          {
+            "en": "Kirkos 03",
+            "am": "Kirkos 03"
+          },
+          {
+            "en": "Kirkos 05",
+            "am": "Kirkos 05"
+          },
+          {
+            "en": "Kirkos 06",
+            "am": "Kirkos 06"
+          },
+          {
+            "en": "Kirkos 08",
+            "am": "Kirkos 08"
+          },
+          {
+            "en": "Kirkos 09",
+            "am": "Kirkos 09"
+          },
+          {
+            "en": "Kirkos 11",
+            "am": "Kirkos 11"
+          },
+          {
+            "en": "Kirkos 20",
+            "am": "Kirkos 20"
+          }
+        ]
+      },
+      "Akaky Kality": {
+        "en": "Akaky Kality",
+        "am": "Akaky Kality",
+        "woredas": [
+          {
+            "en": "Akaky kality 07",
+            "am": "Akaky kality 07"
+          },
+          {
+            "en": "Akaky Kality 08",
+            "am": "Akaky Kality 08"
+          },
+          {
+            "en": "Akaky Kality 12",
+            "am": "Akaky Kality 12"
+          },
+          {
+            "en": "Akaky Kality 01",
+            "am": "Akaky Kality 01"
+          },
+          {
+            "en": "Akaky Kality 02",
+            "am": "Akaky Kality 02"
+          },
+          {
+            "en": "Akaky Kality 03",
+            "am": "Akaky Kality 03"
+          },
+          {
+            "en": "Akaky Kality 04",
+            "am": "Akaky Kality 04"
+          },
+          {
+            "en": "Akaky Kality 05",
+            "am": "Akaky Kality 05"
+          },
+          {
+            "en": "Akaky Kality 06",
+            "am": "Akaky Kality 06"
+          },
+          {
+            "en": "Akaky Kality 09",
+            "am": "Akaky Kality 09"
+          },
+          {
+            "en": "Akaky Kality 10",
+            "am": "Akaky Kality 10"
+          },
+          {
+            "en": "Akaky Kality 11",
+            "am": "Akaky Kality 11"
+          },
+          {
+            "en": "Akaky Kality 13",
+            "am": "Akaky Kality 13"
+          }
+        ]
+      },
+      "Yeka": {
+        "en": "Yeka",
+        "am": "Yeka",
+        "woredas": [
+          {
+            "en": "Yeka 03",
+            "am": "Yeka 03"
+          },
+          {
+            "en": "Yeka 02",
+            "am": "Yeka 02"
+          },
+          {
+            "en": "Yeka 14",
+            "am": "Yeka 14"
+          },
+          {
+            "en": "Yeka 04",
+            "am": "Yeka 04"
+          },
+          {
+            "en": "Yeka 05",
+            "am": "Yeka 05"
+          },
+          {
+            "en": "Yeka 06",
+            "am": "Yeka 06"
+          },
+          {
+            "en": "Yeka 01",
+            "am": "Yeka 01"
+          },
+          {
+            "en": "Yeka 07",
+            "am": "Yeka 07"
+          },
+          {
+            "en": "Yeka 09",
+            "am": "Yeka 09"
+          },
+          {
+            "en": "Yeka 10",
+            "am": "Yeka 10"
+          },
+          {
+            "en": "Yeka 11",
+            "am": "Yeka 11"
+          },
+          {
+            "en": "Yeka 12",
+            "am": "Yeka 12"
+          },
+          {
+            "en": "Yeka 13",
+            "am": "Yeka 13"
+          },
+          {
+            "en": "Yeka 08",
+            "am": "Yeka 08"
+          }
+        ]
+      },
+      "Arada": {
+        "en": "Arada",
+        "am": "Arada",
+        "woredas": [
+          {
+            "en": "Arada 04",
+            "am": "Arada 04"
+          },
+          {
+            "en": "Arada 05",
+            "am": "Arada 05"
+          },
+          {
+            "en": "Arada 01",
+            "am": "Arada 01"
+          },
+          {
+            "en": "Arada 02",
+            "am": "Arada 02"
+          },
+          {
+            "en": "Arada 03",
+            "am": "Arada 03"
+          },
+          {
+            "en": "Arada 06",
+            "am": "Arada 06"
+          },
+          {
+            "en": "Arada 07",
+            "am": "Arada 07"
+          },
+          {
+            "en": "Arada 08",
+            "am": "Arada 08"
+          },
+          {
+            "en": "Arada 09",
+            "am": "Arada 09"
+          },
+          {
+            "en": "Arada 10",
+            "am": "Arada 10"
+          }
+        ]
+      },
+      "Gullele": {
+        "en": "Gullele",
+        "am": "Gullele",
+        "woredas": [
+          {
+            "en": "Gullele 01",
+            "am": "Gullele 01"
+          },
+          {
+            "en": "Gullele 03",
+            "am": "Gullele 03"
+          },
+          {
+            "en": "Gullele 04",
+            "am": "Gullele 04"
+          },
+          {
+            "en": "Gullele 05",
+            "am": "Gullele 05"
+          },
+          {
+            "en": "Gullele 06",
+            "am": "Gullele 06"
+          },
+          {
+            "en": "Gullele 07",
+            "am": "Gullele 07"
+          },
+          {
+            "en": "Gullele 02",
+            "am": "Gullele 02"
+          },
+          {
+            "en": "Gullele 08",
+            "am": "Gullele 08"
+          },
+          {
+            "en": "Gullele 09",
+            "am": "Gullele 09"
+          },
+          {
+            "en": "Gullele 10",
+            "am": "Gullele 10"
+          }
+        ]
+      },
+      "Nefas Silk": {
+        "en": "Nefas Silk",
+        "am": "Nefas Silk",
+        "woredas": [
+          {
+            "en": "Nefas Silk 01",
+            "am": "Nefas Silk 01"
+          },
+          {
+            "en": "Nefas Silk  02",
+            "am": "Nefas Silk  02"
+          },
+          {
+            "en": "Nefas Silk 03",
+            "am": "Nefas Silk 03"
+          },
+          {
+            "en": "Nefas Silk 04",
+            "am": "Nefas Silk 04"
+          },
+          {
+            "en": "Nefas Silk 05",
+            "am": "Nefas Silk 05"
+          },
+          {
+            "en": "Nefas Silk 06",
+            "am": "Nefas Silk 06"
+          },
+          {
+            "en": "Nefas Silk 07",
+            "am": "Nefas Silk 07"
+          },
+          {
+            "en": "Nefas Silk 08",
+            "am": "Nefas Silk 08"
+          },
+          {
+            "en": "Nefas Silk 09",
+            "am": "Nefas Silk 09"
+          },
+          {
+            "en": "Nefas Silk 10",
+            "am": "Nefas Silk 10"
+          },
+          {
+            "en": "Nefas Silk 11",
+            "am": "Nefas Silk 11"
+          },
+          {
+            "en": "Nefas Silk 12",
+            "am": "Nefas Silk 12"
+          },
+          {
+            "en": "Nefas Silk 13",
+            "am": "Nefas Silk 13"
+          }
+        ]
+      },
+      "Kolfe Keranio": {
+        "en": "Kolfe Keranio",
+        "am": "Kolfe Keranio",
+        "woredas": [
+          {
+            "en": "Kolfe Keranio 01",
+            "am": "Kolfe Keranio 01"
+          },
+          {
+            "en": "Kolfe Keranio 02",
+            "am": "Kolfe Keranio 02"
+          },
+          {
+            "en": "Kolfe Keranio 03",
+            "am": "Kolfe Keranio 03"
+          },
+          {
+            "en": "Kolfe Keranio 04",
+            "am": "Kolfe Keranio 04"
+          },
+          {
+            "en": "Kolfe Keranio 05",
+            "am": "Kolfe Keranio 05"
+          },
+          {
+            "en": "Kolfe Keranio 06",
+            "am": "Kolfe Keranio 06"
+          },
+          {
+            "en": "Kolfe Keranio 07",
+            "am": "Kolfe Keranio 07"
+          },
+          {
+            "en": "Kolfe Keranio 08",
+            "am": "Kolfe Keranio 08"
+          },
+          {
+            "en": "Kolfe Keranio 09",
+            "am": "Kolfe Keranio 09"
+          },
+          {
+            "en": "Kolfe Keranio 10",
+            "am": "Kolfe Keranio 10"
+          },
+          {
+            "en": "Kolfe Keranio 11",
+            "am": "Kolfe Keranio 11"
+          },
+          {
+            "en": "Kolfe Keranio 12",
+            "am": "Kolfe Keranio 12"
+          },
+          {
+            "en": "Kolfe Keranio 13",
+            "am": "Kolfe Keranio 13"
+          },
+          {
+            "en": "Kolfe Keranio 14",
+            "am": "Kolfe Keranio 14"
+          },
+          {
+            "en": "Kolfe Keranio 15",
+            "am": "Kolfe Keranio 15"
+          }
+        ]
+      },
+      "Lafto": {
+        "en": "Lafto",
+        "am": "Lafto",
+        "woredas": [
+          {
+            "en": "Nifas Silk",
+            "am": "Nifas Silk"
+          }
+        ]
+      },
+      "Lemi Kura": {
+        "en": "Lemi Kura",
+        "am": "Lemi Kura",
+        "woredas": [
+          {
+            "en": "Lemi Kura 2",
+            "am": "Lemi Kura 2"
+          },
+          {
+            "en": "Lemi Kura 08",
+            "am": "Lemi Kura 08"
+          },
+          {
+            "en": "Lemi Kura 04",
+            "am": "Lemi Kura 04"
+          },
+          {
+            "en": "Lemi Kura 03",
+            "am": "Lemi Kura 03"
+          },
+          {
+            "en": "Lemi Kura 09",
+            "am": "Lemi Kura 09"
+          },
+          {
+            "en": "Lemi Kura 10",
+            "am": "Lemi Kura 10"
+          },
+          {
+            "en": "Lemi Kura 05",
+            "am": "Lemi Kura 05"
+          },
+          {
+            "en": "Lemi kura 06",
+            "am": "Lemi kura 06"
+          },
+          {
+            "en": "Lemi kura 14",
+            "am": "Lemi kura 14"
+          },
+          {
+            "en": "Lemi Kura 11",
+            "am": "Lemi Kura 11"
+          },
+          {
+            "en": "Lemi Kura 13",
+            "am": "Lemi Kura 13"
+          },
+          {
+            "en": "Lemi Kura 12",
+            "am": "Lemi Kura 12"
+          }
+        ]
+      }
+    }
+  },
+  "Benishangul Gumuz": {
+    "en": "Benishangul Gumuz",
+    "am": "Benishangul Gumuz",
+    "zones": {
+      "Asosa": {
+        "en": "Asosa",
+        "am": "Asosa",
+        "woredas": [
+          {
+            "en": "Bambasi",
+            "am": "Bambasi"
+          },
+          {
+            "en": "Komesha",
+            "am": "Komesha"
+          },
+          {
+            "en": "Horazab",
+            "am": "Horazab"
+          },
+          {
+            "en": "Menge",
+            "am": "Menge"
+          },
+          {
+            "en": "Oda Bildigilu",
+            "am": "Oda Bildigilu"
+          },
+          {
+            "en": "Asosa",
+            "am": "Asosa"
+          },
+          {
+            "en": "Sherkole",
+            "am": "Sherkole"
+          },
+          {
+            "en": "Kurmuk",
+            "am": "Kurmuk"
+          }
+        ]
+      },
+      "Kamashi": {
+        "en": "Kamashi",
+        "am": "Kamashi",
+        "woredas": [
+          {
+            "en": "Agalo Mite",
+            "am": "Agalo Mite"
+          },
+          {
+            "en": "Belo Jegonfoy",
+            "am": "Belo Jegonfoy"
+          },
+          {
+            "en": "Kamashi",
+            "am": "Kamashi"
+          },
+          {
+            "en": "Sadal / Diza",
+            "am": "Sadal / Diza"
+          },
+          {
+            "en": "Yaso",
+            "am": "Yaso"
+          }
+        ]
+      },
+      "Metekel": {
+        "en": "Metekel",
+        "am": "Metekel",
+        "woredas": [
+          {
+            "en": "Mandura",
+            "am": "Mandura"
+          },
+          {
+            "en": "Dangur",
+            "am": "Dangur"
+          },
+          {
+            "en": "Dibate",
+            "am": "Dibate"
+          },
+          {
+            "en": "Bullen",
+            "am": "Bullen"
+          },
+          {
+            "en": "Wenbera",
+            "am": "Wenbera"
+          },
+          {
+            "en": "Pawi",
+            "am": "Pawi"
+          },
+          {
+            "en": "Guba",
+            "am": "Guba"
+          },
+          {
+            "en": "Wombera",
+            "am": "Wombera"
+          }
+        ]
+      }
+    }
+  },
+  "Gambela": {
+    "en": "Gambela",
+    "am": "ጋምቤላ",
+    "zones": {
+      "Anuak": {
+        "en": "Anuak",
+        "am": "Anuak",
+        "woredas": [
+          {
+            "en": "Abobo",
+            "am": "Abobo"
+          },
+          {
+            "en": "Dimma",
+            "am": "Dimma"
+          },
+          {
+            "en": "Gambela",
+            "am": "Gambela"
+          },
+          {
+            "en": "Gambela Zuria",
+            "am": "Gambela Zuria"
+          },
+          {
+            "en": "Gog",
+            "am": "Gog"
+          },
+          {
+            "en": "Jor",
+            "am": "Jor"
+          }
+        ]
+      },
+      "Nuer": {
+        "en": "Nuer",
+        "am": "Nuer",
+        "woredas": [
+          {
+            "en": "Jikawo",
+            "am": "Jikawo"
+          },
+          {
+            "en": "Lare",
+            "am": "Lare"
+          },
+          {
+            "en": "Akobo",
+            "am": "Akobo"
+          }
+        ]
+      },
+      "Mezhenger": {
+        "en": "Mezhenger",
+        "am": "Mezhenger",
+        "woredas": [
+          {
+            "en": "Godere",
+            "am": "Godere"
+          },
+          {
+            "en": "Mengesh",
+            "am": "Mengesh"
+          }
+        ]
+      }
+    }
+  },
+  "Somali": {
+    "en": "Somali",
+    "am": "ሶማሌ",
+    "zones": {
+      "Liben": {
+        "en": "Liben",
+        "am": "Liben",
+        "woredas": [
+          {
+            "en": "dolo ado",
+            "am": "dolo ado"
+          },
+          {
+            "en": "Hudet",
+            "am": "Hudet"
+          },
+          {
+            "en": "Gaduud",
+            "am": "Gaduud"
+          },
+          {
+            "en": "filtu",
+            "am": "filtu"
+          },
+          {
+            "en": "bander",
+            "am": "bander"
+          },
+          {
+            "en": "Qadhaadhumo",
+            "am": "Qadhaadhumo"
+          }
+        ]
+      },
+      "Afder": {
+        "en": "Afder",
+        "am": "Afder",
+        "woredas": [
+          {
+            "en": "Hargelle",
+            "am": "Hargelle"
+          },
+          {
+            "en": "Baarey",
+            "am": "Baarey"
+          },
+          {
+            "en": "Cherati",
+            "am": "Cherati"
+          },
+          {
+            "en": "Ceelgari",
+            "am": "Ceelgari"
+          },
+          {
+            "en": "Dolobay",
+            "am": "Dolobay"
+          },
+          {
+            "en": "Iimey galbeed",
+            "am": "Iimey galbeed"
+          },
+          {
+            "en": "Raaso",
+            "am": "Raaso"
+          },
+          {
+            "en": "God God",
+            "am": "God God"
+          },
+          {
+            "en": "Qooxle",
+            "am": "Qooxle"
+          },
+          {
+            "en": "Limey Galbeed",
+            "am": "Limey Galbeed"
+          }
+        ]
+      },
+      "Jarar": {
+        "en": "Jarar",
+        "am": "Jarar",
+        "woredas": [
+          {
+            "en": "Aware",
+            "am": "Aware"
+          },
+          {
+            "en": "Dhagax-buur",
+            "am": "Dhagax-buur"
+          },
+          {
+            "en": "Dhagax-madow",
+            "am": "Dhagax-madow"
+          },
+          {
+            "en": "Gurdumi",
+            "am": "Gurdumi"
+          },
+          {
+            "en": "Gunagado",
+            "am": "Gunagado"
+          },
+          {
+            "en": "Gashamo",
+            "am": "Gashamo"
+          },
+          {
+            "en": "Birqod",
+            "am": "Birqod"
+          },
+          {
+            "en": "Dig",
+            "am": "Dig"
+          },
+          {
+            "en": "Bilcil buur",
+            "am": "Bilcil buur"
+          },
+          {
+            "en": "Araarso",
+            "am": "Araarso"
+          },
+          {
+            "en": "Yoocaale",
+            "am": "Yoocaale"
+          },
+          {
+            "en": "Dhuxun",
+            "am": "Dhuxun"
+          },
+          {
+            "en": "Gerbo",
+            "am": "Gerbo"
+          },
+          {
+            "en": "Xaraarey",
+            "am": "Xaraarey"
+          },
+          {
+            "en": "Ayun",
+            "am": "Ayun"
+          },
+          {
+            "en": "Hor-shagah",
+            "am": "Hor-shagah"
+          },
+          {
+            "en": "Segeg",
+            "am": "Segeg"
+          },
+          {
+            "en": "Daroor",
+            "am": "Daroor"
+          }
+        ]
+      },
+      "Erer": {
+        "en": "Erer",
+        "am": "Erer",
+        "woredas": [
+          {
+            "en": "Xamaro",
+            "am": "Xamaro"
+          },
+          {
+            "en": "Salaxaad",
+            "am": "Salaxaad"
+          },
+          {
+            "en": "Mayu-Muuqdheer",
+            "am": "Mayu-Muuqdheer"
+          },
+          {
+            "en": "Qubi",
+            "am": "Qubi"
+          },
+          {
+            "en": "Yaxoob",
+            "am": "Yaxoob"
+          },
+          {
+            "en": "Waangay",
+            "am": "Waangay"
+          },
+          {
+            "en": "Fik",
+            "am": "Fik"
+          },
+          {
+            "en": "Hamaro",
+            "am": "Hamaro"
+          },
+          {
+            "en": "Hureso",
+            "am": "Hureso"
+          }
+        ]
+      },
+      "Shabelle": {
+        "en": "Shabelle",
+        "am": "Shabelle",
+        "woredas": [
+          {
+            "en": "Cadaadle",
+            "am": "Cadaadle"
+          },
+          {
+            "en": "Danan",
+            "am": "Danan"
+          },
+          {
+            "en": "Beer Caano",
+            "am": "Beer Caano"
+          },
+          {
+            "en": "Iimey bari",
+            "am": "Iimey bari"
+          },
+          {
+            "en": "Kelafo",
+            "am": "Kelafo"
+          },
+          {
+            "en": "Mustahil",
+            "am": "Mustahil"
+          },
+          {
+            "en": "Elale",
+            "am": "Elale"
+          }
+        ]
+      },
+      "Faafan": {
+        "en": "Faafan",
+        "am": "Faafan",
+        "woredas": [
+          {
+            "en": "Tuli Guled",
+            "am": "Tuli Guled"
+          },
+          {
+            "en": "Awbere",
+            "am": "Awbere"
+          },
+          {
+            "en": "Harshin",
+            "am": "Harshin"
+          },
+          {
+            "en": "Jijiga",
+            "am": "Jijiga"
+          },
+          {
+            "en": "Kebri Beyah",
+            "am": "Kebri Beyah"
+          },
+          {
+            "en": "Qooraan/Mulla",
+            "am": "Qooraan/Mulla"
+          },
+          {
+            "en": "Harawo",
+            "am": "Harawo"
+          },
+          {
+            "en": "Jigjiga Waqooyi/Harorays",
+            "am": "Jigjiga Waqooyi/Harorays"
+          },
+          {
+            "en": "jigjiga galbeed/Shabeley",
+            "am": "jigjiga galbeed/Shabeley"
+          },
+          {
+            "en": "Beer Caano",
+            "am": "Beer Caano"
+          },
+          {
+            "en": "Goljano",
+            "am": "Goljano"
+          },
+          {
+            "en": "Ferfer",
+            "am": "Ferfer"
+          },
+          {
+            "en": "Mustahil",
+            "am": "Mustahil"
+          },
+          {
+            "en": "Iimey bari",
+            "am": "Iimey bari"
+          },
+          {
+            "en": "Gursum",
+            "am": "Gursum"
+          },
+          {
+            "en": "Limey bari",
+            "am": "Limey bari"
+          },
+          {
+            "en": "Elale",
+            "am": "Elale"
+          },
+          {
+            "en": "Gode",
+            "am": "Gode"
+          },
+          {
+            "en": "Babille",
+            "am": "Babille"
+          },
+          {
+            "en": "Abaqorow",
+            "am": "Abaqorow"
+          }
+        ]
+      },
+      "Korahe": {
+        "en": "Korahe",
+        "am": "Korahe",
+        "woredas": [
+          {
+            "en": "Dhooboweyn",
+            "am": "Dhooboweyn"
+          },
+          {
+            "en": "Kebri Dahar",
+            "am": "Kebri Dahar"
+          },
+          {
+            "en": "Sheygoosh",
+            "am": "Sheygoosh"
+          },
+          {
+            "en": "Shilaabo",
+            "am": "Shilaabo"
+          },
+          {
+            "en": "Marsin",
+            "am": "Marsin"
+          },
+          {
+            "en": "Higloley",
+            "am": "Higloley"
+          },
+          {
+            "en": "Las Dharkaynle",
+            "am": "Las Dharkaynle"
+          },
+          {
+            "en": "Kudunbuur",
+            "am": "Kudunbuur"
+          },
+          {
+            "en": "Bodalay",
+            "am": "Bodalay"
+          },
+          {
+            "en": "Ceel-Ogadeen",
+            "am": "Ceel-Ogadeen"
+          }
+        ]
+      },
+      "SITTI": {
+        "en": "SITTI",
+        "am": "SITTI",
+        "woredas": [
+          {
+            "en": "Afdem",
+            "am": "Afdem"
+          },
+          {
+            "en": "Ayesha",
+            "am": "Ayesha"
+          },
+          {
+            "en": "Dembel",
+            "am": "Dembel"
+          },
+          {
+            "en": "Shinile",
+            "am": "Shinile"
+          },
+          {
+            "en": "Hadhagaale",
+            "am": "Hadhagaale"
+          },
+          {
+            "en": "Geblalu",
+            "am": "Geblalu"
+          },
+          {
+            "en": "biki",
+            "am": "biki"
+          },
+          {
+            "en": "Erer",
+            "am": "Erer"
+          },
+          {
+            "en": "Gota biki",
+            "am": "Gota biki"
+          },
+          {
+            "en": "Mieso",
+            "am": "Mieso"
+          }
+        ]
+      },
+      "Dollo": {
+        "en": "Dollo",
+        "am": "Dollo",
+        "woredas": [
+          {
+            "en": "Danot",
+            "am": "Danot"
+          },
+          {
+            "en": "Galadi",
+            "am": "Galadi"
+          },
+          {
+            "en": "Warder",
+            "am": "Warder"
+          },
+          {
+            "en": "Daratole",
+            "am": "Daratole"
+          },
+          {
+            "en": "Galxamur",
+            "am": "Galxamur"
+          },
+          {
+            "en": "Lehel-yucub",
+            "am": "Lehel-yucub"
+          },
+          {
+            "en": "Werder",
+            "am": "Werder"
+          },
+          {
+            "en": "Geladi",
+            "am": "Geladi"
+          },
+          {
+            "en": "Bokh",
+            "am": "Bokh"
+          }
+        ]
+      },
+      "Degehabur": {
+        "en": "Degehabur",
+        "am": "Degehabur",
+        "woredas": [
+          {
+            "en": "Degehabur",
+            "am": "Degehabur"
+          }
+        ]
+      },
+      "Gode": {
+        "en": "Gode",
+        "am": "Gode",
+        "woredas": [
+          {
+            "en": "Gode",
+            "am": "Gode"
+          }
+        ]
+      },
+      "Nogob": {
+        "en": "Nogob",
+        "am": "Nogob",
+        "woredas": [
+          {
+            "en": "Dhuxun",
+            "am": "Dhuxun"
+          },
+          {
+            "en": "Xaraarey",
+            "am": "Xaraarey"
+          },
+          {
+            "en": "El weyne",
+            "am": "El weyne"
+          },
+          {
+            "en": "Gerbo",
+            "am": "Gerbo"
+          },
+          {
+            "en": "Ayun",
+            "am": "Ayun"
+          },
+          {
+            "en": "Segeg",
+            "am": "Segeg"
+          }
+        ]
+      },
+      "Dhawa": {
+        "en": "Dhawa",
+        "am": "Dhawa",
+        "woredas": [
+          {
+            "en": "Mubaarak",
+            "am": "Mubaarak"
+          },
+          {
+            "en": "Moyale",
+            "am": "Moyale"
+          }
+        ]
+      }
+    }
+  },
+  "South West Region People’s Regional State": {
+    "en": "South West Region People’s Regional State",
+    "am": "South West Region People’s Regional State",
+    "zones": {
+      "Bench Maji": {
+        "en": "Bench Maji",
+        "am": "Bench Maji",
+        "woredas": [
+          {
+            "en": "Bero",
+            "am": "Bero"
+          },
+          {
+            "en": "Debub Bench",
+            "am": "Debub Bench"
+          },
+          {
+            "en": "Guraferda",
+            "am": "Guraferda"
+          },
+          {
+            "en": "Maji",
+            "am": "Maji"
+          },
+          {
+            "en": "Meinit Goldiya",
+            "am": "Meinit Goldiya"
+          },
+          {
+            "en": "Meinit Shasha",
+            "am": "Meinit Shasha"
+          },
+          {
+            "en": "Mizan Aman",
+            "am": "Mizan Aman"
+          },
+          {
+            "en": "Semien Bench",
+            "am": "Semien Bench"
+          },
+          {
+            "en": "She Bench",
+            "am": "She Bench"
+          },
+          {
+            "en": "Sheko",
+            "am": "Sheko"
+          },
+          {
+            "en": "Surma",
+            "am": "Surma"
+          },
+          {
+            "en": "Mizan Teferi",
+            "am": "Mizan Teferi"
+          }
+        ]
+      },
+      "Dawro": {
+        "en": "Dawro",
+        "am": "Dawro",
+        "woredas": [
+          {
+            "en": "Gena Bosa",
+            "am": "Gena Bosa"
+          },
+          {
+            "en": "Isara",
+            "am": "Isara"
+          },
+          {
+            "en": "Mareka",
+            "am": "Mareka"
+          },
+          {
+            "en": "Tocha",
+            "am": "Tocha"
+          },
+          {
+            "en": "Lome",
+            "am": "Lome"
+          },
+          {
+            "en": "Waka",
+            "am": "Waka"
+          },
+          {
+            "en": "Kerawo",
+            "am": "Kerawo"
+          }
+        ]
+      },
+      "Gamo Gofa": {
+        "en": "Gamo Gofa",
+        "am": "Gamo Gofa",
+        "woredas": [
+          {
+            "en": "Arba Minch",
+            "am": "Arba Minch"
+          },
+          {
+            "en": "Arba Minch Zuria",
+            "am": "Arba Minch Zuria"
+          },
+          {
+            "en": "Bonke",
+            "am": "Bonke"
+          },
+          {
+            "en": "Boreda",
+            "am": "Boreda"
+          },
+          {
+            "en": "Chencha",
+            "am": "Chencha"
+          },
+          {
+            "en": "Dita",
+            "am": "Dita"
+          },
+          {
+            "en": "Deramalo",
+            "am": "Deramalo"
+          },
+          {
+            "en": "Demba Gofa",
+            "am": "Demba Gofa"
+          },
+          {
+            "en": "Geze Gofa",
+            "am": "Geze Gofa"
+          },
+          {
+            "en": "Kemba",
+            "am": "Kemba"
+          },
+          {
+            "en": "Kucha",
+            "am": "Kucha"
+          },
+          {
+            "en": "Melokoza",
+            "am": "Melokoza"
+          },
+          {
+            "en": "Mirab Abaya",
+            "am": "Mirab Abaya"
+          },
+          {
+            "en": "Oyda",
+            "am": "Oyda"
+          },
+          {
+            "en": "Uba Debretsehay",
+            "am": "Uba Debretsehay"
+          },
+          {
+            "en": "Zala",
+            "am": "Zala"
+          },
+          {
+            "en": "Garda Marta",
+            "am": "Garda Marta"
+          },
+          {
+            "en": "Sawla",
+            "am": "Sawla"
+          },
+          {
+            "en": "Selam Bere",
+            "am": "Selam Bere"
+          },
+          {
+            "en": "Gerese",
+            "am": "Gerese"
+          },
+          {
+            "en": "Bulka",
+            "am": "Bulka"
+          },
+          {
+            "en": "Finchaha",
+            "am": "Finchaha"
+          },
+          {
+            "en": "Kolashele",
+            "am": "Kolashele"
+          },
+          {
+            "en": "Tsala Tsamba",
+            "am": "Tsala Tsamba"
+          },
+          {
+            "en": "Beto",
+            "am": "Beto"
+          }
+        ]
+      },
+      "Gedeo": {
+        "en": "Gedeo",
+        "am": "Gedeo",
+        "woredas": [
+          {
+            "en": "Bule",
+            "am": "Bule"
+          },
+          {
+            "en": "Dila Zuria",
+            "am": "Dila Zuria"
+          },
+          {
+            "en": "Gedeb",
+            "am": "Gedeb"
+          },
+          {
+            "en": "Kochere",
+            "am": "Kochere"
+          },
+          {
+            "en": "Wenago",
+            "am": "Wenago"
+          },
+          {
+            "en": "Yirgachefe",
+            "am": "Yirgachefe"
+          },
+          {
+            "en": "Dilla",
+            "am": "Dilla"
+          },
+          {
+            "en": "Aleta Wendo",
+            "am": "Aleta Wendo"
+          },
+          {
+            "en": "Chelelektu",
+            "am": "Chelelektu"
+          },
+          {
+            "en": "Rephe",
+            "am": "Rephe"
+          },
+          {
+            "en": "Chorso",
+            "am": "Chorso"
+          }
+        ]
+      },
+      "Keffa": {
+        "en": "Keffa",
+        "am": "Keffa",
+        "woredas": [
+          {
+            "en": "Bita",
+            "am": "Bita"
+          },
+          {
+            "en": "Chena",
+            "am": "Chena"
+          },
+          {
+            "en": "Cheta",
+            "am": "Cheta"
+          },
+          {
+            "en": "Decha",
+            "am": "Decha"
+          },
+          {
+            "en": "Gesha",
+            "am": "Gesha"
+          },
+          {
+            "en": "Gewata",
+            "am": "Gewata"
+          },
+          {
+            "en": "Ginbo",
+            "am": "Ginbo"
+          },
+          {
+            "en": "Menjiwo",
+            "am": "Menjiwo"
+          },
+          {
+            "en": "Sayilem",
+            "am": "Sayilem"
+          },
+          {
+            "en": "Telo",
+            "am": "Telo"
+          },
+          {
+            "en": "Bonga",
+            "am": "Bonga"
+          },
+          {
+            "en": "Shesho ende",
+            "am": "Shesho ende"
+          },
+          {
+            "en": "Adiyo",
+            "am": "Adiyo"
+          }
+        ]
+      },
+      "Sheka": {
+        "en": "Sheka",
+        "am": "Sheka",
+        "woredas": [
+          {
+            "en": "Anderacha",
+            "am": "Anderacha"
+          },
+          {
+            "en": "Masha",
+            "am": "Masha"
+          },
+          {
+            "en": "Yeki",
+            "am": "Yeki"
+          },
+          {
+            "en": "Tepi",
+            "am": "Tepi"
+          },
+          {
+            "en": "Sheka Masha",
+            "am": "Sheka Masha"
+          }
+        ]
+      },
+      "Sidama": {
+        "en": "Sidama",
+        "am": "Sidama",
+        "woredas": [
+          {
+            "en": "Arbegona",
+            "am": "Arbegona"
+          },
+          {
+            "en": "Awasa Zuria",
+            "am": "Awasa Zuria"
+          },
+          {
+            "en": "Bensa",
+            "am": "Bensa"
+          },
+          {
+            "en": "Bona Zuria",
+            "am": "Bona Zuria"
+          },
+          {
+            "en": "Boricha",
+            "am": "Boricha"
+          },
+          {
+            "en": "Chere",
+            "am": "Chere"
+          },
+          {
+            "en": "Chuko",
+            "am": "Chuko"
+          },
+          {
+            "en": "Dale",
+            "am": "Dale"
+          },
+          {
+            "en": "Dara",
+            "am": "Dara"
+          },
+          {
+            "en": "Gorche",
+            "am": "Gorche"
+          },
+          {
+            "en": "Hula",
+            "am": "Hula"
+          },
+          {
+            "en": "Loko Abaya",
+            "am": "Loko Abaya"
+          },
+          {
+            "en": "Malga",
+            "am": "Malga"
+          },
+          {
+            "en": "Shebedino",
+            "am": "Shebedino"
+          },
+          {
+            "en": "Wensho",
+            "am": "Wensho"
+          },
+          {
+            "en": "Wondo Genet",
+            "am": "Wondo Genet"
+          },
+          {
+            "en": "Aletachiko",
+            "am": "Aletachiko"
+          },
+          {
+            "en": "Dore bafano",
+            "am": "Dore bafano"
+          },
+          {
+            "en": "Yirgalem",
+            "am": "Yirgalem"
+          },
+          {
+            "en": "Hagereselam",
+            "am": "Hagereselam"
+          },
+          {
+            "en": "Bitena",
+            "am": "Bitena"
+          },
+          {
+            "en": "Hoko",
+            "am": "Hoko"
+          },
+          {
+            "en": "Chambe Gambeltu",
+            "am": "Chambe Gambeltu"
+          },
+          {
+            "en": "Daela",
+            "am": "Daela"
+          },
+          {
+            "en": "Teticha",
+            "am": "Teticha"
+          },
+          {
+            "en": "Derara",
+            "am": "Derara"
+          },
+          {
+            "en": "Chebe Gambeltu",
+            "am": "Chebe Gambeltu"
+          },
+          {
+            "en": "Chirone",
+            "am": "Chirone"
+          },
+          {
+            "en": "Manicho",
+            "am": "Manicho"
+          },
+          {
+            "en": "Shafamo",
+            "am": "Shafamo"
+          },
+          {
+            "en": "Bilate",
+            "am": "Bilate"
+          },
+          {
+            "en": "Hawassa Zuria",
+            "am": "Hawassa Zuria"
+          },
+          {
+            "en": "Worknsh",
+            "am": "Worknsh"
+          },
+          {
+            "en": "Melga",
+            "am": "Melga"
+          },
+          {
+            "en": "Titicha",
+            "am": "Titicha"
+          },
+          {
+            "en": "Bura",
+            "am": "Bura"
+          },
+          {
+            "en": "Chiri",
+            "am": "Chiri"
+          },
+          {
+            "en": "Aroresa",
+            "am": "Aroresa"
+          },
+          {
+            "en": "Dara Otilcha",
+            "am": "Dara Otilcha"
+          },
+          {
+            "en": "Bursa",
+            "am": "Bursa"
+          },
+          {
+            "en": "Wonsho",
+            "am": "Wonsho"
+          },
+          {
+            "en": "Garja",
+            "am": "Garja"
+          },
+          {
+            "en": "Eiticho",
+            "am": "Eiticho"
+          },
+          {
+            "en": "Habela",
+            "am": "Habela"
+          },
+          {
+            "en": "Belela Bilato",
+            "am": "Belela Bilato"
+          },
+          {
+            "en": "Daye",
+            "am": "Daye"
+          }
+        ]
+      },
+      "Silt'e": {
+        "en": "Silt'e",
+        "am": "Silt'e",
+        "woredas": [
+          {
+            "en": "Alicho Werero",
+            "am": "Alicho Werero"
+          },
+          {
+            "en": "Dalocha",
+            "am": "Dalocha"
+          },
+          {
+            "en": "Lanfro",
+            "am": "Lanfro"
+          },
+          {
+            "en": "Mirab Azernet Berbere",
+            "am": "Mirab Azernet Berbere"
+          },
+          {
+            "en": "Sankurra",
+            "am": "Sankurra"
+          },
+          {
+            "en": "Silte",
+            "am": "Silte"
+          },
+          {
+            "en": "Wulbareg",
+            "am": "Wulbareg"
+          },
+          {
+            "en": "Worabe",
+            "am": "Worabe"
+          },
+          {
+            "en": "Alcho Weriro",
+            "am": "Alcho Weriro"
+          },
+          {
+            "en": "Wuriro",
+            "am": "Wuriro"
+          }
+        ]
+      },
+      "South Omo": {
+        "en": "South Omo",
+        "am": "South Omo",
+        "woredas": [
+          {
+            "en": "Debub Ari",
+            "am": "Debub Ari"
+          },
+          {
+            "en": "Bena Tsemay",
+            "am": "Bena Tsemay"
+          },
+          {
+            "en": "Hamer",
+            "am": "Hamer"
+          },
+          {
+            "en": "Semen Ari",
+            "am": "Semen Ari"
+          },
+          {
+            "en": "Male",
+            "am": "Male"
+          },
+          {
+            "en": "Nyangatom",
+            "am": "Nyangatom"
+          },
+          {
+            "en": "Selamago",
+            "am": "Selamago"
+          },
+          {
+            "en": "Dasenech",
+            "am": "Dasenech"
+          },
+          {
+            "en": "Jinka",
+            "am": "Jinka"
+          }
+        ]
+      },
+      "Wolayita": {
+        "en": "Wolayita",
+        "am": "Wolayita",
+        "woredas": [
+          {
+            "en": "Boloso Bombe",
+            "am": "Boloso Bombe"
+          },
+          {
+            "en": "Boloso Sore",
+            "am": "Boloso Sore"
+          },
+          {
+            "en": "Damot Gale",
+            "am": "Damot Gale"
+          },
+          {
+            "en": "Damot Pulasa",
+            "am": "Damot Pulasa"
+          },
+          {
+            "en": "Damot Sore",
+            "am": "Damot Sore"
+          },
+          {
+            "en": "Damot Weyde",
+            "am": "Damot Weyde"
+          },
+          {
+            "en": "Diguna Fango",
+            "am": "Diguna Fango"
+          },
+          {
+            "en": "Humbo",
+            "am": "Humbo"
+          },
+          {
+            "en": "Kindo Didaye",
+            "am": "Kindo Didaye"
+          },
+          {
+            "en": "Kindo Koysha",
+            "am": "Kindo Koysha"
+          },
+          {
+            "en": "Offa",
+            "am": "Offa"
+          },
+          {
+            "en": "Sodo Zuria",
+            "am": "Sodo Zuria"
+          },
+          {
+            "en": "Abela Faracho",
+            "am": "Abela Faracho"
+          },
+          {
+            "en": "Hobicha",
+            "am": "Hobicha"
+          },
+          {
+            "en": "Fanggo Bilate",
+            "am": "Fanggo Bilate"
+          },
+          {
+            "en": "Boditi",
+            "am": "Boditi"
+          },
+          {
+            "en": "Areka",
+            "am": "Areka"
+          },
+          {
+            "en": "Sodo",
+            "am": "Sodo"
+          },
+          {
+            "en": "BITENA",
+            "am": "BITENA"
+          },
+          {
+            "en": "Weyibo",
+            "am": "Weyibo"
+          },
+          {
+            "en": "Wadu",
+            "am": "Wadu"
+          },
+          {
+            "en": "Abela Abaya",
+            "am": "Abela Abaya"
+          },
+          {
+            "en": "Bedesa",
+            "am": "Bedesa"
+          },
+          {
+            "en": "Fana Wemba",
+            "am": "Fana Wemba"
+          },
+          {
+            "en": "Deday",
+            "am": "Deday"
+          },
+          {
+            "en": "Bayra kosha",
+            "am": "Bayra kosha"
+          },
+          {
+            "en": "Kucha alfa",
+            "am": "Kucha alfa"
+          }
+        ]
+      },
+      "Alaba": {
+        "en": "Alaba",
+        "am": "Alaba",
+        "woredas": [
+          {
+            "en": "Alaba Kulito",
+            "am": "Alaba Kulito"
+          }
+        ]
+      },
+      "Hawella Tulla": {
+        "en": "Hawella Tulla",
+        "am": "Hawella Tulla",
+        "woredas": [
+          {
+            "en": "Gudumalle",
+            "am": "Gudumalle"
+          },
+          {
+            "en": "Alito",
+            "am": "Alito"
+          }
+        ]
+      },
+      "Segen": {
+        "en": "Segen",
+        "am": "Segen",
+        "woredas": [
+          {
+            "en": "Amaro",
+            "am": "Amaro"
+          }
+        ]
+      },
+      "Bench Sheko": {
+        "en": "Bench Sheko",
+        "am": "Bench Sheko",
+        "woredas": [
+          {
+            "en": "Mizan Aman",
+            "am": "Mizan Aman"
+          }
+        ]
+      },
+      "Konso": {
+        "en": "Konso",
+        "am": "Konso",
+        "woredas": [
+          {
+            "en": "Konso",
+            "am": "Konso"
+          }
+        ]
+      },
+      "Leyu zone": {
+        "en": "Leyu zone",
+        "am": "Leyu zone",
+        "woredas": [
+          {
+            "en": "Burji",
+            "am": "Burji"
+          }
+        ]
+      }
+    }
+  },
+  "Dire Dawa": {
+    "en": "Dire Dawa",
+    "am": "ድሬዳዋ",
+    "zones": {
+      "Dire Dawa": {
+        "en": "Dire Dawa",
+        "am": "Dire Dawa",
+        "woredas": [
+          {
+            "en": "Asselisso",
+            "am": "Asselisso"
+          },
+          {
+            "en": "Biyoawale",
+            "am": "Biyoawale"
+          },
+          {
+            "en": "Dire City",
+            "am": "Dire City"
+          },
+          {
+            "en": "Wahil",
+            "am": "Wahil"
+          },
+          {
+            "en": "Assenliso",
+            "am": "Assenliso"
+          },
+          {
+            "en": "Jeldessa",
+            "am": "Jeldessa"
+          },
+          {
+            "en": "02",
+            "am": "02"
+          }
+        ]
+      }
+    }
+  },
+  "Sidama": {
+    "en": "Sidama",
+    "am": "ሲዳማ",
+    "zones": {
+      "Tabor": {
+        "en": "Tabor",
+        "am": "Tabor",
+        "woredas": [
+          {
+            "en": "Kotichawesa",
+            "am": "Kotichawesa"
+          },
+          {
+            "en": "Hawassa",
+            "am": "Hawassa"
+          }
+        ]
+      },
+      "Hawassa": {
+        "en": "Hawassa",
+        "am": "Hawassa",
+        "woredas": [
+          {
+            "en": "Haik Dar",
+            "am": "Haik Dar"
+          },
+          {
+            "en": "Bahil Adarash",
+            "am": "Bahil Adarash"
+          },
+          {
+            "en": "Philadelphia",
+            "am": "Philadelphia"
+          },
+          {
+            "en": "Hawella Tulla",
+            "am": "Hawella Tulla"
+          },
+          {
+            "en": "Menaharia",
+            "am": "Menaharia"
+          },
+          {
+            "en": "Wolde Amanuel Center",
+            "am": "Wolde Amanuel Center"
+          },
+          {
+            "en": "Misrak",
+            "am": "Misrak"
+          },
+          {
+            "en": "Leku",
+            "am": "Leku"
+          },
+          {
+            "en": "Tabor",
+            "am": "Tabor"
+          },
+          {
+            "en": "Dael",
+            "am": "Dael"
+          },
+          {
+            "en": "Dara",
+            "am": "Dara"
+          },
+          {
+            "en": "Menaheriya",
+            "am": "Menaheriya"
+          },
+          {
+            "en": "Addis Ketema",
+            "am": "Addis Ketema"
+          },
+          {
+            "en": "Tula",
+            "am": "Tula"
+          }
+        ]
+      },
+      "Melega": {
+        "en": "Melega",
+        "am": "Melega",
+        "woredas": [
+          {
+            "en": "Mathicho",
+            "am": "Mathicho"
+          }
+        ]
+      },
+      "Baladerash": {
+        "en": "Baladerash",
+        "am": "Baladerash",
+        "woredas": [
+          {
+            "en": "Hawassa",
+            "am": "Hawassa"
+          }
+        ]
+      },
+      "Mehal Ketema": {
+        "en": "Mehal Ketema",
+        "am": "Mehal Ketema",
+        "woredas": [
+          {
+            "en": "Hawassa",
+            "am": "Hawassa"
+          }
+        ]
+      }
+    }
+  },
+  "Harari": {
+    "en": "Harari",
+    "am": "ሀረሪ",
+    "zones": {
+      "Harar": {
+        "en": "Harar",
+        "am": "Harar",
+        "woredas": [
+          {
+            "en": "Errer",
+            "am": "Errer"
+          },
+          {
+            "en": "Abadir",
+            "am": "Abadir"
+          }
+        ]
+      }
+    }
+  },
+  "Southern Nations, Nationalities, and Peoples": {
+    "en": "Southern Nations, Nationalities, and Peoples",
+    "am": "Southern Nations, Nationalities, and Peoples",
+    "zones": {
+      "Gamogofa": {
+        "en": "Gamogofa",
+        "am": "Gamogofa",
+        "woredas": [
+          {
+            "en": "Arbaminch",
+            "am": "Arbaminch"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @page { size: A4 landscape; margin: 0; }
+    html, body, .container { width: 297mm; height: 210mm; overflow: hidden; margin:0; padding:0; box-sizing:border-box; }
+    .container { border: 14px solid #00AA44; padding: 24px; }
+    .header { text-align: center; margin-top: 6px; margin-bottom: 6px; }
+    .flag { width: 120px; height: 75px; margin: 0 auto 8px; background: linear-gradient(#00AA44 0 33%, #FCDD09 0 66%, #EF3340 0); border: 2px solid #000; position: relative; }
+    .flag::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; background:#0066CC; border-radius: 50%; }
+    .flag::before { content: '★'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #FCDD09; font-size: 18px; z-index: 1; }
+    .title-main { font-weight: bold; font-size: 16px; text-transform: uppercase; }
+    .title-sub { font-weight: bold; font-size: 20px; margin-top: 6px; text-transform: uppercase; }
+    .top-nums-left { position: absolute; left: 24px; top: 18px; font-size: 10px; text-align: left; }
+    .top-nums-right { position: absolute; right: 24px; top: 18px; font-size: 10px; text-align: right; }
+    .reg { margin-bottom: 6px; }
+    .photos {
+      margin: 18px 0 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .photo { width: 110px; height: 140px; border: 3px solid #000; background:#f9f9f9; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .photo img { width:100%; height:100%; object-fit: cover; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+    }
+    .group { display:flex; align-items: baseline; margin-bottom: 8px; }
+    .label { width: 36%; font-weight: bold; font-size: 11px; margin-right: 6px; }
+    .value { flex: 0 0 auto; display: inline-block; width: 40%; max-width: 40%; border-bottom: 1px dotted #000; font-size: 11px; padding: 2px 0; }
+    .pairs { display:flex; gap: 12px; align-items: baseline; }
+    .pair { flex: 1; display:flex; align-items: baseline; }
+    .pair .label { width: 36%; }
+    .pair .value { width: 40%; max-width: 40%; }
+    .date { display:flex; gap: 10px; }
+    .date.tight { gap: 5px; }
+    .date > div { min-width: 42px; text-align:center; border-bottom:1px dotted #000; font-size: 12px; padding: 2px 0; }
+    .row { grid-column: 1 / span 2; }
+    .footer { margin-top: 18px; display:grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+    .signature { text-align:center; }
+    .line { border-bottom:1px solid #000; height: 28px; margin: 14px 0 6px; }
+    .seal { position: absolute; right: 24px; bottom: 24px; width: 95px; height: 95px; border: 3px solid #000; border-radius: 50%; display:flex; align-items:center; justify-content:center; background:#fff; font-size: 9px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-nums-left">
+      <div class="reg"><strong>Marriage Register Form Number</strong><br>{{marriageRegisterFormNumber}}</div>
+      <div class="reg"><strong>Marriage Registration Unique Identification Number</strong><br>{{certificateId}}</div>
+    </div>
+    <div class="top-nums-right">
+      <div class="reg"><strong>Wife's Birth Registration Unique Identification Number</strong><br>{{wifeBirthRegistrationId}}</div>
+      <div class="reg"><strong>Husband's Birth Registration Unique Identification Number</strong><br>{{husbandBirthRegistrationId}}</div>
+    </div>
+
+    <div class="header">
+      <div class="flag"></div>
+      <div class="title-main">በኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊ ሪፐብሊክ የወሳኝ ኩነት ምዝገባ</div>
+      <div class="title-main">Federal Democratic Republic of Ethiopia Vital Event Registration</div>
+      <div class="title-sub">የጋብቻ ምስክር ወረቀት</div>
+      <div class="title-sub">Marriage Certificate</div>
+    </div>
+
+    <div class="photos">
+      <div class="photo"><img src="{{photoPrimary}}" alt="Bride"></div>
+      <div class="photo"><img src="{{photoSecondary}}" alt="Groom"></div>
+    </div>
+
+    <div class="grid">
+      <div class="row pair">
+        <div class="pair"><div class="label">የሚስት ስም<br>Wife's Name</div><div class="value">{{wifeNameAmharic}}<br>{{wifeName}}</div></div>
+        <div class="pair"><div class="label">የአባት ስም<br>Father's Name</div><div class="value">{{wifeFatherNameAmharic}}<br>{{wifeFatherName}}</div></div>
+        <div class="pair"><div class="label">የአያት ስም<br>Grand Father's Name</div><div class="value">{{wifeGrandfatherNameAmharic}}<br>{{wifeGrandfatherName}}</div></div>
+        <div class="pair">
+          <div class="label">የትውልድ ቀን<br>Date of Birth</div>
+          <div class="value">
+            <span>{{wifeBirthDateEcDisplay}}</span><br>
+            <span>{{wifeBirthDateGcDisplay}}</span>
+          </div>
+        </div>
+        <div class="pair"><div class="label">ዜግነት<br>Nationality</div><div class="value">{{wifeNationalityAmharic}}<br>{{wifeNationality}}</div></div>
+      </div>
+      <div class="row pairs">
+        <div class="pair"><div class="label">የባል ስም<br>Husband's Name</div><div class="value">{{husbandNameAmharic}}<br>{{husbandName}}</div></div>
+        <div class="pair"><div class="label">የአባት ስም<br>Father's Name</div><div class="value">{{husbandFatherNameAmharic}}<br>{{husbandFatherName}}</div></div>
+        <div class="pair"><div class="label">የአያት ስም<br>Grand Father's Name</div><div class="value">{{husbandGrandfatherNameAmharic}}<br>{{husbandGrandfatherName}}</div></div>
+        <div class="pair">
+          <div class="label">የትውልድ ቀን<br>Date of Birth</div>
+          <div class="value">
+            <span>{{husbandBirthDateEcDisplay}}</span><br>
+            <span>{{husbandBirthDateGcDisplay}}</span>
+          </div>
+        </div>
+        <div class="pair"><div class="label">ዜግነት<br>Nationality</div><div class="value">{{husbandNationalityAmharic}}<br>{{husbandNationality}}</div></div>
+      </div>
+
+      <div class="row pairs">
+        <div class="pair">
+          <div class="label">የጋብቻ ምዝገባ ቦታ: ክልል/ከተማ አስተዳደር<br>Place of Marriage Registration: Region/City Administration</div>
+          <div class="value">
+            <span>{{registrationRegionAmharic}}</span><br>
+            <span>{{registrationRegion}}</span>
+          </div>
+        </div>
+        <div class="pair">
+          <div class="label">ዞን/ከተማ አስተዳደር<br>Zone/City Administration</div>
+          <div class="value">
+            <span>{{registrationZoneAmharic}}</span><br>
+            <span>{{registrationZone}}</span>
+          </div>
+        </div>
+        <div class="pair">
+          <div class="label">ወረዳ/ልዩ ወረዳ<br>Woreda/Special Woreda</div>
+          <div class="value">
+            <span>{{registrationWoredaAmharic}}</span><br>
+            <span>{{registrationWoreda}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row pairs">
+        <div class="pair">
+          <div class="label">ከተማ<br>City</div>
+          <div class="value">
+            <span>{{registrationCityAmharic}}</span><br>
+            <span>{{registrationCity}}</span>
+          </div>
+        </div>
+        <div class="pair">
+          <div class="label">ንቅስ ከተማ<br>Sub City</div>
+          <div class="value">
+            <span>{{registrationSubCityAmharic}}</span><br>
+            <span>{{registrationSubCity}}</span>
+          </div>
+        </div>
+        <div class="pair">
+          <div class="label">ቀበሌ<br>Kebele</div>
+          <div class="value">
+            <span>{{registrationKebeleAmharic}}</span><br>
+            <span>{{registrationKebele}}</span>
+          </div>
+        </div>
+        <div class="pair">
+          <div class="label">የጋብቻ ቀን<br>Date of Marriage</div>
+          <div class="value">
+            <span>{{marriageDateEcDisplay}}</span><br>
+            <span>{{marriageDateGcDisplay}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row pairs">
+        <div class="pair">
+          <div class="label">{{marriageRegistrationDateEc}} E.C የጋብቻ ምዝገባ ቀን<br>{{marriageRegistrationDateGc}} G.C Date of Marriage Registration</div>
+          <div class="value"></div>
+        </div>
+        <div class="pair">
+          <div class="label">{{issueDateEc}} E.C የምስክር ወረቀት የተሰጠበት ቀን<br>{{issueDateGc}} G.C Date of Certificate Issued</div>
+          <div class="value"></div>
+        </div>
+      </div>
+
+    <div class="footer">
+      <div class="signature">
+        <div>የክብር መዝገብ ሹም ስም<br>Name of Civil registrar</div>
+        <div class="line"></div>
+        <div>{{registrarName}}</div>
+      </div>
+      <div class="signature">
+        <div>ፊርማ<br>Signature</div>
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <div class="seal">ማሕተም<br>SEAL</div>
+  </div>
+</body>
+</html>
+
+

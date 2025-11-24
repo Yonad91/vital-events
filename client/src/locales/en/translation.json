@@ -1,0 +1,96 @@
+{
+  "app": {
+    "title": "Debre Berhan Vital Events Registration System",
+    "language": "Language",
+    "english": "English",
+    "amharic": "Amharic",
+    "logout": "Logout"
+  },
+  "nav": {
+    "registrant": "Registrant",
+    "hospital": "Hospital",
+    "churchMosque": "Church/Mosque",
+    "registrar": "Registrar",
+    "officeManager": "Office Manager",
+    "admin": "System Admin",
+    "workflow": "Workflow"
+  },
+  "common": {
+    "search": "Search",
+    "status": "Status",
+    "actions": "Actions",
+    "approve": "Approve",
+    "reject": "Reject",
+    "view": "View",
+    "submit": "Submit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "download": "Download",
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "from": "From",
+    "to": "To",
+    "date": "Date",
+    "type": "Type",
+    "name": "Name",
+    "birth": "Birth",
+    "death": "Death",
+    "marriage": "Marriage",
+    "statistics": "Statistics",
+    "total": "Total",
+    "upload": "Upload",
+    "docUpload": "Document Upload"
+  },
+  "registrant": {
+    "title": "Registrant Dashboard",
+    "registerEvent": "Register Event",
+    "eventType": "Event Type",
+    "place": "Place",
+    "details": "Details",
+    "track": "Track Records",
+    "requestCertificate": "Request Certificate",
+    "certificate": "Certificate"
+  },
+  "hospital": {
+    "title": "Hospital Dashboard",
+    "reportBirth": "Report Birth Event",
+    "motherName": "Mother Name",
+    "childName": "Child Name",
+    "location": "Location"
+  },
+  "churchMosque": {
+    "title": "Church/Mosque Dashboard",
+    "reportDeath": "Report Death Event",
+    "reportMarriage": "Report Marriage Event",
+    "person": "Person",
+    "cause": "Cause",
+    "bride": "Bride",
+    "groom": "Groom",
+    "witnesses": "Witnesses"
+  },
+  "registrar": {
+    "title": "Registrar Dashboard",
+    "incoming": "Incoming Records",
+    "validate": "Validate Data",
+    "issueCertificate": "Issue Certificate",
+    "duplicateCheck": "Duplicate Check"
+  },
+  "officeManager": {
+    "title": "Office Manager Dashboard",
+    "overview": "Overview",
+    "generateReports": "Generate Reports",
+    "disputes": "Disputes",
+    "backups": "Backups"
+  },
+  "admin": {
+    "title": "System Admin Dashboard",
+    "manageUsers": "Manage Users",
+    "addUser": "Add User",
+    "role": "Role",
+    "email": "Email",
+    "institution": "Institution",
+    "configure": "Configure System",
+    "verify": "Verify Account"
+  }
+}

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @page { size: A4 landscape; margin: 0; }
+    html, body, .container { width: 297mm; height: 210mm; margin: 0; padding: 0; box-sizing: border-box; overflow: hidden; }
+    body {
+      font-family: "Times New Roman", serif;
+      color: #111;
+    }
+    .container {
+      border: 14px solid #8b4513;
+      padding: 24px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8mm;
+      background-image:
+        linear-gradient(135deg, rgba(255,255,255,0.75), rgba(0,0,0,0.03)),
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0, rgba(0,0,0,0.02) 3px, transparent 3px, transparent 6px);
+    }
+    .top-nums-left,
+    .top-nums-right {
+      position: absolute;
+      top: 18px;
+      font-size: 10px;
+      line-height: 1.4;
+    }
+    .top-nums-left { left: 24px; text-align: left; }
+    .top-nums-right { right: 24px; text-align: right; }
+    .reg { margin-bottom: 6px; }
+    .header { text-align: center; margin-top: 6px; }
+    .flag { width: 120px; height: 75px; margin: 0 auto 8px; background: linear-gradient(#00AA44 0 33%, #FCDD09 0 66%, #EF3340 0); border: 2px solid #000; position: relative; }
+    .flag::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; background:#0066CC; border-radius: 50%; }
+    .flag::before { content: '★'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #FCDD09; font-size: 18px; z-index: 1; }
+    .title-main { font-weight: bold; font-size: 16px; text-transform: uppercase; }
+    .title-sub { font-weight: bold; font-size: 20px; margin-top: 6px; text-transform: uppercase; }
+    .photos {
+      margin: 10mm 0 6mm;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .photo {
+      width: 110px;
+      height: 140px;
+      border: 3px solid #000;
+      background: #f3f3f3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6mm;
+      font-size: 11px;
+    }
+    .row {
+      grid-column: 1 / span 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+    }
+    .pair {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .label {
+      font-weight: 600;
+    }
+    .value {
+      border-bottom: 1px dotted #000;
+      padding-bottom: 2px;
+      min-height: 14px;
+      font-size: 11px;
+    }
+    .dual-value span {
+      display: block;
+    }
+    .footer {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20mm;
+      font-size: 11px;
+      margin-top: 4mm;
+    }
+    .signature {
+      text-align: center;
+    }
+    .line {
+      border-bottom: 1px solid #000;
+      height: 26px;
+      margin: 10px 0 6px;
+    }
+    .seal {
+      position: absolute;
+      right: 24px;
+      bottom: 24px;
+      width: 95px;
+      height: 95px;
+      border: 3px solid #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .qr {
+      position: absolute;
+      left: 24px;
+      bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-nums-left">
+      <div class="reg"><strong>Divorce Register Form Number</strong><br>{{registrationNumber}}</div>
+      <div class="reg"><strong>Divorce Registration Unique Identification Number</strong><br>{{certificateId}}</div>
+    </div>
+    <div class="top-nums-right">
+      <div class="reg"><strong>Divorce Registration Number</strong><br>{{divorceRegistrationNumber}}</div>
+      <div class="reg"><strong>Divorce Type</strong><br>{{divorceType}}</div>
+    </div>
+
+    <div class="header">
+      <div class="flag"></div>
+      <div class="title-main">በኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊ ሪፐብሊክ የወሳኝ ኩነት ምዝገባ</div>
+      <div class="title-main">Federal Democratic Republic of Ethiopia Vital Event Registration</div>
+      <div class="title-sub">የፍቺ ምስክር ወረቀት</div>
+      <div class="title-sub">Divorce Certificate</div>
+    </div>
+
+    <div class="photos">
+      <div class="photo"><img src="{{photoPrimary}}" alt="Spouse 1 Photo"></div>
+      <div class="photo"><img src="{{photoSecondary}}" alt="Spouse 2 Photo"></div>
+    </div>
+
+    <div class="grid">
+      <div class="row">
+        <div class="pair">
+          <div class="label">የፍቺ ተካፋይ ስም<br>Divorcee Name</div>
+          <div class="value">{{spouse1NameAmharic}}<br>{{spouse1Name}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">የአባት ስም<br>Father's Name</div>
+          <div class="value">{{spouse1FatherNameAmharic}}<br>{{spouse1FatherName}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">የእናት ስም<br>Mother's Name</div>
+          <div class="value">{{spouse1MotherNameAmharic}}<br>{{spouse1MotherName}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">የትውልድ ቀን<br>Date of Birth</div>
+          <div class="value">{{spouse1BirthDate}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">ጾታ<br>Sex</div>
+          <div class="value">{{spouse1Sex}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">ዜግነት<br>Nationality</div>
+          <div class="value">{{spouse1Nationality}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">የትውልድ ሀገር<br>Country of Birth</div>
+          <div class="value">{{spouse1CountryOfBirth}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">አሁን አድራሻ<br>Current Address</div>
+          <div class="value">{{spouse1CurrentAddress}}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="pair">
+          <div class="label">የፍቺ ተካፋይ ስም<br>Divorcee Name</div>
+          <div class="value">{{spouse2NameAmharic}}<br>{{spouse2Name}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">የአባት ስም<br>Father's Name</div>
+          <div class="value">{{spouse2FatherNameAmharic}}<br>{{spouse2FatherName}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">የእናት ስም<br>Mother's Name</div>
+          <div class="value">{{spouse2MotherNameAmharic}}<br>{{spouse2MotherName}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">የትውልድ ቀን<br>Date of Birth</div>
+          <div class="value">{{spouse2BirthDate}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">ጾታ<br>Sex</div>
+          <div class="value">{{spouse2Sex}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">ዜግነት<br>Nationality</div>
+          <div class="value">{{spouse2Nationality}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">የትውልድ ሀገር<br>Country of Birth</div>
+          <div class="value">{{spouse2CountryOfBirth}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">አሁን አድራሻ<br>Current Address</div>
+          <div class="value">{{spouse2CurrentAddress}}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="pair">
+          <div class="label">{{issueDateEc}} E.C የፍቺ ምስክር ወረቀት የተሰጠበት ቀን<br>{{issueDateGc}} G.C Date of Certificate Issued</div>
+          <div class="value"></div>
+        </div>
+        <div class="pair">
+          <div class="label">የፍቺ ቀን<br>Date of Divorce</div>
+          <div class="value">{{divorceDate}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">{{divorceRegistrationDateEc}} E.C የፍቺ ምዝገባ ቀን<br>{{divorceRegistrationDateGc}} G.C Date of Divorce Registration</div>
+          <div class="value"></div>
+        </div>
+        <div class="pair">
+          <div class="label">የፍቺ ምክንያት<br>Reason for Divorce</div>
+          <div class="value">{{divorceReason}}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="pair">
+          <div class="label">ክልል / ከተማ አስተዳደር<br>Region / City Administration</div>
+          <div class="value">{{registrationRegion}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">ዞን / ከተማ አስተዳደር<br>Zone / City Administration</div>
+          <div class="value">{{registrationZone}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">ከተማ<br>City</div>
+          <div class="value">{{registrationCity}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">ንቅስ ከተማ<br>Sub City</div>
+          <div class="value">{{registrationSubCity}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">ወረዳ / ልዩ ወረዳ<br>Woreda / Special Woreda</div>
+          <div class="value">{{registrationWoreda}}</div>
+        </div>
+        <div class="pair">
+          <div class="label">ቀበሌ<br>Kebele</div>
+          <div class="value">{{registrationKebele}}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="pair">
+          <div class="label">የፍቺ የተፈታበት ቦታ<br>Place of Divorce Dissolved</div>
+          <div class="value">{{marriagePlace}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="signature">
+        <div>የክብር መዝገብ ሹም ስም<br>Name of Civil Registrar</div>
+        <div class="line"></div>
+        <div>{{registrarName}}</div>
+      </div>
+      <div class="signature">
+        <div>ፊርማ<br>Signature</div>
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <div class="qr">{{qrCode}}</div>
+    <div class="seal">ማሕተም<br>SEAL</div>
+  </div>
+</body>
+</html>

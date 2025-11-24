@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    html, body, .container { width: 297mm; height: 210mm; overflow: hidden; margin:0; padding:0; box-sizing:border-box; }
+    @page { size: A4 landscape; margin: 0; }
+    body { font-family: 'Times New Roman', serif; color:#000; line-height: 1.1; margin: 0; overflow: hidden; }
+    .band-top { height: 28px; background: #2E62B5; }
+    .band-bottom { height: 28px; background: #2E62B5; position: absolute; left:0; right:0; bottom:0; }
+    .container { position: relative; padding: 20px 22px; width: 297mm; height: 210mm; background: #fff; border-left: 12px solid #2E62B5; border-right: 12px solid #2E62B5; overflow: hidden; box-sizing: border-box; }
+    .top-nums { position: absolute; right: 24px; top: 40px; font-size: 10px; text-align: right; }
+    .reg { margin-bottom: 6px; }
+    .header { text-align: center; margin-top: 42px; margin-bottom: 20px; }
+    .photo-section { position: absolute; right: 24px; top: 120px; width: 120px; text-align: center; }
+    .photo-placeholder { width: 100px; height: 120px; border: 2px solid #000; background: #f5f5f5; display: flex; align-items: center; justify-content: center; margin: 0 auto; position: relative; overflow: hidden; }
+    .photo-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-seal { position: absolute; bottom: 2px; right: 2px; width: 30px; height: 30px; border: 1px solid #000; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 6px; font-weight: bold; }
+    .flag { width: 100px; height: 62px; margin: 0 auto 6px; background: linear-gradient(#00AA44 0 33%, #FCDD09 0 66%, #EF3340 0); border: 2px solid #000; position: relative; }
+    .flag::after { content: ''; position:absolute; top:50%; left:50%; transform: translate(-50%,-50%); width:30px; height:30px; background:#0066CC; border-radius:50%; }
+    .flag::before { content: '★'; position:absolute; top:50%; left:50%; transform: translate(-50%,-50%); color:#FCDD09; font-size:18px; z-index:1; }
+    .title-main { font-weight: bold; font-size: 14px; text-transform: uppercase; }
+    .title-sub { font-weight: bold; font-size: 18px; margin-top: 4px; text-transform: uppercase; }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    .group { display:flex; align-items: baseline; margin-bottom: 8px; }
+    .label { width: 34%; font-weight: bold; font-size: 10px; margin-right: 6px; }
+    .value { flex:0 0 auto; display:inline-block; width:38%; max-width:38%; border-bottom:1px dotted #000; font-size:10px; padding:2px 0; }
+    .date { display:flex; gap: 10px; }
+    .date.tight { gap: 5px; }
+    .pairs { display:flex; gap: 12px; align-items: baseline; }
+    .pair { flex: 1; display:flex; align-items: baseline; }
+    .pair .label { width: 36%; }
+    .pair .value { width: 40%; max-width: 40%; }
+    .date > div { min-width: 42px; text-align:center; border-bottom:1px dotted #000; font-size: 12px; padding: 2px 0; }
+    .row { grid-column: 1 / span 2; }
+    /* Official template has no photo/QR blocks, remove those and center the seal at bottom */
+    .seal { position: absolute; left: 50%; transform: translateX(-50%); bottom: 32px; width: 90px; height: 90px; border: 3px solid #000; border-radius: 50%; display:flex; align-items:center; justify-content:center; background:#fff; font-size: 9px; font-weight:bold; }
+  </style>
+</head>
+<body>
+  <div class="band-top"></div>
+  <div class="container">
+    <div class="top-nums">
+      <div class="reg"><strong>Birth Register Form Number</strong><br>{{registrationNumber}}</div>
+      <div class="reg"><strong>Birth Registration Unique Identification Number</strong><br>{{certificateId}}</div>
+    </div>
+
+    <div class="header">
+      <div class="flag"></div>
+      <div class="title-main">በኢትዮጵያ ፌዴራላዊ ዴሞክራሲያዊ ሪፐብሊክ የወሳኝ ኩነት ምዝገባ</div>
+      <div class="title-main">Federal Democratic Republic of Ethiopia Vital Event Registration</div>
+      <div class="title-sub">የልደት ምስክር ወረቀት</div>
+      <div class="title-sub">Birth Certificate</div>
+    </div>
+
+    <div class="photo-section">
+      <div class="photo-placeholder">
+        <img src="{{photoPrimary}}" alt="Photo" style="display: {{photoPrimaryDisplay}};">
+        <div style="font-size: 8px; color: #999; display: {{photoPlaceholderDisplay}};">Photo</div>
+        <div class="photo-seal">የኢትዮጵያ<br>የወሳኝ<br>ኩነት<br>ምዝገባ</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="group"><div class="label">ስም<br>Name</div><div class="value">{{childNameAmharic}}<br>{{childName}}</div></div>
+        <div class="group"><div class="label">የአባት ስም<br>Father's Name</div><div class="value">{{childFatherNameAmharic}}<br>{{childFatherName}}</div></div>
+        <div class="group"><div class="label">የአያት ስም<br>Grand Father's Name</div><div class="value">{{childGrandfatherNameAmharic}}<br>{{childGrandfatherName}}</div></div>
+        <div class="group"><div class="label">ፆታ<br>Sex</div><div class="value">{{childSexAmharic}}<br>{{childSex}}</div></div>
+        <div class="group"><div class="label">የልደት ቀን ወር ዓመት<br>Date of Birth: Month/Date/Year</div><div class="value" style="font-size: 9px;">{{childBirthDateEc}} E.C<br>{{childBirthDateGc}} G.C</div></div>
+        <div class="group"><div class="label">የልደት ቦታ/ሀገር<br>Place/Country of Birth</div><div class="value">{{childBirthPlaceAmharic}}<br>{{childBirthPlace}}</div></div>
+        <div class="row pairs">
+          <div class="pair"><div class="label">ክልል/ከተማ አስተዳደር<br>Region/City Administration</div><div class="value">{{registrationRegionAmharic}}<br>{{registrationRegion}}</div></div>
+          <div class="pair"><div class="label">ዞን/ከተማ አስተዳደር<br>Zone/City Administration</div><div class="value">{{registrationZoneAmharic}}<br>{{registrationZone}}</div></div>
+        </div>
+        <div class="row pairs">
+          <div class="pair"><div class="label">ወረዳ/ልዩ ወረዳ<br>Woreda/Special Woreda</div><div class="value">{{registrationWoredaAmharic}}<br>{{registrationWoreda}}</div></div>
+          <div class="pair"><div class="label">ዜግነት<br>Nationality</div><div class="value">{{childNationalityAmharic}}<br>{{childNationality}}</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="group"><div class="label">የእናት ሙሉ ስም<br>Mother's Full Name</div><div class="value">{{motherNameAmharic}}<br>{{motherName}}</div></div>
+        
+        <div class="group"><div class="label">የእናት አባት ሙሉ ስም<br>Mother's Father's Full Name</div><div class="value">{{motherFatherNameAmharic}}<br>{{motherFatherName}}</div></div>
+        <div class="group"><div class="label">የእናት ዜግነት<br>Mother's Nationality</div><div class="value">{{motherNationalityAmharic}}<br>{{motherNationality}}</div></div>
+        <div class="group"><div class="label">የአባት ዜግነት<br>Father's Nationality</div><div class="value">{{fatherNationalityAmharic}}<br>{{fatherNationality}}</div></div>
+        <div class="group"><div class="label">የልደት ምዝገባ ቀን ወር ዓመት<br>Date of Birth Registration: Month/Date/Year</div><div class="value" style="font-size: 9px;">{{registrationDateEc}} E.C<br>{{registrationDateGc}} G.C</div></div>
+        <div class="group"><div class="label">የምስክር ወረቀት የተሰጠበት ወር ቀን ዓመት<br>Date of Certificate Issued: Month/Date/Year</div><div class="value" style="font-size: 9px;">{{issueDateEc}} E.C<br>{{issueDateGc}} G.C</div></div>
+        <div class="group"><div class="label">የክብር መዝገብ ሹም ስም<br>Name of Civil Registrar</div><div class="value">{{registrarName}}</div></div>
+        <div class="group"><div class="label">የምስክር ወረቀት ቁጥር<br>Certificate Number</div><div class="value">{{certificateId}}</div></div>
+      </div>
+    </div>
+ <div class="form pairs">
+      <div class="pair">
+        <div>የክብር መዝገብ ሹም ስም<br>Name of Civil registrar</div>
+        <div class="line"></div>
+        <div>{{registrarName}}</div>
+      </div>
+      <div class="pair">
+        <div>ፊርማ<br>Signature</div>
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <div class="seal">ማሕተም<br>SEAL</div>
+  </div>
+  <div class="band-bottom"></div>
+</body>
+</html>
+
+
