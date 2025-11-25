@@ -39,9 +39,9 @@ async function startApp() {
   ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
       <LanguageProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
       </LanguageProvider>
     </React.StrictMode>
   );
