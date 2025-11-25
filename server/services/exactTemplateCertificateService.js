@@ -1047,6 +1047,24 @@ export class ExactTemplateCertificateService {
       }
 
       case 'divorce': {
+        const pickText = (...keys) => {
+          for (const key of keys) {
+            if (!key) continue;
+            const value = data[key];
+            if (value === null || value === undefined) continue;
+            if (typeof value === 'string') {
+              const trimmed = value.trim();
+              if (trimmed.length) return trimmed;
+            } else if (typeof value === 'number') {
+              return String(value);
+            }
+          }
+          return '';
+        };
+        const spouse1BirthDateSource =
+          data.divorceSpouse1BirthDate || data.spouse1BirthDate || data.birthDate;
+        const spouse2BirthDateSource =
+          data.divorceSpouse2BirthDate || data.spouse2BirthDate || data.birthDate;
         // Format dates as DD/MM/YYYY E.C / G.C for labels
         const formatDateNumeric = (dateInput, isEthiopianInput = null) => {
           if (!dateInput) return { ec: '', gc: '' };
@@ -1096,29 +1114,105 @@ export class ExactTemplateCertificateService {
           type: 'Divorce Certificate',
           typeAmharic: 'የፍቺ ምስክር ወረቀት',
           // Spouse 1 information
-          spouse1Name: data.spouse1NameEn || data.spouse1NameAm || '',
-          spouse1NameAmharic: data.spouse1NameAm || data.spouse1NameEn || '',
-          spouse1FatherName: data.spouse1FatherEn || data.spouse1FatherAm || '',
-          spouse1FatherNameAmharic: data.spouse1FatherAm || data.spouse1FatherEn || '',
-          spouse1MotherName: data.spouse1MotherEn || data.spouse1MotherAm || '',
-          spouse1MotherNameAmharic: data.spouse1MotherAm || data.spouse1MotherEn || '',
-          spouse1BirthDate: this.formatDate(data.spouse1BirthDate || data.birthDate),
-          spouse1Sex: data.spouse1Sex || data.sex || '',
-          spouse1Nationality: data.spouse1Nationality || data.nationality || 'Ethiopian',
-          spouse1CountryOfBirth: data.spouse1CountryOfBirth || '',
-          spouse1CurrentAddress: data.spouse1CurrentAddress || '',
+          spouse1Name: pickText(
+            'divorceSpouse1NameEn',
+            'spouse1NameEn',
+            'divorceHusbandNameEn',
+            'divorceWifeNameEn'
+          ),
+          spouse1NameAmharic: pickText(
+            'divorceSpouse1NameAm',
+            'spouse1NameAm',
+            'divorceHusbandNameAm',
+            'divorceWifeNameAm'
+          ),
+          spouse1FatherName: pickText(
+            'divorceSpouse1FatherNameEn',
+            'spouse1FatherEn',
+            'divorceHusbandFatherNameEn',
+            'divorceWifeFatherNameEn'
+          ),
+          spouse1FatherNameAmharic: pickText(
+            'divorceSpouse1FatherNameAm',
+            'spouse1FatherAm',
+            'divorceHusbandFatherNameAm',
+            'divorceWifeFatherNameAm'
+          ),
+          spouse1MotherName: pickText(
+            'divorceSpouse1MotherNameEn',
+            'spouse1MotherEn',
+            'divorceSpouse1GrandfatherNameEn'
+          ),
+          spouse1MotherNameAmharic: pickText(
+            'divorceSpouse1MotherNameAm',
+            'spouse1MotherAm',
+            'divorceSpouse1GrandfatherNameAm'
+          ),
+          spouse1BirthDate: this.formatDate(spouse1BirthDateSource),
+          spouse1Sex: pickText('divorceSpouse1Sex', 'spouse1Sex', 'sex'),
+          spouse1Nationality:
+            pickText('divorceSpouse1NationalityAm', 'spouse1Nationality', 'nationality') ||
+            'Ethiopian',
+          spouse1CountryOfBirth: pickText(
+            'divorceSpouse1BirthPlaceEn',
+            'divorceSpouse1BirthPlaceAm',
+            'spouse1CountryOfBirth'
+          ),
+          spouse1CurrentAddress: pickText(
+            'divorceSpouse1ResidenceEn',
+            'divorceSpouse1ResidenceAm',
+            'spouse1CurrentAddress'
+          ),
           // Spouse 2 information
-          spouse2Name: data.spouse2NameEn || data.spouse2NameAm || '',
-          spouse2NameAmharic: data.spouse2NameAm || data.spouse2NameEn || '',
-          spouse2FatherName: data.spouse2FatherEn || data.spouse2FatherAm || '',
-          spouse2FatherNameAmharic: data.spouse2FatherAm || data.spouse2FatherEn || '',
-          spouse2MotherName: data.spouse2MotherEn || data.spouse2MotherAm || '',
-          spouse2MotherNameAmharic: data.spouse2MotherAm || data.spouse2MotherEn || '',
-          spouse2BirthDate: this.formatDate(data.spouse2BirthDate || data.birthDate),
-          spouse2Sex: data.spouse2Sex || data.sex || '',
-          spouse2Nationality: data.spouse2Nationality || data.nationality || 'Ethiopian',
-          spouse2CountryOfBirth: data.spouse2CountryOfBirth || '',
-          spouse2CurrentAddress: data.spouse2CurrentAddress || '',
+          spouse2Name: pickText(
+            'divorceSpouse2NameEn',
+            'spouse2NameEn',
+            'divorceHusbandNameEn',
+            'divorceWifeNameEn'
+          ),
+          spouse2NameAmharic: pickText(
+            'divorceSpouse2NameAm',
+            'spouse2NameAm',
+            'divorceHusbandNameAm',
+            'divorceWifeNameAm'
+          ),
+          spouse2FatherName: pickText(
+            'divorceSpouse2FatherNameEn',
+            'spouse2FatherEn',
+            'divorceHusbandFatherNameEn',
+            'divorceWifeFatherNameEn'
+          ),
+          spouse2FatherNameAmharic: pickText(
+            'divorceSpouse2FatherNameAm',
+            'spouse2FatherAm',
+            'divorceHusbandFatherNameAm',
+            'divorceWifeFatherNameAm'
+          ),
+          spouse2MotherName: pickText(
+            'divorceSpouse2MotherNameEn',
+            'spouse2MotherEn',
+            'divorceSpouse2GrandfatherNameEn'
+          ),
+          spouse2MotherNameAmharic: pickText(
+            'divorceSpouse2MotherNameAm',
+            'spouse2MotherAm',
+            'divorceSpouse2GrandfatherNameAm'
+          ),
+          spouse2BirthDate: this.formatDate(spouse2BirthDateSource),
+          spouse2Sex: pickText('divorceSpouse2Sex', 'spouse2Sex', 'sex'),
+          spouse2Nationality:
+            pickText('divorceSpouse2NationalityAm', 'spouse2Nationality', 'nationality') ||
+            'Ethiopian',
+          spouse2CountryOfBirth: pickText(
+            'divorceSpouse2BirthPlaceEn',
+            'divorceSpouse2BirthPlaceAm',
+            'spouse2CountryOfBirth'
+          ),
+          spouse2CurrentAddress: pickText(
+            'divorceSpouse2ResidenceEn',
+            'divorceSpouse2ResidenceAm',
+            'spouse2CurrentAddress'
+          ),
           // Divorce details
           divorceDate: this.formatDate(data.divorceDate),
           divorceRegistrationDate: this.formatDate(data.divorceRegistrationDate || event.createdAt),
@@ -1135,7 +1229,14 @@ export class ExactTemplateCertificateService {
           registrationCity: data.city || data.divorceCity || '',
           registrationSubCity: data.subCity || data.divorceSubCity || '',
           registrationWoreda: data.woreda || data.divorceWoreda || '',
-          registrationKebele: data.kebele || data.divorceKebele || ''
+          registrationKebele: data.kebele || data.divorceKebele || '',
+          marriagePlace: pickText(
+            'divorceMarriagePlace',
+            'marriagePlace',
+            'marriagePlaceName',
+            'marriageCity'
+          ),
+          qrCode: ''
         };
       }
 

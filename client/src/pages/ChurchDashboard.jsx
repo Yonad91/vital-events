@@ -5,6 +5,8 @@ import { apiFetch } from "@/lib/api";
 import FormSelector from "./forms/FormSelector";
 import ProfileSidebar from "../components/ProfileSidebar";
 import ReportSubmissionPanel from "../components/ReportSubmissionPanel";
+import Pagination from "../components/Pagination";
+import { useLanguage } from "@/context/LanguageContext";
 
 // MOCK UI COMPONENTS
 const Card = ({ children, className }) => (
@@ -128,7 +130,7 @@ const getPeriodStartDate = (periodKey) => {
 };
 
 const ChurchDashboard = ({ user, setUser }) => {
-  const [lang, setLang] = useState("am");
+  const { lang, toggleLang } = useLanguage();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [statusFilter, setStatusFilter] = useState('draft');
@@ -146,6 +148,9 @@ const ChurchDashboard = ({ user, setUser }) => {
   const [reportLoading, setReportLoading] = useState(false);
   const [reportError, setReportError] = useState("");
   const [reportsTab, setReportsTab] = useState("prepare");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [reportCurrentPage, setReportCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
   const [receivedTemplates, setReceivedTemplates] = useState([]);
   const [templatesLoading, setTemplatesLoading] = useState(false);
   const [letterForm, setLetterForm] = useState({ title: "", content: "" });
@@ -443,7 +448,7 @@ const ChurchDashboard = ({ user, setUser }) => {
           <h1 className="text-2xl font-bold">
             {translate(lang, "Church Dashboard", "የቤተክርስቲያን ዳሽቦርድ")}
           </h1>
-            <Button onClick={() => setLang(lang === "en" ? "am" : "en")}>
+            <Button onClick={toggleLang}>
               {lang === "en" ? "አማርኛ" : "English"}
             </Button>
         </div>
@@ -583,7 +588,12 @@ const ChurchDashboard = ({ user, setUser }) => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {events.map((event) => (
+                    {(() => {
+                      const totalPages = Math.ceil(events.length / itemsPerPage);
+                      const startIndex = (currentPage - 1) * itemsPerPage;
+                      const endIndex = startIndex + itemsPerPage;
+                      const paginatedEvents = events.slice(startIndex, endIndex);
+                      return paginatedEvents.map((event) => (
                       <TableRow key={event._id || event.id}>
                         <TableCell>{event.registrationId}</TableCell>
                         <TableCell>
@@ -659,15 +669,29 @@ const ChurchDashboard = ({ user, setUser }) => {
                             )}
                           </div>
                           </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </div>
+                          </TableRow>
+                      ));
+                    })()}
+                  </TableBody>
+                </Table>
+              </div>
+                )}
+                {events.length > 0 && (() => {
+                  const totalPages = Math.ceil(events.length / itemsPerPage);
+                  return (
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      onPageChange={setCurrentPage}
+                      itemsPerPage={itemsPerPage}
+                      totalItems={events.length}
+                      lang={lang}
+                    />
+                  );
+                })()}
+            </CardContent>
             )}
-          </CardContent>
-          )}
-        </Card>
+          </Card>
         )}
 
         {currentView === 'reports' && (
@@ -836,7 +860,12 @@ const ChurchDashboard = ({ user, setUser }) => {
                           </TableRow>
                         </TableHeader>
                         <TableBody>
-                          {filteredReportEvents.slice(0, 25).map((event) => (
+                          {(() => {
+                            const totalPages = Math.ceil(filteredReportEvents.length / itemsPerPage);
+                            const startIndex = (reportCurrentPage - 1) * itemsPerPage;
+                            const endIndex = startIndex + itemsPerPage;
+                            const paginatedReportEvents = filteredReportEvents.slice(startIndex, endIndex);
+                            return paginatedReportEvents.map((event) => (
                             <TableRow key={event._id || event.id}>
                               <TableCell>{event.registrationId || translate(lang, "N/A", "አይታወቅም")}</TableCell>
                               <TableCell>{translate(lang, event.type || "-", event.type || "-")}</TableCell>
@@ -872,18 +901,23 @@ const ChurchDashboard = ({ user, setUser }) => {
                                 </div>
                               </TableCell>
                             </TableRow>
-                          ))}
+                            ));
+                          })()}
                         </TableBody>
                       </Table>
-                      {filteredReportEvents.length > 25 && (
-                        <p className="text-xs text-gray-500 mt-2">
-                          {translate(
-                            lang,
-                            "Showing first 25 records. Narrow the period to see more detail.",
-                            "መጀመሪያ 25 መዝገቦችን ብቻ ይታያሉ። ዝርዝር ለማየት ጊዜውን ይገድቡ።"
-                          )}
-                        </p>
-                      )}
+                      {filteredReportEvents.length > 0 && (() => {
+                        const totalPages = Math.ceil(filteredReportEvents.length / itemsPerPage);
+                        return (
+                          <Pagination
+                            currentPage={reportCurrentPage}
+                            totalPages={totalPages}
+                            onPageChange={setReportCurrentPage}
+                            itemsPerPage={itemsPerPage}
+                            totalItems={filteredReportEvents.length}
+                            lang={lang}
+                          />
+                        );
+                      })()}
                     </div>
                   )}
                 </>

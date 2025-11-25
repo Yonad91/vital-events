@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { ETH_GEO } from "@/lib/geo";
 import { apiFetch } from "@/lib/api";
 import { EthiopianDatePicker } from "../../lib/forms.jsx";
-import { buildDivorcePrefillFromBirth, mergePrefillState } from "@/lib/birthAutofill";
+import { buildDivorcePrefillFromBirth, buildDivorcePrefillFromMarriage, mergePrefillState } from "@/lib/birthAutofill";
 import { getCurrentEthiopianDate, isEthiopianDateInFuture } from "@/lib/ethioDate";
 
 // UI Components (same as other forms)
@@ -95,6 +95,43 @@ const DIVORCE_FORM_CONFIG = [
   { name: "registrationDateEth", labelEn: "Registration Date (Ethiopian)", labelAm: "የመመዝገቢያ ቀን (ኢትዮ)", type: "ethiopian-date" },
   { name: "registrationTimeHourAm", labelEn: "Registration Time: Hour", labelAm: "ሰዓት" },
 
+
+   { section: "Registration Place", sectionAm: "የመዝገብ ቦታ" },
+  {
+    name: "registrationRegion",
+    labelEn: "Region/City Administration",
+    labelAm: "ክልል/ከተማ አስተዳደር",
+    type: "location-region",
+  },
+  {
+    name: "registrationZone",
+    labelEn: "Zone",
+    labelAm: "ዞን",
+    type: "location-zone",
+  },
+  {
+    name: "registrationWoreda",
+    labelEn: "Woreda",
+    labelAm: "ወረዳ",
+    type: "location-woreda",
+  },
+  {
+    name: "registrationCity",
+    labelEn: "City",
+    labelAm: "ከተማ",
+  },
+  {
+    name: "registrationSubCity",
+    labelEn: "Sub City",
+    labelAm: "ክፍለ ከተማ",
+  },
+  {
+    name: "registrationKebele",
+    labelEn: "Kebele",
+    labelAm: "ቀበሌ",
+  },
+
+  
   { section: "Place of divorce", sectionAm: "የጋብቻ/ፍቺ ቦታ" },
   { name: "divorceRegion", labelEn: "region/city administration", labelAm: "ክልል/ከተማ አስተዳደር" },
   { name: "divorceZone", labelEn: "zone/city administration", labelAm: "ዞን/ከተማ አስተዳደር" },
@@ -426,6 +463,8 @@ const DivorceForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) =
         token: user.token,
       });
 
+      console.log('[DivorceForm] checkDuplicateId response:', result);
+
       if (result.isDuplicate) {
         const fieldLabel = fieldName === 'divorceSpouse1IdAm' ? (lang === 'en' ? 'Spouse 1' : 'ወገን 1') : (lang === 'en' ? 'Spouse 2' : 'ወገን 2');
         const errorMsg = lang === 'en' 
@@ -439,16 +478,87 @@ const DivorceForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) =
           return next;
         });
       }
+      
+      // Check for birth record first (from initial response or fallback API call)
       let birthData = result?.birthRecord?.data;
+      console.log('[DivorceForm] Birth record from response:', birthData ? 'found' : 'not found');
+      
       if (!birthData && shouldRequestPrefill) {
+        console.log('[DivorceForm] Fetching birth record as fallback...');
         birthData = await fetchBirthRecord(idNumber);
+        console.log('[DivorceForm] Birth record from fallback:', birthData ? 'found' : 'not found');
       }
+      
+      // Use birth data if available
       if (shouldRequestPrefill && birthData) {
+        console.log('[DivorceForm] Using birth record for autofill');
         const patch = buildDivorcePrefillFromBirth(
           birthData,
           fieldName === 'divorceSpouse2IdAm' ? 'spouse2' : 'spouse1'
         );
         applyPrefillPatch(patch);
+      } 
+      // If no birth record found, try to use marriage record data
+      else if (shouldRequestPrefill && !birthData) {
+        console.log('[DivorceForm] No birth record, checking for marriage record...');
+        // Check marriage record from initial response
+        const marriageRecord = result?.marriageRecord;
+        console.log('[DivorceForm] Marriage record from response:', marriageRecord);
+        
+        if (marriageRecord?.data) {
+          console.log('[DivorceForm] Using marriage record for autofill:', marriageRecord);
+          const marriageData = marriageRecord.data;
+          
+          // Get the latest form state for validation using a functional update
+          // We need to validate before applying the patch
+          let shouldProceed = false;
+          let autofillResult = null;
+          
+          setForm((currentForm) => {
+            // Validate with current form state
+            autofillResult = buildDivorcePrefillFromMarriage(
+              marriageData,
+              idNumber,
+              fieldName === 'divorceSpouse2IdAm' ? 'spouse2' : 'spouse1',
+              currentForm // Pass current form data for validation
+            );
+            console.log('[DivorceForm] Autofill result from marriage:', autofillResult);
+            console.log('[DivorceForm] Current form state for validation:', {
+              spouse1Id: currentForm.divorceSpouse1IdAm,
+              spouse2Id: currentForm.divorceSpouse2IdAm,
+              target: fieldName === 'divorceSpouse2IdAm' ? 'spouse2' : 'spouse1'
+            });
+            
+            if (autofillResult.shouldAutofill && autofillResult.patch) {
+              if (Object.keys(autofillResult.patch).length > 0) {
+                shouldProceed = true;
+                // Merge the patch into the form
+                const updatedForm = mergePrefillState(currentForm, autofillResult.patch);
+                console.log('[DivorceForm] Will apply marriage autofill patch');
+                return updatedForm;
+              } else {
+                console.warn('[DivorceForm] Empty patch generated from marriage record');
+              }
+            } else if (autofillResult.error) {
+              // Don't update form, just set error
+              shouldProceed = false;
+              console.warn('[DivorceForm] Autofill prevented due to gender conflict:', autofillResult.error);
+            }
+            return currentForm; // Return unchanged form if autofill is prevented
+          });
+          
+          // Handle error message outside of setForm to avoid state update conflicts
+          if (autofillResult && autofillResult.error) {
+            const errorMsg = lang === 'en' 
+              ? autofillResult.error
+              : (autofillResult.personType === 'wife' 
+                  ? 'ሊላክ አይችልም: ሁለቱም ወገኖች ከተመሳሳይ የጋብቻ ምዝገባ ሴት ሊሆኑ አይችሉም።'
+                  : 'ሊላክ አይችልም: ሁለቱም ወገኖች ከተመሳሳይ የጋብቻ ምዝገባ ወንድ ሊሆኑ አይችሉም።');
+            setValidationErrors((prev) => ({ ...prev, [fieldName]: errorMsg }));
+          }
+        } else {
+          console.log('[DivorceForm] No marriage record found in response. Full result:', JSON.stringify(result, null, 2));
+        }
       }
     } catch (err) {
       console.error('Error checking duplicate ID:', err);

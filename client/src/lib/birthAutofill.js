@@ -46,7 +46,8 @@ const toDateObject = (value) => {
     return value;
   }
   if (typeof value !== "string") return null;
-  const match = value.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  const normalized = value.replace(/\//g, "-");
+  const match = normalized.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
   if (!match) return null;
   const [, year, month, day] = match;
   return {
@@ -206,7 +207,7 @@ export const buildMarriagePrefillFromBirth = (birthData, target = "wife") => {
     [`${prefix}ReligionAm`]: base.religion,
   };
   if (isWife) {
-    patch.wifeBirthDateAm = base.birthDate;
+    patch.wifeBirthDate = base.birthDate;
     patch.wifeEthnicity = base.ethnicity;
   } else {
     patch.husbandBirthDate = base.birthDate;
@@ -258,6 +259,304 @@ export const buildDivorcePrefillFromBirth = (birthData, target = "spouse1") => {
     [`${prefix}ReligionAm`]: base.religion,
   };
   return filterEmpty(patch);
+};
+
+// Extract person data from marriage event (for wife or husband)
+const extractPersonFromMarriage = (marriageData = {}, personType = "wife") => {
+  const isWife = personType === "wife";
+  const prefix = isWife ? "wife" : "husband";
+  
+  const nameAm = prefer(
+    marriageData[`${prefix}NameAm`],
+    marriageData[`${prefix}FullNameAm`]
+  );
+  const nameEn = prefer(
+    marriageData[`${prefix}NameEn`],
+    marriageData[`${prefix}FullNameEn`]
+  );
+  
+  const fatherNameAm = prefer(
+    marriageData[`${prefix}FatherAm`],
+    marriageData[`${prefix}FatherNameAm`],
+    marriageData[`${prefix}FatherEn`],
+    marriageData[`${prefix}FatherNameEn`]
+  );
+  const fatherNameEn = prefer(
+    marriageData[`${prefix}FatherEn`],
+    marriageData[`${prefix}FatherNameEn`],
+    marriageData[`${prefix}FatherAm`],
+    marriageData[`${prefix}FatherNameAm`]
+  );
+  
+  const grandfatherNameAm = prefer(
+    marriageData[`${prefix}GrandfatherAm`],
+    marriageData[`${prefix}GrandfatherNameAm`],
+    marriageData[`${prefix}GrandfatherEn`],
+    marriageData[`${prefix}GrandfatherNameEn`]
+  );
+  const grandfatherNameEn = prefer(
+    marriageData[`${prefix}GrandfatherEn`],
+    marriageData[`${prefix}GrandfatherNameEn`],
+    marriageData[`${prefix}GrandfatherAm`],
+    marriageData[`${prefix}GrandfatherNameAm`]
+  );
+  
+  const education = prefer(
+    marriageData[`${prefix}EducationAm`],
+    marriageData[`${prefix}Education`]
+  );
+  const job = prefer(
+    marriageData[`${prefix}JobAm`],
+    marriageData[`${prefix}Occupation`]
+  );
+  const photo = truthyString(marriageData[`${prefix}Photo`]);
+  
+  return {
+    idNumber: truthyString(marriageData[`${prefix}IdNumberAm`]),
+    nameAm,
+    nameEn,
+    fatherNameAm,
+    fatherNameEn,
+    grandfatherNameAm,
+    grandfatherNameEn,
+    birthDate: toDateObject(isWife ? (marriageData.wifeBirthDate || marriageData.wifeBirthDateAm) : marriageData.husbandBirthDate),
+    nationality: truthyString(marriageData[`${prefix}NationalityAm`]),
+    religion: prefer(
+      marriageData[`${prefix}ReligionAm`],
+      marriageData[`${prefix}Religion`]
+    ),
+    ethnicity: truthyString(marriageData[`${prefix}Ethnicity`] || marriageData[`${prefix}EthnicityAm`]),
+    residence: truthyString(marriageData[`${prefix}Residence`]),
+    birthPlace: truthyString(marriageData[`${prefix}BirthPlace`]),
+    education,
+    job,
+    photo,
+    sex: isWife ? 'female' : 'male', // Add sex information for validation
+    personType: personType, // Add personType for reference
+  };
+};
+
+// Build prefill data for death form from marriage event
+export const buildDeathPrefillFromMarriage = (marriageData, idNumber) => {
+  if (!marriageData || !idNumber) return {};
+  
+  // Determine if the ID belongs to wife or husband
+  const wifeId = truthyString(marriageData.wifeIdNumberAm);
+  const husbandId = truthyString(marriageData.husbandIdNumberAm);
+  const normalizedId = String(idNumber || '').trim().toLowerCase();
+  
+  let personData = null;
+  let personType = null;
+  
+  if (wifeId && String(wifeId).trim().toLowerCase() === normalizedId) {
+    personData = extractPersonFromMarriage(marriageData, "wife");
+    personType = "wife";
+  } else if (husbandId && String(husbandId).trim().toLowerCase() === normalizedId) {
+    personData = extractPersonFromMarriage(marriageData, "husband");
+    personType = "husband";
+  }
+  
+  if (!personData || (!personData.nameAm && !personData.nameEn)) {
+    console.warn('[buildDeathPrefillFromMarriage] No person data found for ID:', idNumber, 'wifeId:', wifeId, 'husbandId:', husbandId);
+    return {};
+  }
+  
+  console.log('[buildDeathPrefillFromMarriage] Found person data for', personType, ':', personData);
+  
+  const patch = {
+    deceasedNameAm: personData.nameAm,
+    deceasedNameEn: personData.nameEn,
+    deceasedFatherAm: personData.fatherNameAm,
+    deceasedFatherEn: personData.fatherNameEn,
+    deceasedGrandfatherAm: personData.grandfatherNameAm,
+    deceasedGrandfatherEn: personData.grandfatherNameEn,
+    deceasedBirthDate: personData.birthDate,
+    deceasedNationalityAm: personData.nationality,
+    deceasedResidence: personData.residence,
+    deceasedEthnicity: personData.ethnicity,
+    deceasedIdNumberAm: personData.idNumber,
+    deceasedReligion: personData.religion,
+  };
+  const filtered = filterEmpty(patch);
+  console.log('[buildDeathPrefillFromMarriage] Generated patch:', filtered);
+  return filtered;
+};
+
+// Build prefill data for divorce form from marriage event
+const buildDivorcePatchFromPerson = (personData = {}, prefix) => {
+  if (!prefix) return {};
+  const patch = {
+    [`${prefix}IdAm`]: personData.idNumber,
+    [`${prefix}NameAm`]: personData.nameAm,
+    [`${prefix}NameEn`]: personData.nameEn,
+    [`${prefix}FatherNameAm`]: personData.fatherNameAm,
+    [`${prefix}FatherNameEn`]: personData.fatherNameEn,
+    [`${prefix}GrandfatherNameAm`]: personData.grandfatherNameAm,
+    [`${prefix}GrandfatherNameEn`]: personData.grandfatherNameEn,
+    [`${prefix}BirthPlaceAm`]: personData.birthPlace,
+    [`${prefix}BirthPlaceEn`]: personData.birthPlace,
+    [`${prefix}ResidenceAm`]: personData.residence,
+    [`${prefix}ResidenceEn`]: personData.residence,
+    [`${prefix}NationalityAm`]: personData.nationality,
+    [`${prefix}BirthDate`]: personData.birthDate,
+    [`${prefix}Ethnicity`]: personData.ethnicity,
+    [`${prefix}ReligionAm`]: personData.religion,
+    [`${prefix}EducationAm`]: personData.education,
+    [`${prefix}JobAm`]: personData.job,
+    [`${prefix}Photo`]: personData.photo,
+  };
+  return filterEmpty(patch);
+};
+
+export const buildDivorcePrefillFromMarriage = (marriageData, idNumber, target = "spouse1", currentFormData = {}) => {
+  if (!marriageData || !idNumber) return { shouldAutofill: false, error: null };
+  
+  // Determine if the ID belongs to wife or husband
+  const wifeId = truthyString(marriageData.wifeIdNumberAm);
+  const husbandId = truthyString(marriageData.husbandIdNumberAm);
+  const normalizedId = String(idNumber || '').trim().toLowerCase();
+  
+  let personData = null;
+  let personType = null;
+  
+  if (wifeId && String(wifeId).trim().toLowerCase() === normalizedId) {
+    personData = extractPersonFromMarriage(marriageData, "wife");
+    personType = "wife";
+  } else if (husbandId && String(husbandId).trim().toLowerCase() === normalizedId) {
+    personData = extractPersonFromMarriage(marriageData, "husband");
+    personType = "husband";
+  }
+  
+  if (!personData || (!personData.nameAm && !personData.nameEn)) {
+    console.warn('[buildDivorcePrefillFromMarriage] No person data found for ID:', idNumber, 'wifeId:', wifeId, 'husbandId:', husbandId);
+    return { shouldAutofill: false, error: null };
+  }
+  
+  console.log('[buildDivorcePrefillFromMarriage] Found person data for', personType, ':', personData);
+  
+  // Validate gender assignment: prevent husband data from being filled into wrong spouse field
+  // Rule: If autofilling from marriage, ensure gender consistency
+  const otherSpousePrefix = target === "spouse2" ? "divorceSpouse1" : "divorceSpouse2";
+  const otherSpouseId = currentFormData[`${otherSpousePrefix}IdAm`];
+  const currentSpousePrefix = target === "spouse2" ? "divorceSpouse2" : "divorceSpouse1";
+  
+  // Check if the other spouse already has an ID from the same marriage
+  if (otherSpouseId) {
+    const otherNormalizedId = String(otherSpouseId).trim().toLowerCase();
+    const otherIsWife = wifeId && String(wifeId).trim().toLowerCase() === otherNormalizedId;
+    const otherIsHusband = husbandId && String(husbandId).trim().toLowerCase() === otherNormalizedId;
+    
+    // If both spouses are from the same marriage but have same gender, that's an error
+    if ((otherIsWife && personType === "wife") || (otherIsHusband && personType === "husband")) {
+      const errorMsg = personType === "wife" 
+        ? "Cannot autofill: Both spouses cannot be the wife from the same marriage record."
+        : "Cannot autofill: Both spouses cannot be the husband from the same marriage record.";
+      console.warn('[buildDivorcePrefillFromMarriage] Gender conflict detected:', errorMsg);
+      return { 
+        shouldAutofill: false, 
+        error: errorMsg,
+        personType,
+        personSex: personData.sex
+      };
+    }
+  }
+  
+  // Additional validation: Check if we're trying to fill the wrong gender
+  // If spouse1 already has wife data and we're trying to fill spouse2 with wife data, prevent it
+  // If spouse2 already has husband data and we're trying to fill spouse1 with husband data, prevent it
+  const spouse1Id = currentFormData.divorceSpouse1IdAm;
+  const spouse2Id = currentFormData.divorceSpouse2IdAm;
+  
+  // Check if spouse1 has wife ID from this marriage and we're trying to fill spouse2 with wife
+  if (target === "spouse2" && personType === "wife" && spouse1Id) {
+    const spouse1NormalizedId = String(spouse1Id).trim().toLowerCase();
+    if (wifeId && String(wifeId).trim().toLowerCase() === spouse1NormalizedId) {
+      const errorMsg = "Cannot autofill: Spouse 2 cannot be the wife when Spouse 1 is already the wife from the same marriage.";
+      console.warn('[buildDivorcePrefillFromMarriage] Gender conflict: Spouse2 cannot be wife when Spouse1 is wife');
+      return { 
+        shouldAutofill: false, 
+        error: errorMsg,
+        personType,
+        personSex: personData.sex
+      };
+    }
+  }
+  
+  // Check if spouse2 has husband ID from this marriage and we're trying to fill spouse1 with husband
+  if (target === "spouse1" && personType === "husband" && spouse2Id) {
+    const spouse2NormalizedId = String(spouse2Id).trim().toLowerCase();
+    if (husbandId && String(husbandId).trim().toLowerCase() === spouse2NormalizedId) {
+      const errorMsg = "Cannot autofill: Spouse 1 cannot be the husband when Spouse 2 is already the husband from the same marriage.";
+      console.warn('[buildDivorcePrefillFromMarriage] Gender conflict: Spouse1 cannot be husband when Spouse2 is husband');
+      return { 
+        shouldAutofill: false, 
+        error: errorMsg,
+        personType,
+        personSex: personData.sex
+      };
+    }
+  }
+  
+  // Prevent: If spouse1 is being filled with husband data, but spouse2 already has husband data from same marriage
+  if (target === "spouse1" && personType === "husband" && spouse2Id) {
+    const spouse2NormalizedId = String(spouse2Id).trim().toLowerCase();
+    if (husbandId && String(husbandId).trim().toLowerCase() === spouse2NormalizedId) {
+      const errorMsg = "Cannot autofill: Cannot fill husband's data into Spouse 1 when Spouse 2 is already the husband.";
+      console.warn('[buildDivorcePrefillFromMarriage] Gender conflict: Cannot fill husband into Spouse1 when Spouse2 is husband');
+      return { 
+        shouldAutofill: false, 
+        error: errorMsg,
+        personType,
+        personSex: personData.sex
+      };
+    }
+  }
+  
+  // Prevent: If spouse2 is being filled with wife data, but spouse1 already has wife data from same marriage
+  if (target === "spouse2" && personType === "wife" && spouse1Id) {
+    const spouse1NormalizedId = String(spouse1Id).trim().toLowerCase();
+    if (wifeId && String(wifeId).trim().toLowerCase() === spouse1NormalizedId) {
+      const errorMsg = "Cannot autofill: Cannot fill wife's data into Spouse 2 when Spouse 1 is already the wife.";
+      console.warn('[buildDivorcePrefillFromMarriage] Gender conflict: Cannot fill wife into Spouse2 when Spouse1 is wife');
+      return { 
+        shouldAutofill: false, 
+        error: errorMsg,
+        personType,
+        personSex: personData.sex
+      };
+    }
+  }
+  
+  const prefix = target === "spouse2" ? "divorceSpouse2" : "divorceSpouse1";
+  const partnerPrefix = target === "spouse2" ? "divorceSpouse1" : "divorceSpouse2";
+  const partnerType = personType === "wife" ? "husband" : "wife";
+  const partnerData = extractPersonFromMarriage(marriageData, partnerType);
+
+  const selfPatch = buildDivorcePatchFromPerson(personData, prefix);
+  const partnerPatch = partnerData ? buildDivorcePatchFromPerson(partnerData, partnerPrefix) : {};
+  const combinedPatch = { ...partnerPatch, ...selfPatch };
+  
+  const marriagePlace = prefer(
+    marriageData.marriagePlaceAm,
+    marriageData.marriagePlaceName,
+    marriageData.marriagePlaceEn,
+    marriageData.marriageCity
+  );
+  if (marriagePlace) {
+    combinedPatch.divorceMarriagePlace = marriagePlace;
+  }
+  const marriageDate = toDateObject(marriageData.marriageDate || marriageData.marriageDateEth);
+  if (marriageDate) {
+    combinedPatch.divorceMarriageDate = marriageDate;
+  }
+
+  console.log('[buildDivorcePrefillFromMarriage] Generated patch:', combinedPatch);
+  return { 
+    shouldAutofill: true, 
+    patch: combinedPatch,
+    personType,
+    personSex: personData.sex
+  };
 };
 
 

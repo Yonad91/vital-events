@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { apiFetch } from "@/lib/api";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, onNavigateToRequestCertificate, onNavigateToMyCertificates, onAdminNavigate }) => {
     // Redirect to login if user is null
@@ -16,6 +17,8 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
     const [showNotifications, setShowNotifications] = useState(false);
     const [notLoading, setNotLoading] = useState(false);
     const fileInputRef = useRef();
+    const { translate } = useLanguage();
+    const t = translate;
 
     const fetchNotifications = React.useCallback(async () => {
         setNotLoading(true);
@@ -102,7 +105,7 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
                 className="mt-2 mr-2 bg-gray-200 rounded-full p-2 shadow hover:bg-gray-300 z-10 flex items-center justify-center"
                 style={{width: 36, height: 36}}
                 onClick={() => setCollapsed(c => !c)}
-                title={collapsed ? 'Maximize sidebar' : 'Minimize sidebar'}
+                title={collapsed ? t('Maximize sidebar', 'ሳይድባሩን ከፍ አድርግ') : t('Minimize sidebar', 'ሳይድባሩን አነስ')}
             >
                 <span style={{display: 'block'}}>
                   <span style={{display: 'block', width: 18, height: 3, background: '#333', borderRadius: 2, marginBottom: 4}}></span>
@@ -123,7 +126,7 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
                         className="absolute bottom-2 right-2 bg-blue-600 text-white rounded-full p-2 text-xs shadow hover:bg-blue-700 transition"
                         onClick={() => fileInputRef.current.click()}
                         disabled={loading}
-                        title="Change profile picture"
+                        title={t("Change profile picture", "የመገለጫ ፎቶ ቀይር")}
                     >
                         <span role="img" aria-label="camera" style={{ fontSize: 16 }}>📷</span>
                     </button>
@@ -139,25 +142,25 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
                 <div className="mt-2 text-xl font-bold text-gray-800">
                     <span>{user.name}</span>
                 </div>
-                <div className="mt-2 text-sm text-gray-500">Role: <span className="font-medium text-gray-700">{user.role}</span></div>
+                <div className="mt-2 text-sm text-gray-500">{t("Role", "ሚና")}: <span className="font-medium text-gray-700">{user.role}</span></div>
                 {user.email && <div className="mt-1 text-xs text-gray-400">{user.email}</div>}
                 {user.profile?.organization && <div className="mt-1 text-xs text-gray-400">{user.profile.organization}</div>}
                 <div className="mt-4 w-full">
                     <button className="w-full border text-indigo-700 bg-white py-2 rounded flex items-center justify-between px-3 hover:bg-indigo-50 transition" onClick={() => { setShowNotifications(s => !s); if (!showNotifications) fetchNotifications(); }}>
-                        <span>Notifications</span>
+                        <span>{t("Notifications", "ማሳወቂያዎች")}</span>
                         <span className="text-sm bg-indigo-600 text-white px-2 py-0.5 rounded">{notifications.filter(n => !n.read).length}</span>
                     </button>
                     {showNotifications && (
                         <div className="mt-2 max-h-56 overflow-auto bg-white border rounded p-2">
-                            {notLoading ? <div className="text-sm text-gray-500">Loading...</div> : (
-                                notifications.length === 0 ? <div className="text-sm text-gray-500">No notifications</div> : (
+                            {notLoading ? <div className="text-sm text-gray-500">{t("Loading...", "በመጫን ላይ...")}</div> : (
+                                notifications.length === 0 ? <div className="text-sm text-gray-500">{t("No notifications", "ምንም ማሳወቂያ የለም")}</div> : (
                                     notifications.map(n => (
                                         <div key={n._id} className={`p-2 border-b ${n.read ? 'opacity-60' : ''}`}>
                                             <div className="flex justify-between items-start">
                                                 <div className="text-sm text-gray-600 font-normal">{n.message}</div>
                                                 <div className="text-xs text-gray-400">{new Date(n.createdAt).toLocaleString()}</div>
                                             </div>
-                                            {!n.read && <div className="mt-1"><button className="text-xs text-indigo-600" onClick={async () => { await apiFetch(`/users/notifications/${n._id}/read`, { method: 'PATCH', token: user.token }); fetchNotifications(); }}>Mark read</button></div>}
+                                            {!n.read && <div className="mt-1"><button className="text-xs text-indigo-600" onClick={async () => { await apiFetch(`/users/notifications/${n._id}/read`, { method: 'PATCH', token: user.token }); fetchNotifications(); }}>{t("Mark read", "የተነበበ አድርግ")}</button></div>}
                                         </div>
                                     ))
                                 )
@@ -169,7 +172,7 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
 			{/* Manager-specific menu */}
 			{user?.role === 'manager' && (
 				<div className="px-4 mb-6">
-					<div className="text-sm font-semibold mb-2 text-gray-700">Manager Menu</div>
+					<div className="text-sm font-semibold mb-2 text-gray-700">{t("Manager Menu", "የማኔጀር ምናሌ")}</div>
 					<div className="flex flex-col gap-2">
 						{/* Events dropdown */}
 						<div className="bg-white border rounded">
@@ -191,13 +194,13 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
 									} catch {}
 								}}
 							>
-								<span>Events</span>
+								<span>{t("Events", "ክስተቶች")}</span>
 								<span>▾</span>
 							</button>
 							<div className="hidden flex-col" style={{ display: 'none' }}>
-								<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#events/pending'; }}>Pending Events</button>
-								<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#events/rejected'; }}>Rejected Events</button>
-								<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#events/approved'; }}>Approved Events</button>
+								<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#events/pending'; }}>{t("Pending Events", "በመጠበቅ ላይ ያሉ ክስተቶች")}</button>
+								<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#events/rejected'; }}>{t("Rejected Events", "የተቀበሩ ክስተቶች")}</button>
+								<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#events/approved'; }}>{t("Approved Events", "የተጸደቁ ክስተቶች")}</button>
 							</div>
 						</div>
 
@@ -205,19 +208,19 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
 							className="w-full bg-white text-left px-3 py-2 rounded border hover:bg-gray-50"
 							onClick={() => { window.location.hash = '#certificates'; }}
 						>
-							Certificate Management
+							{t("Certificate Management", "የማረጋገጫ አስተዳደር")}
 						</button>
 						<button
 							className="w-full bg-white text-left px-3 py-2 rounded border hover:bg-gray-50"
 							onClick={() => { window.location.hash = '#agents'; }}
 						>
-							Agents Management
+							{t("Agents Management", "የወኪሎች አስተዳደር")}
 						</button>
 						<button
 							className="w-full bg-white text-left px-3 py-2 rounded border hover:bg-gray-50"
 							onClick={() => { window.location.hash = '#reports'; }}
 						>
-							Reports
+							{t("Reports", "ሪፖርቶች")}
 						</button>
 					</div>
 				</div>
@@ -225,7 +228,7 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
 			{/* Register New Event for registrar, hospital, mosque, church */}
 			{(user?.role === 'registrar' || user?.role === 'hospital' || user?.role === 'mosque' || user?.role === 'church') && (
 				<div className="px-4 mb-6">
-					<div className="text-sm font-semibold mb-2 text-gray-700">Register New Event</div>
+					<div className="text-sm font-semibold mb-2 text-gray-700">{t("Register New Event", "አዲስ ክስተት መመዝገብ")}</div>
 					<div className="bg-white border rounded">
 						<button
 							className="w-full text-left px-3 py-2 hover:bg-gray-50 flex items-center justify-between"
@@ -235,43 +238,43 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
 								menu.style.display = willOpen ? 'block' : 'none';
 							}}
 						>
-							<span>Select Event Type</span>
+							<span>{t("Select Event Type", "የክስተት ዓይነት ይምረጡ")}</span>
 							<span>▾</span>
 						</button>
 						<div className="hidden flex-col" style={{ display: 'none' }}>
 							{user?.role === 'registrar' && (
 								<>
 									<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#register/birth'; }}>
-										👶 Birth Registration
+										👶 {t("Birth Registration", "የልደት መመዝገብ")}
 									</button>
 									<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#register/marriage'; }}>
-										💒 Marriage Registration
+										💒 {t("Marriage Registration", "የጋብቻ መመዝገብ")}
 									</button>
 									<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#register/death'; }}>
-										⚰️ Death Registration
+										⚰️ {t("Death Registration", "የሞት መመዝገብ")}
 									</button>
 									<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#register/divorce'; }}>
-										📄 Divorce Registration
+										📄 {t("Divorce Registration", "የፍቺ መመዝገብ")}
 									</button>
 								</>
 							)}
 							{user?.role === 'hospital' && (
 								<>
 									<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#register/birth'; }}>
-										👶 Birth Registration
+										👶 {t("Birth Registration", "የልደት መመዝገብ")}
 									</button>
 									<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#register/death'; }}>
-										⚰️ Death Registration
+										⚰️ {t("Death Registration", "የሞት መመዝገብ")}
 									</button>
 								</>
 							)}
 							{(user?.role === 'mosque' || user?.role === 'church') && (
 								<>
 									<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#register/marriage'; }}>
-										💒 Marriage Registration
+										💒 {t("Marriage Registration", "የጋብቻ መመዝገብ")}
 									</button>
 									<button className="text-left px-5 py-2 hover:bg-gray-50" onClick={() => { window.location.hash = '#register/death'; }}>
-										⚰️ Death Registration
+										⚰️ {t("Death Registration", "የሞት መመዝገብ")}
 									</button>
 								</>
 							)}
@@ -288,14 +291,14 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
 							onClick={() => { window.location.hash = '#my-events'; }}
 						>
 							<span className="mr-2">📋</span>
-							My Events
+							{t("My Events", "የእኔ ክስተቶች")}
 						</button>
 						<button
 							className="w-full bg-white text-left px-3 py-2 rounded border hover:bg-gray-50 flex items-center"
 							onClick={() => { window.location.hash = '#reports'; }}
 						>
 							<span className="mr-2">📊</span>
-							Reports
+							{t("Reports", "ሪፖርቶች")}
 						</button>
 					</div>
 				</div>
@@ -303,7 +306,7 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
 			{/* Quick actions for registrant */}
 			{user?.role === 'registrant' && (
 				<div className="px-4 mb-6">
-					<div className="text-sm font-semibold mb-2 text-gray-700">Quick Actions</div>
+					<div className="text-sm font-semibold mb-2 text-gray-700">{t("Quick Actions", "በፍጥነት እርምጃዎች")}</div>
 					<div className="flex flex-col gap-2">
 						<button
 							className="w-full text-blue-700 py-2 rounded shadow transition"
@@ -316,7 +319,7 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
 								}
 							}}
 						>
-							View my records
+							{t("View my records", "መዝገቦቼን ይመልከቱ")}
 						</button>
 						<button
 							className="w-full text-purple-700 py-2 rounded shadow transition"
@@ -328,7 +331,7 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
 								}
 							}}
 						>
-							My Certificates
+							{t("My Certificates", "ማረጋገጫዎቼ")}
 						</button>
 						<button
 							className="w-full text-green-700 py-2 rounded shadow transition"
@@ -340,7 +343,7 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
 								}
 							}}
 						>
-							Request Certificate
+							{t("Request Certificate", "ማረጋገጫ ይጠይቁ")}
 						</button>
 					</div>
 				</div>
@@ -348,7 +351,7 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
       {/* Admin quick actions */}
       {user?.role === 'admin' && (
         <div className="px-4 mb-6">
-          <div className="text-sm font-semibold mb-2 text-gray-700">Admin Actions</div>
+          <div className="text-sm font-semibold mb-2 text-gray-700">{t("Admin Actions", "የአስተዳዳሪ እርምጃዎች")}</div>
           <div className="flex flex-col gap-2">
             <button
               className="w-full bg-white text-left px-3 py-2 rounded border hover:bg-gray-50 flex items-center"
@@ -366,7 +369,7 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
               }}
             >
               <span className="mr-2">➕</span>
-              Register New User
+              {t("Register New User", "አዲስ ተጠቃሚ ይመዝግቡ")}
             </button>
             <button
               className="w-full bg-white text-left px-3 py-2 rounded border hover:bg-gray-50 flex items-center"
@@ -384,7 +387,7 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
               }}
             >
               <span className="mr-2">👥</span>
-              Registered Users
+              {t("Registered Users", "የተመዘገቡ ተጠቃሚዎች")}
             </button>
           </div>
         </div>

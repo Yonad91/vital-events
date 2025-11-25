@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { ETH_GEO } from "@/lib/geo";
 import { apiFetch } from "@/lib/api";
 import { EthiopianDatePicker } from "../../lib/forms.jsx";
-import { buildDeathPrefillFromBirth, mergePrefillState } from "@/lib/birthAutofill";
+import { buildDeathPrefillFromBirth, buildDeathPrefillFromMarriage, mergePrefillState } from "@/lib/birthAutofill";
 import { getCurrentEthiopianDate, isEthiopianDateInFuture } from "@/lib/ethioDate";
 
 // UI Components (same as other forms)
@@ -95,6 +95,43 @@ const DEATH_FORM_CONFIG = [
   { name: "registrationDateEth", labelEn: "Registration Date (Ethiopian)", labelAm: "የመመዝገቢያ ቀን (ኢትዮ)", type: "ethiopian-date" },
   { name: "registrationTimeHourAm", labelEn: "Registration Time: Hour", labelAm: "ሰዓት" },
 
+
+   { section: "Registration Place", sectionAm: "የመዝገብ ቦታ" },
+  {
+    name: "registrationRegion",
+    labelEn: "Region/City Administration",
+    labelAm: "ክልል/ከተማ አስተዳደር",
+    type: "location-region",
+  },
+  {
+    name: "registrationZone",
+    labelEn: "Zone",
+    labelAm: "ዞን",
+    type: "location-zone",
+  },
+  {
+    name: "registrationWoreda",
+    labelEn: "Woreda",
+    labelAm: "ወረዳ",
+    type: "location-woreda",
+  },
+  {
+    name: "registrationCity",
+    labelEn: "City",
+    labelAm: "ከተማ",
+  },
+  {
+    name: "registrationSubCity",
+    labelEn: "Sub City",
+    labelAm: "ክፍለ ከተማ",
+  },
+  {
+    name: "registrationKebele",
+    labelEn: "Kebele",
+    labelAm: "ቀበሌ",
+  },
+
+  
   { section: "Place of death", sectionAm: "የሞት ቦታ" },
   { name: "deathRegion", labelEn: "region/city administration", labelAm: "ክልል/ከተማ አስተዳደር" },
   { name: "deathZone", labelEn: "zone/city administration", labelAm: "ዞን/ከተማ አስተዳደር" },
@@ -140,6 +177,9 @@ const DEATH_FORM_CONFIG = [
 
   { section: "Death Details", sectionAm: "የሞት ዝርዝር" },
   { name: "deathDate", labelEn: "Date", labelAm: "ቀን", type: "ethiopian-date" },
+  { name: "deathPlace", labelEn: "Place of Death", labelAm: "የሞት ቦታ" },
+  { name: "deathPlaceEn", labelEn: "Place of Death (English)", labelAm: "የሞት ቦታ (እንግሊዝኛ)" },
+  { name: "deathPlaceAm", labelEn: "Place of Death (Amharic)", labelAm: "የሞት ቦታ (አማርኛ)" },
   { name: "deathLocationType", labelEn: "Death Location Type", labelAm: "የሞት ቦታ አይነት" },
   { name: "deathPlaceRegion", labelEn: "Region/city administration", labelAm: "ክልል" },
   { name: "deathPlaceZone", labelEn: "zone/city administration", labelAm: "ዞን" },
@@ -179,6 +219,13 @@ const initialDeathFormState = {
   mainRegistrationRecordNumberAm: "",
   registrationDateEth: "",
   registrationTimeHourAm: "",
+  // Registration place
+  registrationRegion: "",
+  registrationZone: "",
+  registrationWoreda: "",
+  registrationCity: "",
+  registrationSubCity: "",
+  registrationKebele: "",
   // Place of death
   deathRegion: "",
   deathZone: "",
@@ -208,6 +255,9 @@ const initialDeathFormState = {
   deceasedMaritalStatusAm: "",
   // Death details
   deathDate: "",
+  deathPlace: "",
+  deathPlaceEn: "",
+  deathPlaceAm: "",
   deathLocationType: "",
   deathPlaceRegion: "",
   deathPlaceZone: "",
@@ -452,6 +502,8 @@ const DeathForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) => 
         token: user.token,
       });
 
+      console.log('[DeathForm] checkDuplicateId response:', result);
+
       if (result.isDuplicate) {
         const errorMsg = lang === 'en' 
           ? `This ID number is already registered (Registration ID: ${result.existingRegistrationId})`
@@ -464,13 +516,44 @@ const DeathForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) => 
           return next;
         });
       }
+      
+      // Check for birth record first (from initial response or fallback API call)
       let birthData = result?.birthRecord?.data;
+      console.log('[DeathForm] Birth record from response:', birthData ? 'found' : 'not found');
+      
       if (!birthData && shouldRequestPrefill) {
+        console.log('[DeathForm] Fetching birth record as fallback...');
         birthData = await fetchBirthRecord(idNumber);
+        console.log('[DeathForm] Birth record from fallback:', birthData ? 'found' : 'not found');
       }
+      
+      // Use birth data if available
       if (shouldRequestPrefill && birthData) {
+        console.log('[DeathForm] Using birth record for autofill');
         const patch = buildDeathPrefillFromBirth(birthData);
         applyPrefillPatch(patch);
+      } 
+      // If no birth record found, try to use marriage record data
+      else if (shouldRequestPrefill && !birthData) {
+        console.log('[DeathForm] No birth record, checking for marriage record...');
+        // Check marriage record from initial response
+        const marriageRecord = result?.marriageRecord;
+        console.log('[DeathForm] Marriage record from response:', marriageRecord);
+        
+        if (marriageRecord?.data) {
+          console.log('[DeathForm] Using marriage record for autofill:', marriageRecord);
+          const marriageData = marriageRecord.data;
+          const patch = buildDeathPrefillFromMarriage(marriageData, idNumber);
+          console.log('[DeathForm] Generated patch from marriage:', patch);
+          if (Object.keys(patch).length > 0) {
+            applyPrefillPatch(patch);
+            console.log('[DeathForm] Applied marriage autofill patch');
+          } else {
+            console.warn('[DeathForm] Empty patch generated from marriage record');
+          }
+        } else {
+          console.log('[DeathForm] No marriage record found in response. Full result:', JSON.stringify(result, null, 2));
+        }
       }
     } catch (err) {
       console.error('Error checking duplicate ID:', err);
@@ -687,6 +770,32 @@ const DeathForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) => 
       };
 
       const normalizedData = normalizeDates(form);
+      
+      // Construct deathPlace from geographic components if missing
+      if (!normalizedData.deathPlace && !normalizedData.deathPlaceEn && !normalizedData.deathPlaceAm) {
+        const placeParts = [
+          normalizedData.deathPlaceRegion,
+          normalizedData.deathPlaceZone,
+          normalizedData.deathPlaceWoreda,
+          normalizedData.deathPlaceSubCity,
+          normalizedData.deathPlaceKebele,
+          normalizedData.deathCity,
+          normalizedData.deathSubCity,
+          normalizedData.deathWoreda,
+          normalizedData.deathKebeleAm
+        ].filter(Boolean);
+        if (placeParts.length > 0) {
+          const placeStr = placeParts.join(', ');
+          normalizedData.deathPlace = placeStr;
+          normalizedData.deathPlaceAm = placeStr;
+        }
+      }
+      
+      // Ensure required fields are always present in the data (even if empty)
+      // This helps with backend validation error messages
+      if (!normalizedData.deathPlace && !normalizedData.deathPlaceEn && !normalizedData.deathPlaceAm) {
+        normalizedData.deathPlace = '';
+      }
 
       const formData = new FormData();
       formData.append('data', JSON.stringify({

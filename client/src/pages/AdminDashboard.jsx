@@ -5,7 +5,8 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import ProfileSidebar from "../components/ProfileSidebar";
-
+import Pagination from "../components/Pagination";
+import { useLanguage } from "@/context/LanguageContext";
 
 const AdminDashboard = ({ user, setUser }) => {
   // Redirect to login if user is null
@@ -34,8 +35,10 @@ const AdminDashboard = ({ user, setUser }) => {
   const confirmRef = useRef();
   const [pendingDelete, setPendingDelete] = useState(null);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-  const [lang, setLang] = useState("en");
+  const { lang, toggleLang } = useLanguage();
   const [adminView, setAdminView] = useState("overview"); // overview | create | users
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
 
   useEffect(() => {
     if (!user?.id) return;
@@ -62,6 +65,18 @@ const AdminDashboard = ({ user, setUser }) => {
     fetchData();
   }, [user?.id, user?.token]);
 
+  // Reset to appropriate page when users list changes or when switching to users view
+  useEffect(() => {
+    if (adminView === "users") {
+      const totalPages = Math.ceil(users.length / itemsPerPage);
+      if (currentPage > totalPages && totalPages > 0) {
+        setCurrentPage(totalPages);
+      } else if (totalPages === 0) {
+        setCurrentPage(1);
+      }
+    }
+  }, [users.length, adminView, itemsPerPage, currentPage]);
+
   const changeRole = async (id, role) => {
     try {
       const res = await apiFetch(`/users/admin/users/${id}/role`, {
@@ -72,6 +87,11 @@ const AdminDashboard = ({ user, setUser }) => {
       const updated = res.user ?? res;
       setUsers((prev) => prev.map((u) => (u._id === id ? updated : u)));
       setToast({ message: "Role updated successfully.", type: "success" });
+      // Reset to page 1 if current page becomes empty after update
+      const totalPages = Math.ceil(users.length / itemsPerPage);
+      if (currentPage > totalPages && totalPages > 0) {
+        setCurrentPage(totalPages);
+      }
     } catch (e) {
       setToast({ message: "Failed to update role.", type: "error" });
       console.error("Change role error:", e.message);
@@ -88,7 +108,17 @@ const AdminDashboard = ({ user, setUser }) => {
     if (!pendingDelete) return;
     try {
       await apiFetch(`/users/admin/users/${pendingDelete}`, { method: "DELETE", token: user.token });
-      setUsers((prev) => prev.filter((u) => u._id !== pendingDelete));
+      setUsers((prev) => {
+        const updated = prev.filter((u) => u._id !== pendingDelete);
+        // Adjust current page if needed after deletion
+        const totalPages = Math.ceil(updated.length / itemsPerPage);
+        if (currentPage > totalPages && totalPages > 0) {
+          setCurrentPage(totalPages);
+        } else if (totalPages === 0) {
+          setCurrentPage(1);
+        }
+        return updated;
+      });
       // Refresh stats after user deletion
       const statsData = await apiFetch("/users/admin/stats", { token: user.token });
       setStats(statsData || stats);
@@ -291,48 +321,66 @@ const AdminDashboard = ({ user, setUser }) => {
     </>
   );
 
-  const renderUsersCard = () => (
-    <>
-      <div className="flex justify-end">
-        <Button variant="outline" onClick={() => setAdminView("overview")}>
-          {lang === "en" ? "Back to Dashboard" : "ወደ ዳሽቦርድ ተመለስ"}
-        </Button>
-      </div>
-      <Card id="admin-users-list">
-        <CardHeader>
-          <CardTitle>
-            {lang === "en" ? "Registered Users" : "የተመዘገቡ ተጠቃሚዎች"}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {loading ? (
-            <div className="text-center py-4">
-              {lang === "en" ? "Loading..." : "በመጫን ላይ..."}
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      {lang === "en" ? "Name" : "ስም"}
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      {lang === "en" ? "Email" : "ኢሜይል"}
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      {lang === "en" ? "Role" : "ሚና"}
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      {lang === "en" ? "Status" : "ሁኔታ"}
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      {lang === "en" ? "Actions" : "ድርጊቶች"}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {users.map((u) => (
+  const renderUsersCard = () => {
+    // Calculate pagination
+    const totalPages = Math.ceil(users.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedUsers = users.slice(startIndex, endIndex);
+
+    return (
+      <>
+        <div className="flex justify-end">
+          <Button variant="outline" onClick={() => {
+            setAdminView("overview");
+            setCurrentPage(1);
+          }}>
+            {lang === "en" ? "Back to Dashboard" : "ወደ ዳሽቦርድ ተመለስ"}
+          </Button>
+        </div>
+        <Card id="admin-users-list">
+          <CardHeader>
+            <CardTitle>
+              {lang === "en" ? "Registered Users" : "የተመዘገቡ ተጠቃሚዎች"}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <div className="text-center py-4">
+                {lang === "en" ? "Loading..." : "በመጫን ላይ..."}
+              </div>
+            ) : (
+              <>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          {lang === "en" ? "Name" : "ስም"}
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          {lang === "en" ? "Email" : "ኢሜይል"}
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          {lang === "en" ? "Role" : "ሚና"}
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          {lang === "en" ? "Status" : "ሁኔታ"}
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          {lang === "en" ? "Actions" : "ድርጊቶች"}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {paginatedUsers.length === 0 ? (
+                        <tr>
+                          <td colSpan={5} className="px-6 py-4 text-center text-sm text-gray-500">
+                            {lang === "en" ? "No users found" : "ምንም ተጠቃሚ አልተገኘም"}
+                          </td>
+                        </tr>
+                      ) : (
+                        paginatedUsers.map((u) => (
                     <tr key={u._id || u.id}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{u.name}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{u.email}</td>
@@ -406,15 +454,28 @@ const AdminDashboard = ({ user, setUser }) => {
                         )}
                       </td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </>
-  );
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+                {users.length > 0 && (
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                    itemsPerPage={itemsPerPage}
+                    totalItems={users.length}
+                    lang={lang}
+                  />
+                )}
+              </>
+            )}
+          </CardContent>
+        </Card>
+      </>
+    );
+  };
 
   return (
     <div className="flex min-h-screen">
@@ -430,7 +491,7 @@ const AdminDashboard = ({ user, setUser }) => {
               ? (lang === "en" ? "Registered Users" : "የተመዘገቡ ተጠቃሚዎች")
               : (lang === "en" ? "Admin Dashboard" : "የአስተዳደር ዳሽቦርድ")}
         </h1>
-        <Button onClick={() => setLang(lang === "en" ? "am" : "en")}>
+        <Button onClick={toggleLang}>
           {lang === "en" ? "አማርኛ" : "English"}
         </Button>
       </div>

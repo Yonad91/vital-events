@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiFetch } from "@/lib/api";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Login = ({ setUser }) => {
   const navigate = useNavigate();
@@ -10,7 +11,8 @@ const Login = ({ setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [lang, setLang] = useState("en");
+  const { lang, toggleLang, translate } = useLanguage();
+  const t = translate;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,11 +68,7 @@ const Login = ({ setUser }) => {
             navigate("/", { replace: true });
         }
       } else {
-        alert(
-          lang === "en"
-            ? "Signup successful! Please login."
-            : "ተመዝግቧል! እባክዎን ይግቡ።"
-        );
+        alert(t("Signup successful! Please login.", "ተመዝግቧል! እባክዎን ይግቡ።"));
         setIsSignup(false);
         setName("");
         setPassword("");
@@ -86,17 +84,11 @@ const Login = ({ setUser }) => {
       <div className="w-full max-w-md bg-white p-6 rounded shadow">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">
-            {isSignup
-              ? lang === "en"
-                ? "Sign up"
-                : "ተመዝገብ"
-              : lang === "en"
-              ? "Login"
-              : "መግቢያ"}
+            {isSignup ? t("Sign up", "ተመዝገብ") : t("Login", "መግቢያ")}
           </h2>
           <button
             className="text-sm text-blue-500"
-            onClick={() => setLang((l) => (l === "en" ? "am" : "en"))}
+            onClick={toggleLang}
           >
             {lang === "en" ? "አማርኛ" : "English"}
           </button>
@@ -108,7 +100,7 @@ const Login = ({ setUser }) => {
           {isSignup && (
             <div>
               <label className="block text-sm mb-1">
-                {lang === "en" ? "Name" : "ስም"}
+                {t("Name", "ስም")}
               </label>
               <input
                 value={name}
@@ -121,7 +113,7 @@ const Login = ({ setUser }) => {
 
           <div>
             <label className="block text-sm mb-1">
-              {lang === "en" ? "Email" : "ኢሜይል"}
+              {t("Email", "ኢሜይል")}
             </label>
             <input
               type="email"
@@ -134,7 +126,7 @@ const Login = ({ setUser }) => {
 
           <div>
             <label className="block text-sm mb-1">
-              {lang === "en" ? "Password" : "የሚስጥር ቃል"}
+              {t("Password", "የሚስጥር ቃል")}
             </label>
             <input
               type="password"
@@ -149,35 +141,19 @@ const Login = ({ setUser }) => {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded"
           >
-            {isSignup
-              ? lang === "en"
-                ? "Sign up"
-                : "ተመዝገብ"
-              : lang === "en"
-              ? "Login"
-              : "ግባ"}
+            {isSignup ? t("Sign up", "ተመዝገብ") : t("Login", "ግባ")}
           </button>
 
           <div className="text-center text-sm text-gray-600">
             {isSignup
-              ? lang === "en"
-                ? "Already have an account?"
-                : "እስከ አሁን ስለ አካውንት አለህ?"
-              : lang === "en"
-              ? "Don't have an account?"
-              : "አካውንት የለህም?"}
+              ? t("Already have an account?", "እስከ አሁን ስለ አካውንት አለህ?")
+              : t("Don't have an account?", "አካውንት የለህም?")}
             <button
               type="button"
               className="text-blue-500 underline"
               onClick={() => setIsSignup((s) => !s)}
             >
-              {isSignup
-                ? lang === "en"
-                  ? "Login"
-                  : "ግባ"
-                : lang === "en"
-                ? "Sign up"
-                : "ተመዝገብ"}
+              {isSignup ? t("Login", "ግባ") : t("Sign up", "ተመዝገብ")}
             </button>
           </div>
         </form>

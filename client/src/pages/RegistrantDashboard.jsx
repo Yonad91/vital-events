@@ -4,10 +4,12 @@ import React from "react";
 import { apiFetch, uploadsBaseUrl, API_BASE_URL } from "@/lib/api";
 import { MANAGER_FIELD_CONFIG as FORM_FIELD_CONFIG } from "./ManagerFieldConfig.js";
 import ProfileSidebar from "../components/ProfileSidebar";
+import Pagination from "../components/Pagination";
+import { useLanguage } from "@/context/LanguageContext";
 
 const RegistrantDashboard = ({ user, setUser }) => {
-  const [lang, setLang] = React.useState("en");
-  const t = (en, am) => (lang === "en" ? en : am);
+  const { lang, translate, toggleLang } = useLanguage();
+  const t = translate;
 
   // anchors for sidebar quick actions (left intentionally empty)
   const myRecordsRef = React.useRef(null);
@@ -596,7 +598,7 @@ const RegistrantDashboard = ({ user, setUser }) => {
             <div className="flex gap-2">
               <button
                 className="px-4 py-2 rounded-md bg-gray-100 text-gray-800 border hover:bg-gray-200"
-                onClick={() => setLang((l) => (l === "en" ? "am" : "en"))}
+                onClick={toggleLang}
                 title={t("Switch language", "ቋንቋ ለውጥ")}
               >
                 {lang === "en" ? "አማርኛ" : "English"}
@@ -1030,8 +1032,15 @@ export default RegistrantDashboard;
 const MyCertificatesList = ({ rows, loading, lang, token }) => {
   const t = (en, am) => (lang === 'en' ? en : am);
   const [items, setItems] = React.useState(rows || []);
-  React.useEffect(() => { setItems(rows || []); }, [rows]);
   const [previews, setPreviews] = React.useState({}); // { [requestId]: { url, type } }
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [itemsPerPage] = React.useState(3);
+  
+  // Update items when rows change and reset to page 1
+  React.useEffect(() => { 
+    setItems(rows || []); 
+    setCurrentPage(1); // Reset to first page when items change
+  }, [rows]);
   const revokePreview = (requestId) => {
     try {
       const prev = previews[requestId];
@@ -1108,9 +1117,16 @@ const MyCertificatesList = ({ rows, loading, lang, token }) => {
   if (!items || items.length === 0) {
     return <div className="text-gray-500">{t('No certificate requests yet.', 'እስካሁን ምንም የሰነድ ጥያቄ የለም።')}</div>;
   }
+  
+  // Calculate pagination
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedItems = items.slice(startIndex, endIndex);
+  
   return (
     <div className="space-y-4">
-      {items.map((r) => (
+      {paginatedItems.map((r) => (
         <div key={`${r.eventId}-${r.requestId}`} className="bg-gray-50 rounded-lg p-4 border">
           <div className="flex flex-col">
             <div className="flex-1">
@@ -1265,6 +1281,16 @@ const MyCertificatesList = ({ rows, loading, lang, token }) => {
           </div>
         </div>
       ))}
+      {items.length > 3 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          itemsPerPage={itemsPerPage}
+          totalItems={items.length}
+          lang={lang}
+        />
+      )}
     </div>
   );
 };

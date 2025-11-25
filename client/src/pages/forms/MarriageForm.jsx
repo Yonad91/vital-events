@@ -95,6 +95,43 @@ const MARRIAGE_FORM_CONFIG = [
   { name: "registrationDateEth", labelEn: "Registration Date (Ethiopian)", labelAm: "የመመዝገቢያ ቀን (ኢትዮ)", type: "ethiopian-date" },
   { name: "registrationTimeHourAm", labelEn: "Registration Time: Hour", labelAm: "ሰዓት" },
 
+
+   { section: "Registration Place", sectionAm: "የመዝገብ ቦታ" },
+  {
+    name: "registrationRegion",
+    labelEn: "Region/City Administration",
+    labelAm: "ክልል/ከተማ አስተዳደር",
+    type: "location-region",
+  },
+  {
+    name: "registrationZone",
+    labelEn: "Zone",
+    labelAm: "ዞን",
+    type: "location-zone",
+  },
+  {
+    name: "registrationWoreda",
+    labelEn: "Woreda",
+    labelAm: "ወረዳ",
+    type: "location-woreda",
+  },
+  {
+    name: "registrationCity",
+    labelEn: "City",
+    labelAm: "ከተማ",
+  },
+  {
+    name: "registrationSubCity",
+    labelEn: "Sub City",
+    labelAm: "ክፍለ ከተማ",
+  },
+  {
+    name: "registrationKebele",
+    labelEn: "Kebele",
+    labelAm: "ቀበሌ",
+  },
+
+  
   { section: "Place of marriage", sectionAm: "የጋብቻ ቦታ" },
   { name: "marriageRegion", labelEn: "region/city administration", labelAm: "ክልል/ከተማ አስተዳደር" },
   { name: "marriageZone", labelEn: "zone/city administration", labelAm: "ዞን/ከተማ አስተዳደር" },
@@ -112,7 +149,7 @@ const MARRIAGE_FORM_CONFIG = [
   { name: "wifeGrandfatherAm", labelEn: "Wife Grandfather's Name (AM)", labelAm: "የሚስት የአያት ስም (አማ)" },
   { name: "wifeGrandfatherEn", labelEn: "Wife Grandfather's Name (EN)", labelAm: "የሚስት የአያት ስም (እንግ)" },
   { name: "wifeNationalityAm", labelEn: "Nationality", labelAm: "ዜግነት" },
-  { name: "wifeBirthDateAm", labelEn: "date of birth", labelAm: "የትውልድ ቀን", type: "ethiopian-date" },
+  { name: "wifeBirthDate", labelEn: "date of birth", labelAm: "የትውልድ ቀን", type: "ethiopian-date" },
   { name: "wifeBirthPlace", labelEn: "place of birth", labelAm: "የትውልድ ቦታ" },
   { name: "wifeResidence", labelEn: "Place of Residence", labelAm: "መኖሪያ ቦታ" },
   { name: "wifeEthnicity", labelEn: "Ethnicity", labelAm: "ዘር" },
@@ -166,7 +203,7 @@ const MARRIAGE_FORM_CONFIG = [
 
   { section: "Marriage Information", sectionAm: "የጋብቻ መረጃ" },
   { name: "marriageDate", labelEn: "Date", labelAm: "ቀን", type: "ethiopian-date" },
-  { name: "marriagePlaceName", labelEn: "Place of Marriage", labelAm: "የጋብቻ ቦታ" },
+  { name: "marriagePlace", labelEn: "Place of Marriage", labelAm: "የጋብቻ ቦታ" },
 
   { section: "Witnesses of Bride", sectionAm: "የሚስት ምስክሮች" },
   { name: "brideWitness1Name", labelEn: "Witness 1: Name", labelAm: "ምስክር 1 ስም" },
@@ -210,6 +247,13 @@ const initialMarriageFormState = {
   mainRegistrationRecordNumberAm: "",
   registrationDateEth: "",
   registrationTimeHourAm: "",
+  // Registration place
+  registrationRegion: "",
+  registrationZone: "",
+  registrationWoreda: "",
+  registrationCity: "",
+  registrationSubCity: "",
+  registrationKebele: "",
   // Place of marriage
   marriageRegion: "",
   marriageZone: "",
@@ -226,7 +270,7 @@ const initialMarriageFormState = {
   wifeGrandfatherEn: "",
   wifeNationalityAm: "",
   wifeIdNumberAm: "",
-  wifeBirthDateAm: "",
+  wifeBirthDate: "",
   wifeBirthPlace: "",
   wifeResidence: "",
   wifeEthnicity: "",
@@ -256,7 +300,7 @@ const initialMarriageFormState = {
   husbandPhoto: null,
   // Marriage info
   marriageDate: "",
-  marriagePlaceName: "",
+  marriagePlace: "",
   // Witnesses - Bride
   brideWitness1Name: "",
   brideWitness1Father: "",
@@ -515,8 +559,8 @@ const renderField = (field, form, setForm, lang, validationErrors, setValidation
   }
 
   if (field.type === "ethiopian-date") {
-    const isBirthDate = field.name === "wifeBirthDateAm" || field.name === "husbandBirthDate";
-    const currentAge = field.name === "wifeBirthDateAm" ? opts.wifeAge : (field.name === "husbandBirthDate" ? opts.husbandAge : null);
+    const isBirthDate = field.name === "wifeBirthDate" || field.name === "husbandBirthDate";
+    const currentAge = field.name === "wifeBirthDate" ? opts.wifeAge : (field.name === "husbandBirthDate" ? opts.husbandAge : null);
     const dateValue = form[field.name];
     const hasCompleteDate = dateValue && dateValue.year && dateValue.month && dateValue.day;
     
@@ -902,7 +946,7 @@ const MarriageForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) 
     }
     // Only calculate age if date is complete
     if (!date || !date.year || !date.month || !date.day) {
-      if (fieldName === "wifeBirthDateAm") {
+      if (fieldName === "wifeBirthDate") {
         setWifeAge(null);
       } else if (fieldName === "husbandBirthDate") {
         setHusbandAge(null);
@@ -911,21 +955,21 @@ const MarriageForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) 
     }
     
     const age = calculateAge(date);
-    if (fieldName === "wifeBirthDateAm") {
-      setWifeAge(age);
-      if (age !== null && age < 18) {
-        const errorMsg = lang === 'en' 
-          ? `Age is ${age} years. Minimum age for marriage is 18 years.`
-          : `ዕድሜ ${age} ዓመት ነው። ለጋብቻ ዝቅተኛው ዕድሜ 18 ዓመት ነው።`;
-        setValidationErrors((prev) => ({ ...prev, [fieldName]: errorMsg }));
-      } else if (age !== null) {
-        setValidationErrors((prev) => {
-          const next = { ...prev };
-          delete next[fieldName];
-          return next;
-        });
-      }
-    } else if (fieldName === "husbandBirthDate") {
+      if (fieldName === "wifeBirthDate") {
+        setWifeAge(age);
+        if (age !== null && age < 18) {
+          const errorMsg = lang === 'en' 
+            ? `Age is ${age} years. Minimum age for marriage is 18 years.`
+            : `ዕድሜ ${age} ዓመት ነው። ለጋብቻ ዝቅተኛው ዕድሜ 18 ዓመት ነው።`;
+          setValidationErrors((prev) => ({ ...prev, [fieldName]: errorMsg }));
+        } else if (age !== null) {
+          setValidationErrors((prev) => {
+            const next = { ...prev };
+            delete next[fieldName];
+            return next;
+          });
+        }
+      } else if (fieldName === "husbandBirthDate") {
       setHusbandAge(age);
       if (age !== null && age < 18) {
         const errorMsg = lang === 'en' 
@@ -944,18 +988,18 @@ const MarriageForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) 
 
   // Calculate ages when birth dates change
   useEffect(() => {
-    if (form.wifeBirthDateAm && form.wifeBirthDateAm.year && form.wifeBirthDateAm.month && form.wifeBirthDateAm.day) {
-      const age = calculateAge(form.wifeBirthDateAm);
+    if (form.wifeBirthDate && form.wifeBirthDate.year && form.wifeBirthDate.month && form.wifeBirthDate.day) {
+      const age = calculateAge(form.wifeBirthDate);
       setWifeAge(age);
       if (age !== null && age < 18) {
         const errorMsg = lang === 'en' 
           ? `Age is ${age} years. Minimum age for marriage is 18 years.`
           : `ዕድሜ ${age} ዓመት ነው። ለጋብቻ ዝቅተኛው ዕድሜ 18 ዓመት ነው።`;
-        setValidationErrors((prev) => ({ ...prev, wifeBirthDateAm: errorMsg }));
+        setValidationErrors((prev) => ({ ...prev, wifeBirthDate: errorMsg }));
       } else if (age !== null) {
         setValidationErrors((prev) => {
           const next = { ...prev };
-          delete next.wifeBirthDateAm;
+          delete next.wifeBirthDate;
           return next;
         });
       }
@@ -963,11 +1007,11 @@ const MarriageForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) 
       setWifeAge(null);
       setValidationErrors((prev) => {
         const next = { ...prev };
-        delete next.wifeBirthDateAm;
+        delete next.wifeBirthDate;
         return next;
       });
     }
-  }, [form.wifeBirthDateAm, lang]);
+  }, [form.wifeBirthDate, lang]);
 
   useEffect(() => {
     if (form.husbandBirthDate && form.husbandBirthDate.year && form.husbandBirthDate.month && form.husbandBirthDate.day) {
@@ -1052,7 +1096,7 @@ const MarriageForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) 
       'wifeNameAm', 'wifeNameEn',
       'wifeFatherAm', 'wifeFatherEn',
       'wifeGrandfatherAm', 'wifeGrandfatherEn',
-      'wifeBirthDateAm', 'wifeBirthPlace',
+      'wifeBirthDate', 'wifeBirthPlace',
       'wifeResidence', 'wifeEthnicity',
       'wifeReligionAm', 'wifeNationalityAm',
     ];
@@ -1072,7 +1116,7 @@ const MarriageForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) 
 
       if (clearingWife) {
         WIFE_FIELDS_TO_CLEAR.forEach((field) => {
-          next[field] = field === 'wifeBirthDateAm' ? emptyEthiopianDate() : '';
+          next[field] = field === 'wifeBirthDate' ? emptyEthiopianDate() : '';
         });
       }
 
@@ -1167,6 +1211,26 @@ const MarriageForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) 
       alert(errorMsg);
       return;
     }
+
+    // Check for required fields before submitting
+    const isWifeBirthDateEmpty = !form.wifeBirthDate || 
+      !form.wifeBirthDate.year || !form.wifeBirthDate.month || !form.wifeBirthDate.day;
+    const isMarriagePlaceEmpty = !form.marriagePlace || String(form.marriagePlace).trim() === '';
+    
+    if (isWifeBirthDateEmpty || isMarriagePlaceEmpty) {
+      const missingFields = [];
+      if (isWifeBirthDateEmpty) {
+        missingFields.push(lang === 'en' ? 'Wife Birth Date' : 'የሚስት የትውልድ ቀን');
+      }
+      if (isMarriagePlaceEmpty) {
+        missingFields.push(lang === 'en' ? 'Place of Marriage' : 'የጋብቻ ቦታ');
+      }
+      const errorMsg = lang === 'en' 
+        ? `Cannot submit: Please fill in all required fields. Missing: ${missingFields.join(', ')}`
+        : `ሊላክ አይችልም: እባክዎ ሁሉንም የሚጠይቁ መስኮች ይሙሉ። የጠፉ: ${missingFields.join(', ')}`;
+      alert(errorMsg);
+      return;
+    }
     
     setSubmitting(true);
 
@@ -1177,10 +1241,13 @@ const MarriageForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) 
         Object.entries(out).forEach(([k, v]) => {
           if (v && typeof v === 'object' && 'year' in v && 'month' in v && 'day' in v) {
             const y = Number(v.year); const m = Number(v.month); const d = Number(v.day);
-            if (!Number.isNaN(y) && !Number.isNaN(m) && !Number.isNaN(d)) {
+            if (!Number.isNaN(y) && !Number.isNaN(m) && !Number.isNaN(d) && y && m && d) {
               const mm = String(m).padStart(2, '0');
               const dd = String(d).padStart(2, '0');
               out[k] = `${y}-${mm}-${dd}`;
+            } else {
+              // Incomplete date - set to empty string so it's included but marked as empty
+              out[k] = '';
             }
           }
         });
@@ -1188,6 +1255,15 @@ const MarriageForm = ({ user, setUser, onSubmit, onEdit, editingEvent = null }) 
       };
 
       const normalizedData = normalizeDates(form);
+      
+      // Ensure required fields are always present in the data (even if empty)
+      // This helps with backend validation error messages
+      if (!normalizedData.wifeBirthDate) {
+        normalizedData.wifeBirthDate = '';
+      }
+      if (!normalizedData.marriagePlace) {
+        normalizedData.marriagePlace = '';
+      }
 
       const formData = new FormData();
       formData.append('data', JSON.stringify({

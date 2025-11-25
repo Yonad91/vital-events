@@ -5,6 +5,8 @@ import { MANAGER_FIELD_CONFIG as FORM_FIELD_CONFIG } from "./ManagerFieldConfig.
 import { apiFetch, uploadsBaseUrl } from "@/lib/api";
 import { formatEthiopianDate } from "@/lib/utils";
 import ProfileSidebar from "../components/ProfileSidebar";
+import Pagination from "../components/Pagination";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Small mock UI components (kept local to avoid missing imports)
 const Card = ({ children, className = "" }) => (
@@ -141,7 +143,6 @@ const LABELS = {
   wifeGrandfatherEn: { labelEn: "Wife Grandfather (English)", labelAm: "የሚስት አያት (እንግሊዝኛ)" },
   wifeGrandfatherAm: { labelEn: "Wife Grandfather (Amharic)", labelAm: "የሚስት አያት (አማርኛ)" },
   wifeNationality: { labelEn: "Wife Nationality", labelAm: "የሚስት ዜግነት" },
-  marriageDate: { labelEn: "Marriage Date", labelAm: "የጋብቻ ቀን" },
   
   // Death event fields
   deceasedNameEn: { labelEn: "Deceased Name (English)", labelAm: "የሞተው ስም (እንግሊዝኛ)" },
@@ -164,33 +165,18 @@ const LABELS = {
   marriageWoreda: { labelEn: "Marriage Woreda", labelAm: "የሰርግ ወረዳ" },
   marriageDate: { labelEn: "Marriage Date (E.C)", labelAm: "የሰርግ ቀን (ኢ.ስ)" },
 
-  // Husband / Wife common fields
-  husbandNameEn: { labelEn: "Husband Name (EN)", labelAm: "የባል ስም (እንግ)" },
-  husbandNameAm: { labelEn: "Husband Name (AM)", labelAm: "የባል ስም (አማ)" },
-  husbandFatherEn: { labelEn: "Husband Father En", labelAm: "የባል የአባት ስም (እንግ)" },
-  husbandFatherAm: { labelEn: "Husband Father Am", labelAm: "የባል የአባት ስም (አማ)" },
-  husbandGrandfatherEn: { labelEn: "Husband Grandfather En", labelAm: "የባል የአያት ስም (እንግ)" },
+  // Husband / Wife additional fields
   husbandBirthDate: { labelEn: "Husband Birth Date (E.C)", labelAm: "የባል ቀን የትውልድ (ኢ.ስ)" },
   husbandReligionAm: { labelEn: "Husband Religion", labelAm: "የባል ሃይማኖት" },
   husbandPrevMaritalStatusAm: { labelEn: "Husband Previous Marital Status", labelAm: "የባል ቀድሞ የጋብቻ ሁኔታ" },
-
-  wifeNameEn: { labelEn: "Wife Name (EN)", labelAm: "የሚስት ስም (እንግ)" },
-  wifeNameAm: { labelEn: "Wife Name (AM)", labelAm: "የሚስት ስም (አማ)" },
-  wifeFatherEn: { labelEn: "Wife Father En", labelAm: "የሚስት የአባት ስም (እንግ)" },
-  wifeFatherAm: { labelEn: "Wife Father Am", labelAm: "የሚስት የአባት ስም (አማ)" },
-  wifeGrandfatherEn: { labelEn: "Wife Grandfather En", labelAm: "የሚስት የአያት ስም (እንግ)" },
-  wifeGrandfatherAm: { labelEn: "Wife Grandfather Am", labelAm: "የሚስት የአያት ስም (አማ)" },
   wifeReligionAm: { labelEn: "Wife Religion", labelAm: "የሚስት ሃይማኖት" },
   wifePrevMaritalStatusAm: { labelEn: "Wife Previous Marital Status", labelAm: "የሚስት ቀድሞ የጋብቻ ሁኔታ" },
 
   // Documents
-  childPhoto: { labelEn: "Child Photo", labelAm: "የልጅ ፎቶ" },
   wifePhoto: { labelEn: "Wife Photo", labelAm: "የሚስት ፎቶ" },
   husbandPhoto: { labelEn: "Husband Photo", labelAm: "የባል ፎቶ" },
-  idCardImage: { labelEn: "ID Card", labelAm: "መታወቂያ" },
   consentForm: { labelEn: "Consent Form", labelAm: "የስምምነት ቅፅ" },
   deathConsentForm: { labelEn: "Death Consent Form", labelAm: "የሞት ስምምነት ቅፅ" },
-  deceasedPhoto: { labelEn: "Deceased Photo", labelAm: "የሞተው ፎቶ" },
   specialDocuments: { labelEn: "Special Documents", labelAm: "የተለየ ሰነዶች" },
 
   // Additional marriage location/places
@@ -215,21 +201,13 @@ const LABELS = {
   husbandEthnicityAm: { labelEn: "Husband Ethnicity", labelAm: "የባል ጎጥ" },
   husbandResidence: { labelEn: "Husband Residence", labelAm: "የባል መኖሪያ" },
   husbandBirthPlace: { labelEn: "Husband Birth Place", labelAm: "የባል ልደት ቦታ" },
-  husbandAge: { labelEn: "Husband Age", labelAm: "የባል እድሜ" },
   husbandIdNumberAm: { labelEn: "Husband ID Number", labelAm: "የባል መታወቂያ ቁጥር" },
 
-  // Child / birth
-  childNameEn: { labelEn: "Child Name (EN)", labelAm: "ልጅ ስም (እንግ)" },
-  childNameAm: { labelEn: "Child Name (AM)", labelAm: "ልጅ ስም (አማ)" },
+  // Child / birth (duplicates removed - see earlier definitions)
   childFullNameEn: { labelEn: "Full Name (EN)", labelAm: "ሙሉ ስም (እንግ)" },
   childFullNameAm: { labelEn: "Full Name (AM)", labelAm: "ሙሉ ስም (አማ)" },
-  fatherNameEn: { labelEn: "Father's Name (EN)", labelAm: "የአባት ስም (እንግ)" },
-  fatherNameAm: { labelEn: "Father's Name (AM)", labelAm: "የአባት ስም (አማ)" },
-  grandfatherNameEn: { labelEn: "Grandfather (EN)", labelAm: "የአያት ስም (እንግ)" },
-  grandfatherNameAm: { labelEn: "Grandfather (AM)", labelAm: "የአያት ስም (አማ)" },
   childGrandfatherName: { labelEn: "Grandfather's Name", labelAm: "የአያት ስም" },
   motherFullNameEn: { labelEn: "Mother Name (EN)", labelAm: "የእናት ስም (እንግ)" },
-  motherFullNameAm: { labelEn: "Mother Name (AM)", labelAm: "የእናት ስም (አማ)" },
   motherFatherName: { labelEn: "Mother's Father Name", labelAm: "የእናት የአባት ስም" },
   motherGrandfatherName: { labelEn: "Mother's Grandfather Name", labelAm: "የእናት የአያት ስም" },
   motherNationalityAm: { labelEn: "Mother's Nationality", labelAm: "የእናት ዜግነት" },
@@ -261,10 +239,8 @@ const LABELS = {
   guardianWorkAddressAm: { labelEn: "Guardian Work Address", labelAm: "የአሳዳጊ የሥራ ቦታ" },
   guardianHouseNoAm: { labelEn: "Guardian House Number", labelAm: "የአሳዳጊ የቤት ቁጥር" },
   guardianMobileAm: { labelEn: "Guardian Mobile Number", labelAm: "የአሳዳጊ ሞባይል ቁጥር" },
-  sex: { labelEn: "Sex", labelAm: "ፆታ" },
+  // sex, nationality, birthDate duplicates removed - see earlier definitions
   age: { labelEn: "Age", labelAm: "እድሜ" },
-  nationality: { labelEn: "ዜግነት", labelAm: "ዜግነት" },
-  birthDate: { labelEn: "Birth Date", labelAm: "የትውልድ ቀን" },
   birthPlaceType: { labelEn: "Birth Place Type", labelAm: "የትውልድ ቦታ አይነት" },
   birthInfoNumberAm: { labelEn: "Birth Info Number", labelAm: "የትውልድ መረጃ ቁጥር" },
   birthType: { labelEn: "Birth Type", labelAm: "የትውልድ አይነት" },
@@ -277,35 +253,17 @@ const LABELS = {
   birthPlaceSubCity: { labelEn: "Sub City", labelAm: "ንዑስ ከተማ" },
   birthPlaceWoreda: { labelEn: "Woreda", labelAm: "ወረዳ" },
   birthPlaceKebele: { labelEn: "ቀበሌ", labelAm: "ቀበሌ" },
-  region: { labelEn: "Region", labelAm: "ክልል" },
-  zone: { labelEn: "Zone", labelAm: "ዞን" },
-  woreda: { labelEn: "Woreda", labelAm: "ወረዳ" },
-  kebele: { labelEn: "ቀበሌ", labelAm: "ቀበሌ" },
-  childPhoto: { labelEn: "Child Photo", labelAm: "የልጅ ፎቶ" },
-  consentPhoto: { labelEn: "Consent Photo", labelAm: "የፍቃድ ፎቶ" },
-  idCardImage: { labelEn: "ID Card", labelAm: "የመታወቂያ ስንዴ" },
+  // region, zone, woreda, kebele, childPhoto, idCardImage duplicates removed - see earlier definitions
   signedConsentPhoto: { labelEn: "Signed Consent Photo", labelAm: "የተፈረመ ፍቃድ" },
   registrarNameAm: { labelEn: "Registrar Name", labelAm: "የምዝገባ ስም" },
   registrarFatherNameAm: { labelEn: "Registrar Father Name", labelAm: "የምዝገባ የአባት ስም" },
   registrarGrandNameAm: { labelEn: "Registrar Grandfather Name", labelAm: "የምዝገባ የአያት ስም" },
   registrarDateAm: { labelEn: "Registrar Date", labelAm: "የምዝገባ ቀን" },
 
-  // Marriage
-  husbandNameEn: { labelEn: "Husband Name (EN)", labelAm: "የባል ስም (እንግ)" },
-  husbandNameAm: { labelEn: "Husband Name (AM)", labelAm: "የባል ስም (አማ)" },
-  wifeNameEn: { labelEn: "Wife Name (EN)", labelAm: "የእስር ስም (እንግ)" },
-  wifeNameAm: { labelEn: "Wife Name (AM)", labelAm: "የእስር ስም (አማ)" },
-  husbandPhoto: { labelEn: "Husband Photo", labelAm: "የባል ፎቶ" },
-  wifePhoto: { labelEn: "Wife Photo", labelAm: "የሚስት ፎቶ" },
-  marriageDate: { labelEn: "Marriage Date", labelAm: "የጋብቻ ቀን" },
-  marriagePlaceEn: { labelEn: "Marriage Place (EN)", labelAm: "የጋብቻ ቦታ (እንግ)" },
-  marriagePlaceAm: { labelEn: "Marriage Place (AM)", labelAm: "የጋብቻ ቦታ (አማ)" },
-
-  // Death
-  deceasedNameEn: { labelEn: "Deceased Name (EN)", labelAm: "የሞተው ስም (እንግ)" },
-  deceasedNameAm: { labelEn: "Deceased Name (AM)", labelAm: "የሞተው ስም (አማ)" },
+  // Marriage (duplicates removed - see earlier definitions)
+  
+  // Death (duplicates removed - see earlier definitions)
   deceasedName: { labelEn: "Deceased Name", labelAm: "የሞተው ስም" },
-  deceasedPhoto: { labelEn: "Deceased Photo", labelAm: "የሞተው ፎቶ" },
   
   // Additional field labels for comprehensive coverage
   motherFullName: { labelEn: "Mother's Full Name", labelAm: "የእናት ሙሉ ስም" },
@@ -322,19 +280,14 @@ const LABELS = {
   deceasedAgeAm: { labelEn: "Deceased Age", labelAm: "የሞተው እድሜ" },
   
   // Dropdown values
-  sex: { labelEn: "Sex", labelAm: "ፆታ" },
   motherSex: { labelEn: "Mother Sex", labelAm: "የእናት ፆታ" },
   fatherSex: { labelEn: "Father Sex", labelAm: "የአባት ፆታ" },
   deceasedSex: { labelEn: "Deceased Sex", labelAm: "የሞተው ፆታ" },
-  deathDate: { labelEn: "Death Date", labelAm: "የሞት ቀን" },
   deathPlaceEn: { labelEn: "Place of Death (EN)", labelAm: "የሞት ቦታ (እንግ)" },
-  causeOfDeath: { labelEn: "Cause of Death", labelAm: "የሞት ምክንያት" },
-  deathConsentForm: { labelEn: "Death Consent Form", labelAm: "የሞት ፍቃድ ቅጽ" },
 
   // Marriage additional photos
   wifeConsent: { labelEn: "Wife Consent", labelAm: "የሚስት ፍቃድ" },
   husbandConsent: { labelEn: "Husband Consent", labelAm: "የባል ፍቃድ" },
-  consentForm: { labelEn: "Consent Form", labelAm: "የፍቃድ ቅጽ" },
 
   // Divorce event fields
   divorceHusbandNameEn: { labelEn: "Divorce Husband Name (EN)", labelAm: "የፍቺ ባል ስም (እንግ)" },
@@ -350,24 +303,8 @@ const LABELS = {
   divorceSpouse1ReligionAm: { labelEn: "Divorce Spouse 1 Religion", labelAm: "የፍቺ የመጀመሪያ የጋብቻ ሃይማኖት" },
   divorceSpouse2ReligionAm: { labelEn: "Divorce Spouse 2 Religion", labelAm: "የፍቺ የሁለተኛ የጋብቻ ሃይማኖት" },
 
-  // Additional birth event fields
-  childFullNameEn: { labelEn: "Child Full Name (EN)", labelAm: "የልጅ ሙሉ ስም (እንግ)" },
-  childFullNameAm: { labelEn: "Child Full Name (AM)", labelAm: "የልጅ ሙሉ ስም (አማ)" },
-  grandfatherNameEn: { labelEn: "Grandfather Name (EN)", labelAm: "የአያት ስም (እንግ)" },
-  grandfatherNameAm: { labelEn: "Grandfather Name (AM)", labelAm: "የአያት ስም (አማ)" },
-  motherFullNameEn: { labelEn: "Mother Full Name (EN)", labelAm: "የእናት ሙሉ ስም (እንግ)" },
-  motherFullNameAm: { labelEn: "Mother Full Name (AM)", labelAm: "የእናት ሙሉ ስም (አማ)" },
-  fatherFullNameEn: { labelEn: "Father Full Name (EN)", labelAm: "የአባት ሙሉ ስም (እንግ)" },
-  fatherFullNameAm: { labelEn: "Father Full Name (AM)", labelAm: "የአባት ሙሉ ስም (አማ)" },
-
-  // Additional marriage event fields
-  wifeFatherEn: { labelEn: "Wife Father (EN)", labelAm: "የሚስት አባት (እንግ)" },
-  wifeFatherAm: { labelEn: "Wife Father (AM)", labelAm: "የሚስት አባት (አማ)" },
-  wifeGrandfatherEn: { labelEn: "Wife Grandfather (EN)", labelAm: "የሚስት አያት (እንግ)" },
-  wifeGrandfatherAm: { labelEn: "Wife Grandfather (AM)", labelAm: "የሚስት አያት (አማ)" },
-  husbandFatherEn: { labelEn: "Husband Father (EN)", labelAm: "የባል አባት (እንግ)" },
-  husbandFatherAm: { labelEn: "Husband Father (AM)", labelAm: "የባል አባት (አማ)" },
-  husbandGrandfatherEn: { labelEn: "Husband Grandfather (EN)", labelAm: "የባል አያት (እንግ)" },
+  // Additional birth event fields (duplicates removed - see earlier definitions)
+  // Additional marriage event fields (duplicates removed - see earlier definitions)
 
   // Generic
   uploadedForm: { labelEn: "Uploaded Form", labelAm: "የተጫነ ቅጽ" },
@@ -382,7 +319,7 @@ const LABELS = {
 };
 
 const ManagerDashboard = ({ user, setUser }) => {
-  const [lang, setLang] = useState("en");
+  const { lang, toggleLang } = useLanguage();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -400,6 +337,10 @@ const ManagerDashboard = ({ user, setUser }) => {
   const [notification, setNotification] = useState({ newCount: 0, resubmittedCount: 0, visible: false });
   const [eventsViewActive, setEventsViewActive] = useState(false);
   const [certificateViewActive, setCertificateViewActive] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [certificateCurrentPage, setCertificateCurrentPage] = useState(1);
+  const [reportsCurrentPage, setReportsCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
 	const [reportsViewActive, setReportsViewActive] = useState(false);
 	const [detailsViewActive, setDetailsViewActive] = useState(false);
   const [openSections, setOpenSections] = useState({ overview: true, responsibilities: true, tips: false });
@@ -1636,6 +1577,17 @@ const getReportStatusVariant = (status) => {
   };
 
   const filteredEvents = viewAll ? events : events.filter((e) => (filter === "all" ? true : e.status === filter));
+  
+  // Pagination for events
+  const totalPages = Math.ceil(filteredEvents.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedEvents = filteredEvents.slice(startIndex, endIndex);
+  
+  // Reset to page 1 when filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filter, viewAll]);
   const selectedReport = useMemo(
     () => reports.find((r) => (r._id || r.id) === selectedReportId) || null,
     [reports, selectedReportId]
@@ -1660,7 +1612,7 @@ const getReportStatusVariant = (status) => {
           
           <div className="flex justify-between items-center">
             <h1 className="text-3xl font-bold">{lang === "en" ? "Manager Dashboard" : "የማነጂ ዳሽቦርድ"}</h1>
-            <Button onClick={() => setLang(lang === "en" ? "am" : "en")} className="bg-blue-600 text-white">{lang === "en" ? "አማርኛ" : "English"}</Button>
+            <Button onClick={toggleLang} className="bg-blue-600 text-white">{lang === "en" ? "አማርኛ" : "English"}</Button>
           </div>
 
           {notification.visible && (notification.newCount > 0 || notification.resubmittedCount > 0) && (
@@ -1715,8 +1667,14 @@ const getReportStatusVariant = (status) => {
                 ) : certificateRequests.length === 0 ? (
                   <div className="text-center py-8 text-gray-500">{lang === "en" ? "No certificate requests found." : "ምንም የማረጋገጫ ጥያቄ አልተገኘም።"}</div>
                 ) : (
-                  <div className="space-y-4">
-                    {certificateRequests.map((request, idx) => (
+                  <>
+                    <div className="space-y-4">
+                      {(() => {
+                        const totalPages = Math.ceil(certificateRequests.length / itemsPerPage);
+                        const startIndex = (certificateCurrentPage - 1) * itemsPerPage;
+                        const endIndex = startIndex + itemsPerPage;
+                        const paginatedCertificateRequests = certificateRequests.slice(startIndex, endIndex);
+                        return paginatedCertificateRequests.map((request, idx) => (
                       <div key={idx} className="border rounded-lg p-4">
                         <div className="flex justify-between items-start mb-3">
                           <div>
@@ -1786,8 +1744,23 @@ const getReportStatusVariant = (status) => {
                           </div>
                         )}
                       </div>
-                    ))}
-                  </div>
+                        ));
+                      })()}
+                    </div>
+                    {certificateRequests.length > 0 && (() => {
+                      const totalPages = Math.ceil(certificateRequests.length / itemsPerPage);
+                      return (
+                        <Pagination
+                          currentPage={certificateCurrentPage}
+                          totalPages={totalPages}
+                          onPageChange={setCertificateCurrentPage}
+                          itemsPerPage={itemsPerPage}
+                          totalItems={certificateRequests.length}
+                          lang={lang}
+                        />
+                      );
+                    })()}
+                  </>
                 )}
               </CardContent>
             </Card>
@@ -1853,29 +1826,51 @@ const getReportStatusVariant = (status) => {
                         {lang === "en" ? "No reports received yet." : "እስካሁን ሪፖርት አልደረሰም።"}
                       </div>
                     ) : (
-                  <div className="grid md:grid-cols-3 gap-4">
-                    <div className="space-y-2 max-h-[70vh] overflow-y-auto pr-1">
-                      {reports.map((report) => {
-                        const id = report._id || report.id;
-                        return (
-                          <button
-                            key={id}
-                            onClick={() => setSelectedReportId(id)}
-                            className={`w-full text-left border rounded px-3 py-2 text-sm transition ${
-                              selectedReportId === id ? "border-blue-500 bg-blue-50" : "border-gray-200 bg-white"
-                            }`}
-                          >
-                            <div className="flex items-center justify-between gap-2">
-                              <div className="font-semibold text-gray-800 truncate">{report.title}</div>
-                              <Badge variant={getReportStatusVariant(report.status)}>{report.status || "submitted"}</Badge>
+                  <>
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div className="space-y-2 max-h-[70vh] overflow-y-auto pr-1">
+                        {(() => {
+                          const totalPages = Math.ceil(reports.length / itemsPerPage);
+                          const startIndex = (reportsCurrentPage - 1) * itemsPerPage;
+                          const endIndex = startIndex + itemsPerPage;
+                          const paginatedReports = reports.slice(startIndex, endIndex);
+                          return paginatedReports.map((report) => {
+                            const id = report._id || report.id;
+                            return (
+                              <button
+                                key={id}
+                                onClick={() => setSelectedReportId(id)}
+                                className={`w-full text-left border rounded px-3 py-2 text-sm transition ${
+                                  selectedReportId === id ? "border-blue-500 bg-blue-50" : "border-gray-200 bg-white"
+                                }`}
+                              >
+                                <div className="flex items-center justify-between gap-2">
+                                  <div className="font-semibold text-gray-800 truncate">{report.title}</div>
+                                  <Badge variant={getReportStatusVariant(report.status)}>{report.status || "submitted"}</Badge>
+                                </div>
+                                <div className="text-xs text-gray-500 mt-1">
+                                  {humanizeRole(report.submittedByRole, lang)} · {formatDateTime(report.createdAt)}
+                                </div>
+                              </button>
+                            );
+                          });
+                        })()}
+                        {reports.length > 0 && (() => {
+                          const totalPages = Math.ceil(reports.length / itemsPerPage);
+                          return (
+                            <div className="mt-4">
+                              <Pagination
+                                currentPage={reportsCurrentPage}
+                                totalPages={totalPages}
+                                onPageChange={setReportsCurrentPage}
+                                itemsPerPage={itemsPerPage}
+                                totalItems={reports.length}
+                                lang={lang}
+                              />
                             </div>
-                            <div className="text-xs text-gray-500 mt-1">
-                              {humanizeRole(report.submittedByRole, lang)} · {formatDateTime(report.createdAt)}
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
+                          );
+                        })()}
+                      </div>
                     <div className="md:col-span-2 border rounded-lg bg-gray-50 p-4 max-h-[70vh] overflow-y-auto">
                       {selectedReport ? (
                         <>
@@ -2042,6 +2037,7 @@ const getReportStatusVariant = (status) => {
                       )}
                     </div>
                   </div>
+                    </>
                     )}
                   </>
                 ) : (
@@ -2467,7 +2463,7 @@ const getReportStatusVariant = (status) => {
                       ) : filteredEvents.length === 0 ? (
                         <TableRow><TableCell colSpan={6} className="text-center">{lang === "en" ? "No events found." : "ምንም ክስተት አልተገኘም።"}</TableCell></TableRow>
                       ) : (
-                        filteredEvents.map((event) => {
+                        paginatedEvents.map((event) => {
                           const id = event._id || event.id;
                           const data = event.data || {};
                           const name = lang === "en" ? data.childNameEn || data.husbandNameEn || data.deceasedNameEn || "-" : data.childNameAm || data.husbandNameAm || data.deceasedNameAm || "-";
@@ -2510,6 +2506,16 @@ const getReportStatusVariant = (status) => {
                     </TableBody>
                   </Table>
                 </div>
+                {filteredEvents.length > 0 && (
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                    itemsPerPage={itemsPerPage}
+                    totalItems={filteredEvents.length}
+                    lang={lang}
+                  />
+                )}
               </CardContent>
             </Card>
           ) : (

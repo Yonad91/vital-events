@@ -326,6 +326,25 @@ const applyRegistrationFallbacks = (data, type) => {
     // If death place city/subcity exist, let them backfill registration if still missing
     setIfMissing('registrationCity', get('registrationCity') ?? get('deathPlaceCity'));
     setIfMissing('registrationSubCity', get('registrationSubCity') ?? get('deathPlaceSubCity'));
+    
+    // Construct deathPlace from geographic components if missing
+    if (!get('deathPlace') && !get('deathPlaceEn') && !get('deathPlaceAm')) {
+      const placeParts = [
+        get('deathPlaceRegion'),
+        get('deathPlaceZone'),
+        get('deathPlaceWoreda'),
+        get('deathPlaceSubCity'),
+        get('deathPlaceKebele'),
+        get('deathCity'),
+        get('deathSubCity'),
+        get('deathWoreda'),
+        get('deathKebeleAm')
+      ].filter(Boolean);
+      if (placeParts.length > 0) {
+        out.deathPlace = placeParts.join(', ');
+        out.deathPlaceAm = placeParts.join(', ');
+      }
+    }
   }
 
   // Marriage-specific fallbacks
@@ -1458,6 +1477,19 @@ export const checkDuplicateIdNumber = async (req, res) => {
       const birthRecord = await findBirthRecordByIdNumber(normalizedId);
       if (birthRecord) {
         responsePayload.birthRecord = birthRecord;
+        console.log(`[checkDuplicateIdNumber] Found birth record for ID ${normalizedId}`);
+      } else {
+        // If no birth record found and we're checking for death or divorce, try to find marriage record
+        if (type === 'death' || type === 'divorce') {
+          console.log(`[checkDuplicateIdNumber] No birth record found, checking for marriage record for ID ${normalizedId} (type: ${type})`);
+          const marriageRecord = await findMarriageRecordByIdNumber(normalizedId);
+          if (marriageRecord) {
+            responsePayload.marriageRecord = marriageRecord;
+            console.log(`[checkDuplicateIdNumber] Found marriage record for ID ${normalizedId}:`, marriageRecord.registrationId);
+          } else {
+            console.log(`[checkDuplicateIdNumber] No marriage record found for ID ${normalizedId}`);
+          }
+        }
       }
     }
 
@@ -1546,6 +1578,32 @@ async function findBirthRecordByIdNumber(idNumber) {
     eventId: birthEvent._id?.toString?.() || String(birthEvent._id),
     registrationId: birthEvent.registrationId,
     status: birthEvent.status,
+    data: enrichedData,
+  };
+}
+
+const MARRIAGE_RECORD_STATUSES = ['approved', 'pending', 'draft'];
+async function findMarriageRecordByIdNumber(idNumber) {
+  if (!idNumber) return null;
+  const escapedId = String(idNumber).trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const marriageEvent = await Event.findOne({
+    type: 'marriage',
+    status: { $in: MARRIAGE_RECORD_STATUSES },
+    $or: [
+      { 'data.wifeIdNumberAm': { $regex: new RegExp(`^${escapedId}$`, 'i') } },
+      { 'data.husbandIdNumberAm': { $regex: new RegExp(`^${escapedId}$`, 'i') } }
+    ],
+  }).lean();
+
+  if (!marriageEvent) return null;
+
+  const dataWithFallbacks = applyRegistrationFallbacks(marriageEvent.data || {}, 'marriage');
+  const enrichedData = enrichDataWithAllFields({ type: 'marriage', data: dataWithFallbacks }) || dataWithFallbacks;
+
+  return {
+    eventId: marriageEvent._id?.toString?.() || String(marriageEvent._id),
+    registrationId: marriageEvent.registrationId,
+    status: marriageEvent.status,
     data: enrichedData,
   };
 }

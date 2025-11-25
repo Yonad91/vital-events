@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Users, Heart, Baby, FileText } from "lucide-react";
 import { motion } from "framer-motion"; // 👈 animations
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
-  const [lang, setLang] = useState("en");
+  const { lang, toggleLang, translate } = useLanguage();
 
   const texts = {
     en: {
@@ -18,7 +19,7 @@ export default function Home() {
       servicesTitle: "Our Services",
       aboutTitle: "About DBVERS",
       aboutText:
-        "The Debre Berhan Vital Events Registration System (DVERS) provides a secure, efficient, and transparent digital platform to manage vital events such as births, deaths, and marriages. It ensures accurate records for both citizens and government offices.",
+        "The Debre Berhan Vital Events Registration System (DBVERS) provides a secure, efficient, and transparent digital platform to manage vital events such as births, deaths, and marriages. It ensures accurate records for both citizens and government offices.",
       statsTitle: "Statistics",
       footer:
         "© " + new Date().getFullYear() + " Debre Berhan Vital Events Office",
@@ -41,26 +42,26 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Navbar */}
       <nav className="flex justify-between items-center px-6 py-4 bg-white shadow sticky top-0 z-50">
-        <h1 className="text-2xl font-bold text-blue-900">DVERS</h1>
+        <h1 className="text-2xl font-bold text-blue-900">DBVERS</h1>
         <div className="space-x-6 text-gray-700">
           <a href="/" className="hover:text-blue-600">
-            Home
+            {translate("Home", "መነሻ")}
           </a>
           <a href="#about" className="hover:text-blue-600">
-            About
+            {translate("About", "ስለ እኛ")}
           </a>
           <a href="#services" className="hover:text-blue-600">
-            Services
+            {translate("Services", "አገልግሎቶች")}
           </a>
           <Link
             to="/login"
             className="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
           >
-            Login
+            {translate("Login", "ግባ")}
           </Link>
         </div>
         <button
-          onClick={() => setLang(lang === "en" ? "am" : "en")}
+          onClick={toggleLang}
           className="ml-4 border px-3 py-1 rounded text-sm hover:bg-gray-100"
         >
           {lang === "en" ? "አማ" : "EN"}
