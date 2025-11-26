@@ -66,6 +66,13 @@ import {
   sendReportTemplate,
   listSentTemplates,
   getReportingUsers,
+  getManagerAgents,
+  createManagerAgent,
+  deleteManagerAgent,
+  changeManagerAgentRole,
+  managerUpdateEvent,
+  managerDeleteEvent,
+  listCorrectionRequests,
 } from "../controllers/userController.js";
 // ...existing code...
 
@@ -216,11 +223,14 @@ router.patch(
   rejectCertificateRequest
 );
 router.patch("/manager/events/:eventId/corrections/:correctionId", handleCorrection);
+router.put("/manager/events/:eventId", upload.any(), managerUpdateEvent);
+router.delete("/manager/events/:eventId", managerDeleteEvent);
 router.delete(
   "/manager/events/:eventId/certificates/:requestId",
   deleteCertificateRequest
 );
 router.post("/manager/reports/:reportId/feedback", sendReportFeedback);
+router.get("/manager/corrections", listCorrectionRequests);
 
 // Report Template routes
 router.post("/manager/templates", createReportTemplate);
@@ -231,6 +241,12 @@ router.delete("/manager/templates/:templateId", deleteReportTemplate);
 router.post("/manager/templates/:templateId/send", sendReportTemplate);
 router.get("/manager/templates/sent/list", listSentTemplates);
 router.get("/manager/reporting-users", getReportingUsers);
+
+// Manager agent management routes
+router.get("/manager/agents", getManagerAgents);
+router.post("/manager/agents", createManagerAgent);
+router.delete("/manager/agents/:agentId", deleteManagerAgent);
+router.patch("/manager/agents/:agentId/role", changeManagerAgentRole);
 
 /**
  * ========================

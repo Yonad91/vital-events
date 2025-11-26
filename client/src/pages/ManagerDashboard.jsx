@@ -7,6 +7,7 @@ import { formatEthiopianDate } from "@/lib/utils";
 import ProfileSidebar from "../components/ProfileSidebar";
 import Pagination from "../components/Pagination";
 import { useLanguage } from "@/context/LanguageContext";
+import FormSelector from "./forms/FormSelector";
 
 // Small mock UI components (kept local to avoid missing imports)
 const Card = ({ children, className = "" }) => (
@@ -83,6 +84,50 @@ const getSubmittedByLabel = (who, registrar) => {
   if (!who) return "-";
   if (typeof who === "object") return who.name || who.username || JSON.stringify(who);
   return String(who);
+};
+
+const getValueByPath = (obj, path) => {
+  if (!obj || !path) return undefined;
+  return path.split(".").reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined), obj);
+};
+
+const eventMatchesSearchTerm = (event, normalizedTerm) => {
+  if (!event || !normalizedTerm) return false;
+  const registrationId = (event.registrationId || "").toLowerCase();
+  if (registrationId && registrationId.includes(normalizedTerm)) return true;
+  const registrationNumber = (event.data?.registrationNumber || "").toLowerCase();
+  if (registrationNumber && registrationNumber.includes(normalizedTerm)) return true;
+
+  const nameMatch = SEARCH_NAME_FIELDS.some((field) => {
+    const value = getValueByPath(event, field);
+    return value && String(value).trim().toLowerCase().includes(normalizedTerm);
+  });
+  if (nameMatch) return true;
+
+  const idMatch = SEARCH_ID_FIELDS.some((field) => {
+    const value = getValueByPath(event, field);
+    return value && String(value).toLowerCase().includes(normalizedTerm);
+  });
+  if (idMatch) return true;
+
+  const combinedGroups = [
+    ["data.childNameEn", "data.childFatherNameEn", "data.childGrandfatherNameEn"],
+    ["data.childNameAm", "data.childFatherNameAm", "data.childGrandfatherNameAm"],
+    ["data.husbandNameEn", "data.husbandFatherEn", "data.husbandGrandfatherEn"],
+    ["data.wifeNameEn", "data.wifeFatherEn", "data.wifeGrandfatherEn"],
+    ["data.deceasedNameEn", "data.deceasedFatherEn", "data.deceasedGrandfatherEn"],
+    ["data.deceasedNameAm", "data.deceasedFatherAm", "data.deceasedGrandfatherAm"],
+  ];
+
+  return combinedGroups.some((fields) => {
+    const combined = fields
+      .map((field) => getValueByPath(event, field))
+      .filter(Boolean)
+      .join(" ")
+      .trim()
+      .toLowerCase();
+    return combined && combined.includes(normalizedTerm);
+  });
 };
 
 // Lightweight bilingual label lookup. We intentionally keep this local and
@@ -318,6 +363,68 @@ const LABELS = {
   weightOfChild: { labelEn: "Weight of Child", labelAm: "የልጅ ክብደት" },
 };
 
+const EVENT_TYPE_OPTIONS = [
+  { value: "all", labelEn: "All types", labelAm: "ሁሉም አይነቶች" },
+  { value: "birth", labelEn: "Birth", labelAm: "ትውልድ" },
+  { value: "marriage", labelEn: "Marriage", labelAm: "ጋብቻ" },
+  { value: "death", labelEn: "Death", labelAm: "ሞት" },
+  { value: "divorce", labelEn: "Divorce", labelAm: "ፍቺ" },
+  { value: "special", labelEn: "Special", labelAm: "ልዩ" },
+];
+
+const STATUS_FILTER_OPTIONS = [
+  { value: "all", labelEn: "All statuses", labelAm: "ሁሉም ሁኔታዎች" },
+  { value: "draft", labelEn: "Draft", labelAm: "ድርሰት" },
+  { value: "pending", labelEn: "Pending", labelAm: "በመጠበቅ ላይ" },
+  { value: "approved", labelEn: "Approved", labelAm: "ተጸድቋል" },
+  { value: "rejected", labelEn: "Rejected", labelAm: "ተቀባይነት አልተሰጠም" },
+];
+
+const SEARCH_NAME_FIELDS = [
+  "data.childNameEn",
+  "data.childNameAm",
+  "data.childFullNameEn",
+  "data.childFullNameAm",
+  "data.childFatherNameEn",
+  "data.childFatherNameAm",
+  "data.childGrandfatherNameEn",
+  "data.childGrandfatherNameAm",
+  "data.husbandNameEn",
+  "data.husbandNameAm",
+  "data.husbandFullNameEn",
+  "data.husbandFullNameAm",
+  "data.wifeNameEn",
+  "data.wifeNameAm",
+  "data.wifeFullNameEn",
+  "data.wifeFullNameAm",
+  "data.deceasedNameEn",
+  "data.deceasedNameAm",
+  "data.deceasedFullNameEn",
+  "data.deceasedFullNameAm",
+  "data.motherFullNameEn",
+  "data.motherFullNameAm",
+  "data.fatherFullNameEn",
+  "data.fatherFullNameAm",
+  "data.requesterName",
+  "data.parentNameEn",
+  "data.parentNameAm",
+];
+
+const SEARCH_ID_FIELDS = [
+  "data.childIdNumberAm",
+  "data.husbandIdNumberAm",
+  "data.wifeIdNumberAm",
+  "data.deceasedIdNumberAm",
+  "data.requesterIdNumber",
+  "data.idCardNumber",
+  "data.motherIdOrPassport",
+  "data.fatherIdOrPassportAm",
+  "data.registrarBureauIdNumber",
+  "data.birthInfoNumberAm",
+  "data.divorceSpouse1IdAm",
+  "data.divorceSpouse2IdAm",
+];
+
 const ManagerDashboard = ({ user, setUser }) => {
   const { lang, toggleLang } = useLanguage();
   const [events, setEvents] = useState([]);
@@ -327,8 +434,14 @@ const ManagerDashboard = ({ user, setUser }) => {
   const [modalType, setModalType] = useState("");
   const [rejectionReason, setRejectionReason] = useState("");
   const [processing, setProcessing] = useState(false);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("all"); // status filter
   const [viewAll, setViewAll] = useState(true);
+  const [eventTypeFilter, setEventTypeFilter] = useState("all");
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchActive, setSearchActive] = useState(false);
+  const [searchMessage, setSearchMessage] = useState("");
+  const [searching, setSearching] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [showRaw, setShowRaw] = useState(false);
@@ -343,6 +456,30 @@ const ManagerDashboard = ({ user, setUser }) => {
   const [itemsPerPage] = useState(10);
 	const [reportsViewActive, setReportsViewActive] = useState(false);
 	const [detailsViewActive, setDetailsViewActive] = useState(false);
+  const [correctionsViewActive, setCorrectionsViewActive] = useState(false);
+  const [corrections, setCorrections] = useState([]);
+  const [correctionsLoading, setCorrectionsLoading] = useState(false);
+  const [correctionsError, setCorrectionsError] = useState("");
+  const [correctionsStatusFilter, setCorrectionsStatusFilter] = useState("pending");
+  const [correctionsCurrentPage, setCorrectionsCurrentPage] = useState(1);
+  const [correctionUpdating, setCorrectionUpdating] = useState(false);
+  const [agentsViewActive, setAgentsViewActive] = useState(false);
+  const [agents, setAgents] = useState([]);
+  const [agentsLoading, setAgentsLoading] = useState(false);
+  const [agentsCurrentPage, setAgentsCurrentPage] = useState(1);
+  const [showCreateAgentForm, setShowCreateAgentForm] = useState(false);
+  const [newAgent, setNewAgent] = useState({ name: "", email: "", password: "", role: "registrar" });
+  const [creatingAgent, setCreatingAgent] = useState(false);
+  const [actionAgent, setActionAgent] = useState(null);
+  const [showActionMenu, setShowActionMenu] = useState(false);
+  const [showRoleSelector, setShowRoleSelector] = useState(false);
+  const [pendingDelete, setPendingDelete] = useState(null);
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+  const [pendingDeleteEvent, setPendingDeleteEvent] = useState(null);
+  const [showConfirmDeleteEvent, setShowConfirmDeleteEvent] = useState(false);
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [showEventForm, setShowEventForm] = useState(false);
+  const [formType, setFormType] = useState("birth");
   const [openSections, setOpenSections] = useState({ overview: true, responsibilities: true, tips: false });
   const [certificateRequests, setCertificateRequests] = useState([]);
   const [certificateLoading, setCertificateLoading] = useState(false);
@@ -492,6 +629,64 @@ const ManagerDashboard = ({ user, setUser }) => {
     }
   }, [lang, user?.token]);
 
+  const mapCorrectionsFromEvents = useCallback(() => {
+    const items = [];
+    (events || []).forEach((event) => {
+      if (!event?.corrections || event.corrections.length === 0) return;
+      event.corrections.forEach((correction) => {
+        items.push({
+          eventId: event._id || event.id,
+          eventType: event.type,
+          eventStatus: event.status,
+          registrationId: event.registrationId,
+          eventData: event.data,
+          registrar: event.registrarId,
+          correctionId: correction._id || correction.id,
+          correction,
+          event,
+        });
+      });
+    });
+    return items;
+  }, [events]);
+
+  const loadCorrections = useCallback(async () => {
+    if (!user?.token) return;
+    setCorrectionsLoading(true);
+    setCorrectionsError("");
+    try {
+      const res = await apiFetch(`/users/manager/corrections?status=${correctionsStatusFilter}`, {
+        token: user.token,
+      });
+      const data = Array.isArray(res) ? res : [];
+      if (data.length === 0) {
+        const fallback = mapCorrectionsFromEvents();
+        setCorrections(fallback.filter((item) =>
+          correctionsStatusFilter === "all"
+            ? true
+            : (item.correction.status || "pending").toLowerCase() === correctionsStatusFilter
+        ));
+      } else {
+        setCorrections(data);
+      }
+    } catch (err) {
+      console.error("Failed to load correction requests:", err);
+      const fallback = mapCorrectionsFromEvents();
+      if (fallback.length > 0) {
+        setCorrections(fallback.filter((item) =>
+          correctionsStatusFilter === "all"
+            ? true
+            : (item.correction.status || "pending").toLowerCase() === correctionsStatusFilter
+        ));
+      } else {
+        setCorrections([]);
+      }
+      setCorrectionsError(err?.message || (lang === "en" ? "Failed to load correction requests" : "የማስተካከያ ጥያቄዎችን ማስገኘት አልተቻለም"));
+    } finally {
+      setCorrectionsLoading(false);
+    }
+}, [user?.token, correctionsStatusFilter, lang, mapCorrectionsFromEvents]);
+
   useEffect(() => {
     if (user?.token) load();
   }, [user?.token, load]);
@@ -511,6 +706,42 @@ const ManagerDashboard = ({ user, setUser }) => {
       }
     }
   }, [user?.token, reportsViewActive, reportsTab, loadReports]);
+
+  useEffect(() => {
+    if (user?.token && correctionsViewActive) {
+      loadCorrections();
+    }
+  }, [user?.token, correctionsViewActive, loadCorrections]);
+
+  useEffect(() => {
+    if (correctionsViewActive) {
+      const fallback = mapCorrectionsFromEvents();
+      if (fallback.length > 0) {
+        setCorrections(fallback.filter((item) =>
+          correctionsStatusFilter === "all"
+            ? true
+            : (item.correction.status || "pending").toLowerCase() === correctionsStatusFilter
+        ));
+      }
+    }
+  }, [events, correctionsViewActive, correctionsStatusFilter, mapCorrectionsFromEvents]);
+
+  useEffect(() => {
+    if (correctionsViewActive) {
+      loadCorrections();
+    }
+    setCorrectionsCurrentPage(1);
+  }, [correctionsStatusFilter, correctionsViewActive, loadCorrections]);
+
+  useEffect(() => {
+    if (searchActive && searchInput.trim()) {
+      const normalized = searchInput.trim().toLowerCase();
+      const matches = events
+        .filter((event) => eventMatchesSearchTerm(event, normalized))
+        .map((event) => event._id || event.id);
+      setSearchResults(matches);
+    }
+  }, [events, searchActive, searchInput]);
 
   const loadTemplates = useCallback(async () => {
     if (!user || !user.token) return;
@@ -575,6 +806,8 @@ const ManagerDashboard = ({ user, setUser }) => {
         setCertificateViewActive(true);
         setReportsViewActive(false);
         setDetailsViewActive(false);
+        setAgentsViewActive(false);
+        setCorrectionsViewActive(false);
         return;
       }
       if (h === '#reports') {
@@ -584,6 +817,30 @@ const ManagerDashboard = ({ user, setUser }) => {
         setCertificateViewActive(false);
         setDetailsViewActive(false);
         setReportsViewActive(true);
+        setAgentsViewActive(false);
+        setCorrectionsViewActive(false);
+        return;
+      }
+      if (h === '#corrections') {
+        setFilter('all');
+        setViewAll(true);
+        setEventsViewActive(false);
+        setCertificateViewActive(false);
+        setDetailsViewActive(false);
+        setReportsViewActive(false);
+        setAgentsViewActive(false);
+        setCorrectionsViewActive(true);
+        return;
+      }
+      if (h === '#agents') {
+        setFilter('all');
+        setViewAll(true);
+        setEventsViewActive(false);
+        setCertificateViewActive(false);
+        setReportsViewActive(false);
+        setDetailsViewActive(false);
+        setAgentsViewActive(true);
+        setCorrectionsViewActive(false);
         return;
       }
       // Hash is #events (opened but not selected) or anything else: hide
@@ -592,6 +849,8 @@ const ManagerDashboard = ({ user, setUser }) => {
       setEventsViewActive(false);
       setCertificateViewActive(false);
       setReportsViewActive(false);
+      setAgentsViewActive(false);
+      setCorrectionsViewActive(false);
     } catch {}
   }, []);
 
@@ -781,6 +1040,16 @@ const getReportStatusVariant = (status) => {
 				setDetailsViewActive(true);
         setShowRejectForm(true);
         setReportsViewActive(false);
+        break;
+      case "edit":
+        setEditingEvent(event);
+        setFormType(event.type);
+        setShowEventForm(true);
+        setDetailsViewActive(false);
+        break;
+      case "delete":
+        setPendingDeleteEvent(event);
+        setShowConfirmDeleteEvent(true);
         break;
       default:
         break;
@@ -1576,7 +1845,24 @@ const getReportStatusVariant = (status) => {
     );
   };
 
-  const filteredEvents = viewAll ? events : events.filter((e) => (filter === "all" ? true : e.status === filter));
+  const filteredEvents = useMemo(() => {
+    let list = events;
+    if (!viewAll) {
+      list = list.filter((e) => (filter === "all" ? true : e.status === filter));
+    }
+    if (eventTypeFilter !== "all") {
+      list = list.filter((e) => e.type === eventTypeFilter);
+    }
+    if (searchActive) {
+      if (searchResults.length === 0) {
+        list = [];
+      } else {
+        const ids = new Set(searchResults);
+        list = list.filter((e) => ids.has(e._id || e.id));
+      }
+    }
+    return list;
+  }, [events, viewAll, filter, eventTypeFilter, searchActive, searchResults]);
   
   // Pagination for events
   const totalPages = Math.ceil(filteredEvents.length / itemsPerPage);
@@ -1584,15 +1870,251 @@ const getReportStatusVariant = (status) => {
   const endIndex = startIndex + itemsPerPage;
   const paginatedEvents = filteredEvents.slice(startIndex, endIndex);
   
-  // Reset to page 1 when filter changes
+  // Reset to page 1 when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [filter, viewAll]);
+  }, [filter, viewAll, eventTypeFilter, searchActive, searchResults]);
   const selectedReport = useMemo(
     () => reports.find((r) => (r._id || r.id) === selectedReportId) || null,
     [reports, selectedReportId]
   );
-  const overviewActive = !eventsViewActive && !certificateViewActive && !reportsViewActive && !detailsViewActive;
+  const overviewActive = !eventsViewActive && !certificateViewActive && !reportsViewActive && !detailsViewActive && !agentsViewActive && !correctionsViewActive;
+
+  // Load agents
+  const loadAgents = useCallback(async () => {
+    if (!user || !user.token) return;
+    setAgentsLoading(true);
+    try {
+      const res = await apiFetch("/users/manager/agents", { token: user.token });
+      setAgents(Array.isArray(res) ? res : []);
+    } catch (err) {
+      console.error("Failed to load agents:", err);
+      setAgents([]);
+      setError(err?.message || "Failed to load agents");
+    } finally {
+      setAgentsLoading(false);
+    }
+  }, [user?.token]);
+
+  useEffect(() => {
+    if (user?.token && agentsViewActive) {
+      loadAgents();
+    }
+  }, [user?.token, agentsViewActive, loadAgents]);
+
+  // Create agent
+  const handleCreateAgent = async (e) => {
+    e.preventDefault();
+    setCreatingAgent(true);
+    setError("");
+    try {
+      const created = await apiFetch("/users/manager/agents", {
+        method: "POST",
+        token: user.token,
+        body: newAgent,
+      });
+      showSuccess(lang === "en" ? "Agent created successfully" : "ወኪል በተሳካ ሁኔታ ተፈጥሯል");
+      setNewAgent({ name: "", email: "", password: "", role: "registrar" });
+      setShowCreateAgentForm(false);
+      await loadAgents();
+    } catch (err) {
+      setError(err?.message || (lang === "en" ? "Failed to create agent" : "ወኪል መፍጠር አልተቻለም"));
+    } finally {
+      setCreatingAgent(false);
+    }
+  };
+
+  // Delete agent
+  const handleDeleteAgent = (agentId) => {
+    setPendingDelete(agentId);
+    setShowConfirmDelete(true);
+  };
+
+  const confirmDeleteAgent = async () => {
+    if (!pendingDelete) return;
+    try {
+      await apiFetch(`/users/manager/agents/${pendingDelete}`, {
+        method: "DELETE",
+        token: user.token,
+      });
+      showSuccess(lang === "en" ? "Agent deleted successfully" : "ወኪል በተሳካ ሁኔታ ተሰርዟል");
+      await loadAgents();
+    } catch (err) {
+      setError(err?.message || (lang === "en" ? "Failed to delete agent" : "ወኪል ማስወገድ አልተቻለም"));
+    } finally {
+      setPendingDelete(null);
+      setShowConfirmDelete(false);
+    }
+  };
+
+  // Change agent role
+  const handleChangeAgentRole = async (agentId, newRole) => {
+    try {
+      await apiFetch(`/users/manager/agents/${agentId}/role`, {
+        method: "PATCH",
+        token: user.token,
+        body: { role: newRole },
+      });
+      showSuccess(lang === "en" ? "Agent role updated successfully" : "የወኪል ሚና በተሳካ ሁኔታ ተዘምኗል");
+      await loadAgents();
+    } catch (err) {
+      setError(err?.message || (lang === "en" ? "Failed to update agent role" : "የወኪል ሚና ማዘምን አልተቻለም"));
+    }
+  };
+
+  // Handle event form submit (for editing)
+  const handleEventFormSubmit = async (payload) => {
+    try {
+      if (editingEvent) {
+        await apiFetch(`/users/manager/events/${editingEvent._id || editingEvent.id}`, {
+          method: 'PUT',
+          token: user.token,
+          ...(payload.isForm ? { body: payload.body, isForm: true } : { body: payload.body }),
+        });
+        setEditingEvent(null);
+        setShowEventForm(false);
+        showSuccess(lang === "en" ? "Event updated successfully" : "ክስተቱ በተሳካ ሁኔታ ተዘምኗል");
+        await load();
+        if (correctionsViewActive) {
+          await loadCorrections();
+        }
+      }
+    } catch (err) {
+      setError(err?.message || (lang === "en" ? "Failed to update event" : "ክስተቱን ማዘምን አልተቻለም"));
+    }
+  };
+
+  // Handle delete event
+  const confirmDeleteEvent = async () => {
+    if (!pendingDeleteEvent) return;
+    try {
+      await apiFetch(`/users/manager/events/${pendingDeleteEvent._id || pendingDeleteEvent.id}`, {
+        method: "DELETE",
+        token: user.token,
+      });
+      showSuccess(lang === "en" ? "Event deleted successfully" : "ክስተቱ በተሳካ ሁኔታ ተሰርዟል");
+      await load();
+      if (correctionsViewActive) {
+        await loadCorrections();
+      }
+    } catch (err) {
+      setError(err?.message || (lang === "en" ? "Failed to delete event" : "ክስተቱን ማስወገድ አልተቻለም"));
+    } finally {
+      setPendingDeleteEvent(null);
+      setShowConfirmDeleteEvent(false);
+    }
+  };
+
+  // Handle delete certificate
+  const handleDeleteCertificate = async (eventId, requestId) => {
+    const confirmMessage = lang === 'en' 
+      ? 'Are you sure you want to delete this certificate request? This action cannot be undone.'
+      : 'ይህንን የማረጋገጫ ጥያቄ ማጥፋት እርግጠኛ ነዎት? ይህ እርምጃ ሊመለስ አይችልም።';
+    
+    if (!window.confirm(confirmMessage)) {
+      return;
+    }
+
+    try {
+      await apiFetch(`/users/manager/events/${eventId}/certificates/${requestId}`, {
+        method: "DELETE",
+        token: user.token,
+      });
+      showSuccess(lang === "en" ? "Certificate deleted successfully" : "ማረጋገጫው በተሳካ ሁኔታ ተሰርዟል");
+      await loadCertificateRequests();
+    } catch (err) {
+      setError(err?.message || (lang === "en" ? "Failed to delete certificate" : "ማረጋገጫውን ማስወገድ አልተቻለም"));
+    }
+  };
+
+  const handleStatusFilterChange = (status) => {
+    if (status === "all") {
+      setViewAll(true);
+      setFilter("all");
+    } else {
+      setViewAll(false);
+      setFilter(status);
+    }
+  };
+
+  const handleEventSearch = (e) => {
+    e.preventDefault();
+    const term = searchInput.trim();
+    if (!term) {
+      setSearchActive(false);
+      setSearchResults([]);
+      setSearchMessage(lang === "en" ? "Enter a full name or ID number to search." : "ስም ወይም የመታወቂያ ቁጥር አስገብተው ይፈልጉ።");
+      return;
+    }
+    const normalized = term.toLowerCase();
+    setSearching(true);
+    const matches = events
+      .filter((event) => eventMatchesSearchTerm(event, normalized))
+      .map((event) => event._id || event.id);
+    setSearchActive(true);
+    setSearchResults(matches);
+    setSearchMessage(
+      matches.length > 0
+        ? lang === "en"
+          ? `${matches.length} event(s) found.`
+          : `${matches.length} ክስተቶች ተገኝተዋል።`
+        : lang === "en"
+        ? `No events found for "${term}".`
+        : `ምንም ክስተት አልተገኘም ለ "${term}".`
+    );
+    setSearching(false);
+  };
+
+  const handleResetSearch = () => {
+    setSearchInput("");
+    setSearchResults([]);
+    setSearchActive(false);
+    setSearchMessage("");
+    setSearching(false);
+  };
+
+  const handleCorrectionAction = async (eventId, correctionId, action) => {
+    let responseMessage = "";
+    if (action === "reject") {
+      responseMessage = prompt(
+        lang === "en" ? "Reason for rejection:" : "የመሰወሪያ ምክንያት:"
+      );
+      if (!responseMessage || !responseMessage.trim()) {
+        return;
+      }
+    }
+    setCorrectionUpdating(true);
+    try {
+      await apiFetch(`/users/manager/events/${eventId}/corrections/${correctionId}`, {
+        method: "PATCH",
+        token: user.token,
+        body: { action, response: responseMessage },
+      });
+      showSuccess(
+        action === "approve"
+          ? (lang === "en" ? "Correction approved" : "ማስተካከያው ተፈቅዷል")
+          : (lang === "en" ? "Correction rejected" : "ማስተካከያው ተቀባይነት አልተሰጠውም")
+      );
+      await loadCorrections();
+    } catch (err) {
+      setError(err?.message || (lang === "en" ? "Failed to update correction" : "ማስተካከያውን ማዘመን አልተቻለም"));
+    } finally {
+      setCorrectionUpdating(false);
+    }
+  };
+
+  const handleOpenCorrectionEdit = (item) => {
+    const eventPayload = item?.event || {
+      _id: item.eventId,
+      type: item.eventType,
+      data: item.eventData,
+      registrationId: item.registrationId,
+      status: item.eventStatus,
+    };
+    setEditingEvent(eventPayload);
+    setFormType(eventPayload.type);
+    setShowEventForm(true);
+  };
 
   if (!user || !user.token) {
     return (
@@ -1691,8 +2213,9 @@ const getReportStatusVariant = (status) => {
                               {lang === "en" ? "Requested:" : "የተጠየቀ:"} {new Date(request.requestedAt).toLocaleDateString()}
                             </div>
                           </div>
-                          {request.status === 'pending' && (
                             <div className="flex gap-2">
+                            {request.status === 'pending' && (
+                              <>
                               <Button
                                 onClick={() => handleApproveCertificate(request.eventId, request._id)}
                                 disabled={processing}
@@ -1712,8 +2235,16 @@ const getReportStatusVariant = (status) => {
                               >
                                 {lang === "en" ? "Reject" : "አስወግድ"}
                               </Button>
-                            </div>
-                          )}
+                              </>
+                            )}
+                            <Button
+                              onClick={() => handleDeleteCertificate(request.eventId, request._id)}
+                              disabled={processing}
+                              className="bg-gray-600 text-white hover:bg-gray-700"
+                            >
+                              {lang === "en" ? "Delete" : "ሰርዝ"}
+                            </Button>
+                          </div>
                         </div>
                         
                         {request.verificationName && (
@@ -1756,6 +2287,155 @@ const getReportStatusVariant = (status) => {
                           onPageChange={setCertificateCurrentPage}
                           itemsPerPage={itemsPerPage}
                           totalItems={certificateRequests.length}
+                          lang={lang}
+                        />
+                      );
+                    })()}
+                  </>
+                )}
+              </CardContent>
+            </Card>
+          ) : correctionsViewActive ? (
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle>{lang === "en" ? "Event Correction Requests" : "የክስተት ማስተካከያ ጥያቄዎች"}</CardTitle>
+                  <button
+                    className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100"
+                    title={lang === 'en' ? 'Close' : 'ዝጋ'}
+                    onClick={() => {
+                      try { window.location.hash = ''; } catch {}
+                      setCorrectionsViewActive(false);
+                    }}
+                  >
+                    ✕
+                  </button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {["pending", "approved", "rejected", "all"].map((status) => (
+                    <button
+                      key={status}
+                      className={`px-3 py-1 rounded-full text-xs border ${
+                        correctionsStatusFilter === status
+                          ? "bg-blue-600 text-white border-blue-600"
+                          : "bg-white text-gray-700 hover:bg-gray-50"
+                      }`}
+                      onClick={() => setCorrectionsStatusFilter(status)}
+                    >
+                      {lang === "en"
+                        ? status.charAt(0).toUpperCase() + status.slice(1)
+                        : status === "pending"
+                        ? "በመጠበቅ ላይ"
+                        : status === "approved"
+                        ? "ተጸድቋል"
+                        : status === "rejected"
+                        ? "ተቀባይነት አልያቸውም"
+                        : "ሁሉም"}
+                    </button>
+                  ))}
+                </div>
+                {correctionsError && (
+                  <div className="mb-3 bg-red-50 text-red-700 px-3 py-2 rounded text-sm">
+                    {correctionsError}
+                  </div>
+                )}
+                {correctionsLoading ? (
+                  <div className="text-center py-8 text-gray-600">
+                    {lang === "en" ? "Loading correction requests..." : "የማስተካከያ ጥያቄዎች በመጫን ላይ..."}
+                  </div>
+                ) : corrections.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500">
+                    {lang === "en" ? "No correction requests found." : "የማስተካከያ ጥያቄ አልተገኘም።"}
+                  </div>
+                ) : (
+                  <>
+                    <div className="space-y-4">
+                      {(() => {
+                        const totalPages = Math.ceil(corrections.length / itemsPerPage);
+                        const startIndex = (correctionsCurrentPage - 1) * itemsPerPage;
+                        const endIndex = startIndex + itemsPerPage;
+                        const paginatedCorrections = corrections.slice(startIndex, endIndex);
+                        return paginatedCorrections.map((item) => (
+                          <div key={`${item.eventId}-${item.correctionId}`} className="border rounded-lg p-4 bg-white">
+                            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+                              <div>
+                                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                  <Badge variant={getStatusVariant(item.correction.status || "pending")}>
+                                    {item.correction.status || "pending"}
+                                  </Badge>
+                                  <span className="text-sm text-gray-600 capitalize">
+                                    {lang === "en" ? "Event Type:" : "የክስተት አይነት:"} {item.eventType}
+                                  </span>
+                                  <span className="text-sm text-gray-600">
+                                    {lang === "en" ? "Registration ID:" : "የመመዝገቢያ መለያ:"} {item.registrationId}
+                                  </span>
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  {lang === "en" ? "Requested at:" : "የተጠየቀበት ጊዜ:"}{" "}
+                                  {formatDateTime(item.correction.requestedAt)}
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  {lang === "en" ? "Requested by:" : "ከመነሻው ተጠያቂ:"}{" "}
+                                {item.correction.requestedBy?.name || (lang === "en" ? "Registrant" : "ተመዝጋቢ")}
+                                </div>
+                              </div>
+                              <div className="text-sm text-gray-600">
+                                {lang === "en" ? "Current event status:" : "የአሁኑ የክስተት ሁኔታ:"}{" "}
+                                <Badge variant={getStatusVariant(item.eventStatus || "pending")}>
+                                  {item.eventStatus || "pending"}
+                                </Badge>
+                              </div>
+                            </div>
+                            <div className="mt-3 p-3 bg-gray-50 rounded text-sm text-gray-800 whitespace-pre-line">
+                              {item.correction.details}
+                            </div>
+                            {item.correction.response && (
+                              <div className="mt-3 p-3 bg-blue-50 rounded text-sm text-blue-800 whitespace-pre-line">
+                                <strong>{lang === "en" ? "Manager response:" : "የማናጀሩ መልስ:"}</strong>
+                                <div className="mt-1">{item.correction.response}</div>
+                              </div>
+                            )}
+                            <div className="mt-4 flex flex-wrap gap-2">
+                              <Button
+                                onClick={() => handleOpenCorrectionEdit(item)}
+                                className="bg-indigo-600 text-white hover:bg-indigo-700"
+                              >
+                                {lang === "en" ? "Edit Event" : "ክስተቱን አርትዕ"}
+                              </Button>
+                              {item.correction.status === "pending" && (
+                                <>
+                                  <Button
+                                    onClick={() => handleCorrectionAction(item.eventId, item.correctionId, "approve")}
+                                    disabled={correctionUpdating}
+                                    className="bg-green-600 text-white hover:bg-green-700"
+                                  >
+                                    {correctionUpdating ? (lang === "en" ? "Processing..." : "በማስኬድ ላይ...") : (lang === "en" ? "Approve" : "አጽድቅ")}
+                                  </Button>
+                                  <Button
+                                    onClick={() => handleCorrectionAction(item.eventId, item.correctionId, "reject")}
+                                    disabled={correctionUpdating}
+                                    className="bg-red-600 text-white hover:bg-red-700"
+                                  >
+                                    {lang === "en" ? "Reject" : "አስወግድ"}
+                                  </Button>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        ));
+                      })()}
+                    </div>
+                    {corrections.length > 0 && (() => {
+                      const totalPages = Math.ceil(corrections.length / itemsPerPage);
+                      return (
+                        <Pagination
+                          currentPage={correctionsCurrentPage}
+                          totalPages={totalPages}
+                          onPageChange={setCorrectionsCurrentPage}
+                          itemsPerPage={itemsPerPage}
+                          totalItems={corrections.length}
                           lang={lang}
                         />
                       );
@@ -2445,6 +3125,103 @@ const getReportStatusVariant = (status) => {
                 </div>
               </CardHeader>
               <CardContent>
+                <div className="space-y-4 mb-4">
+                  <div className="flex flex-wrap gap-2">
+                    {STATUS_FILTER_OPTIONS.map((option) => {
+                      const isActive =
+                        option.value === "all" ? viewAll : !viewAll && filter === option.value;
+                      return (
+                        <button
+                          key={option.value}
+                          className={`px-3 py-1 rounded-full text-xs border transition ${
+                            isActive
+                              ? "bg-blue-600 text-white border-blue-600"
+                              : "bg-white text-gray-700 hover:bg-gray-50"
+                          }`}
+                          onClick={() => handleStatusFilterChange(option.value)}
+                        >
+                          {lang === "en" ? option.labelEn : option.labelAm}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        {lang === "en" ? "Filter by event type" : "በክስተት አይነት ይለዩ"}
+                      </label>
+                      <select
+                        value={eventTypeFilter}
+                        onChange={(e) => setEventTypeFilter(e.target.value)}
+                        className="w-full border rounded px-3 py-2 text-sm"
+                      >
+                        {EVENT_TYPE_OPTIONS.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {lang === "en" ? option.labelEn : option.labelAm}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <form onSubmit={handleEventSearch} className="flex flex-col gap-2">
+                      <label className="text-sm font-medium">
+                        {lang === "en"
+                          ? "Search by full name or identification number"
+                          : "በሙሉ ስም ወይም በመታወቂያ ቁጥር ይፈልጉ"}
+                      </label>
+                      <div className="flex flex-col md:flex-row gap-2">
+                        <input
+                          value={searchInput}
+                          onChange={(e) => setSearchInput(e.target.value)}
+                          className="flex-1 border rounded px-3 py-2 text-sm"
+                          placeholder={
+                            lang === "en"
+                              ? "e.g. Kidus Alemayehu or 12-3456789"
+                              : "ለምሳሌ ኪዱስ አለማየሁ ወይም 12-3456789"
+                          }
+                        />
+                        <div className="flex gap-2">
+                          <Button
+                            type="submit"
+                            disabled={searching}
+                            className="bg-blue-600 text-white whitespace-nowrap"
+                          >
+                            {searching
+                              ? lang === "en"
+                                ? "Searching..."
+                                : "በመፈለግ ላይ..."
+                              : lang === "en"
+                              ? "Search"
+                              : "ፈልግ"}
+                          </Button>
+                          {(searchActive || searchInput.trim()) && (
+                            <Button
+                              type="button"
+                              onClick={handleResetSearch}
+                              className="bg-gray-200 text-gray-700 whitespace-nowrap"
+                            >
+                              {lang === "en" ? "Clear" : "አጽዳ"}
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                      {searchMessage && (
+                        <div
+                          className={`text-sm ${
+                            searchActive
+                              ? searchResults.length > 0
+                                ? "text-green-700"
+                                : "text-red-600"
+                              : "text-gray-600"
+                          }`}
+                        >
+                          {searchMessage}
+                        </div>
+                      )}
+                    </form>
+                  </div>
+                </div>
+
                 <div className="overflow-x-auto">
                   <Table>
                     <TableHeader>
@@ -2494,8 +3271,10 @@ const getReportStatusVariant = (status) => {
                                   >
                                     {lang === "en" ? "Actions" : "ድርጊቶች"}
                                   </button>
-                                  <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-lg z-10" style={{ display: "none" }}>
+                                  <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-10" style={{ display: "none" }}>
                                     <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-700" onClick={() => handleAction("view", event)}>{lang === "en" ? "View" : "ይመልከቱ"}</button>
+                                    <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-blue-700" onClick={() => handleAction("edit", event)}>{lang === "en" ? "Edit" : "አርትዖት"}</button>
+                                    <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-700" onClick={() => handleAction("delete", event)}>{lang === "en" ? "Delete" : "ሰርዝ"}</button>
                                   </div>
                                 </div>
                               </TableCell>
@@ -2515,6 +3294,273 @@ const getReportStatusVariant = (status) => {
                     totalItems={filteredEvents.length}
                     lang={lang}
                   />
+                )}
+              </CardContent>
+            </Card>
+          ) : agentsViewActive ? (
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle>{lang === "en" ? "Agents Management" : "የወኪሎች አስተዳደር"}</CardTitle>
+                  <button
+                    className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100"
+                    title={lang === 'en' ? 'Close' : 'ዝጋ'}
+                    onClick={() => {
+                      try { window.location.hash = ''; } catch {}
+                      setAgentsViewActive(false);
+                    }}
+                  >
+                    ✕
+                  </button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-4 flex justify-between items-center">
+                  <div className="text-sm text-gray-600">
+                    {lang === "en" 
+                      ? "Manage registrar, hospital, church, and mosque users" 
+                      : "የመዝገበ ካሳ፣ ሆስፒታል፣ ቤተ ክርስቲያን እና መስጊድ ተጠቃሚዎችን ያስተዳድሩ"}
+                  </div>
+                  <Button
+                    onClick={() => setShowCreateAgentForm(true)}
+                    className="bg-blue-600 text-white hover:bg-blue-700"
+                  >
+                    {lang === "en" ? "+ Add Agent" : "+ ወኪል ጨምር"}
+                  </Button>
+                </div>
+
+                {showCreateAgentForm && (
+                  <Card className="mb-4 border-2 border-blue-200">
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-lg">{lang === "en" ? "Create New Agent" : "አዲስ ወኪል ይፍጠሩ"}</CardTitle>
+                        <button
+                          onClick={() => {
+                            setShowCreateAgentForm(false);
+                            setNewAgent({ name: "", email: "", password: "", role: "registrar" });
+                          }}
+                          className="text-gray-500 hover:text-gray-700"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <form onSubmit={handleCreateAgent} className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium mb-1">
+                              {lang === "en" ? "Name" : "ስም"} *
+                            </label>
+                            <input
+                              type="text"
+                              value={newAgent.name}
+                              onChange={(e) => setNewAgent({ ...newAgent, name: e.target.value })}
+                              className="w-full px-3 py-2 border rounded-md"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-1">
+                              {lang === "en" ? "Email" : "ኢሜይል"} *
+                            </label>
+                            <input
+                              type="email"
+                              value={newAgent.email}
+                              onChange={(e) => setNewAgent({ ...newAgent, email: e.target.value })}
+                              className="w-full px-3 py-2 border rounded-md"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-1">
+                              {lang === "en" ? "Password" : "የሚስጥር ቃል"} *
+                            </label>
+                            <input
+                              type="password"
+                              value={newAgent.password}
+                              onChange={(e) => setNewAgent({ ...newAgent, password: e.target.value })}
+                              className="w-full px-3 py-2 border rounded-md"
+                              required
+                              minLength={6}
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-1">
+                              {lang === "en" ? "Role" : "ሚና"} *
+                            </label>
+                            <select
+                              value={newAgent.role}
+                              onChange={(e) => setNewAgent({ ...newAgent, role: e.target.value })}
+                              className="w-full px-3 py-2 border rounded-md"
+                              required
+                            >
+                              <option value="registrar">{lang === "en" ? "Registrar" : "መዝገበ ካሳ"}</option>
+                              <option value="hospital">{lang === "en" ? "Hospital" : "ሆስፒታል"}</option>
+                              <option value="church">{lang === "en" ? "Church" : "ቤተ ክርስቲያን"}</option>
+                              <option value="mosque">{lang === "en" ? "Mosque" : "መስጊድ"}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="flex justify-end gap-2">
+                          <Button
+                            type="button"
+                            onClick={() => {
+                              setShowCreateAgentForm(false);
+                              setNewAgent({ name: "", email: "", password: "", role: "registrar" });
+                            }}
+                            className="bg-gray-500 text-white hover:bg-gray-600"
+                          >
+                            {lang === "en" ? "Cancel" : "ተወው"}
+                          </Button>
+                          <Button
+                            type="submit"
+                            disabled={creatingAgent}
+                            className="bg-blue-600 text-white hover:bg-blue-700"
+                          >
+                            {creatingAgent 
+                              ? (lang === "en" ? "Creating..." : "በመፍጠር ላይ...")
+                              : (lang === "en" ? "Create Agent" : "ወኪል ይፍጠሩ")
+                            }
+                          </Button>
+                        </div>
+                      </form>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {agentsLoading ? (
+                  <div className="text-center py-8">{lang === "en" ? "Loading agents..." : "ወኪሎች በመጫን ላይ..."}</div>
+                ) : agents.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500">
+                    {lang === "en" ? "No agents found." : "ምንም ወኪል አልተገኘም።"}
+                  </div>
+                ) : (
+                  <>
+                    <div className="overflow-x-auto">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>{lang === "en" ? "Name" : "ስም"}</TableHead>
+                            <TableHead>{lang === "en" ? "Email" : "ኢሜይል"}</TableHead>
+                            <TableHead>{lang === "en" ? "Role" : "ሚና"}</TableHead>
+                            <TableHead>{lang === "en" ? "Status" : "ሁኔታ"}</TableHead>
+                            <TableHead>{lang === "en" ? "Actions" : "ድርጊቶች"}</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {(() => {
+                            const totalPages = Math.ceil(agents.length / itemsPerPage);
+                            const startIndex = (agentsCurrentPage - 1) * itemsPerPage;
+                            const endIndex = startIndex + itemsPerPage;
+                            const paginatedAgents = agents.slice(startIndex, endIndex);
+                            
+                            return paginatedAgents.map((agent) => (
+                              <TableRow key={agent._id || agent.id}>
+                                <TableCell className="font-medium">{agent.name}</TableCell>
+                                <TableCell>{agent.email}</TableCell>
+                                <TableCell>
+                                  <span className="capitalize">
+                                    {lang === "en" 
+                                      ? agent.role 
+                                      : agent.role === "registrar" ? "መዝገበ ካሳ"
+                                      : agent.role === "hospital" ? "ሆስፒታል"
+                                      : agent.role === "church" ? "ቤተ ክርስቲያን"
+                                      : agent.role === "mosque" ? "መስጊድ"
+                                      : agent.role
+                                    }
+                                  </span>
+                                </TableCell>
+                                <TableCell>
+                                  <Badge variant={agent.active ? "success" : "danger"}>
+                                    {agent.active 
+                                      ? (lang === "en" ? "Active" : "ንቁ") 
+                                      : (lang === "en" ? "Inactive" : "ንቁ አይደለም")
+                                    }
+                                  </Badge>
+                                </TableCell>
+                                <TableCell>
+                                  <div className="relative inline-block text-left">
+                                    <Button
+                                      onClick={() => {
+                                        setActionAgent(agent);
+                                        setShowActionMenu(true);
+                                      }}
+                                      className="bg-gray-100 text-gray-800 hover:bg-gray-200"
+                                    >
+                                      {lang === "en" ? "Actions" : "ድርጊቶች"}
+                                    </Button>
+                                    {showActionMenu && actionAgent && (actionAgent._id || actionAgent.id) === (agent._id || agent.id) && (
+                                      <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-10">
+                                        <button
+                                          className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                                          onClick={() => {
+                                            setShowRoleSelector(true);
+                                            setShowActionMenu(false);
+                                          }}
+                                        >
+                                          {lang === "en" ? "Change Role" : "ሚና ይቀይሩ"}
+                                        </button>
+                                        <button
+                                          className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
+                                          onClick={() => {
+                                            handleDeleteAgent(agent._id || agent.id);
+                                            setShowActionMenu(false);
+                                          }}
+                                        >
+                                          {lang === "en" ? "Delete Agent" : "ወኪል ያስወግዱ"}
+                                        </button>
+                                      </div>
+                                    )}
+                                    {showRoleSelector && actionAgent && (actionAgent._id || actionAgent.id) === (agent._id || agent.id) && (
+                                      <div className="absolute right-0 mt-2 w-56 bg-white border rounded shadow-lg z-20 p-4">
+                                        <div className="mb-2 font-semibold">{lang === "en" ? "Select Role" : "ሚና ይምረጡ"}</div>
+                                        <select
+                                          value={actionAgent.role}
+                                          onChange={(e) => {
+                                            handleChangeAgentRole(actionAgent._id || actionAgent.id, e.target.value);
+                                            setShowRoleSelector(false);
+                                            setActionAgent(null);
+                                          }}
+                                          className="w-full px-2 py-1 border rounded"
+                                        >
+                                          <option value="registrar">{lang === "en" ? "Registrar" : "መዝገበ ካሳ"}</option>
+                                          <option value="hospital">{lang === "en" ? "Hospital" : "ሆስፒታል"}</option>
+                                          <option value="church">{lang === "en" ? "Church" : "ቤተ ክርስቲያን"}</option>
+                                          <option value="mosque">{lang === "en" ? "Mosque" : "መስጊድ"}</option>
+                                        </select>
+                                        <div className="flex gap-2 mt-2">
+                                          <Button
+                                            onClick={() => {
+                                              setShowRoleSelector(false);
+                                              setActionAgent(null);
+                                            }}
+                                            className="bg-gray-500 text-white text-sm px-2 py-1"
+                                          >
+                                            {lang === "en" ? "Close" : "ዝጋ"}
+                                          </Button>
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
+                                </TableCell>
+                              </TableRow>
+                            ));
+                          })()}
+                        </TableBody>
+                      </Table>
+                    </div>
+                    {agents.length > 0 && (
+                      <Pagination
+                        currentPage={agentsCurrentPage}
+                        totalPages={Math.ceil(agents.length / itemsPerPage)}
+                        onPageChange={setAgentsCurrentPage}
+                        itemsPerPage={itemsPerPage}
+                        totalItems={agents.length}
+                        lang={lang}
+                      />
+                    )}
+                  </>
                 )}
               </CardContent>
             </Card>
@@ -2600,6 +3646,93 @@ const getReportStatusVariant = (status) => {
                 </CardContent>
               </Card>
             </>
+          )}
+
+          {/* Confirm Delete Dialog for Agents */}
+          {showConfirmDelete && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+              <div className="rounded-lg p-6 shadow-xl border bg-white min-w-[320px]">
+                <div className="mb-4 text-lg font-semibold">
+                  {lang === "en" 
+                    ? "Are you sure you want to delete this agent?" 
+                    : "ይህንን ወኪል ማጥፋት እርግጠኛ ነዎት?"}
+                </div>
+                <div className="flex flex-row gap-4 justify-end w-full">
+                  <Button 
+                    onClick={confirmDeleteAgent}
+                    className="bg-red-600 text-white hover:bg-red-700"
+                  >
+                    {lang === "en" ? "Delete" : "ያስወግዱ"}
+                  </Button>
+                  <Button 
+                    onClick={() => setShowConfirmDelete(false)}
+                    className="bg-gray-500 text-white hover:bg-gray-600"
+                  >
+                    {lang === "en" ? "Cancel" : "ተወው"}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Confirm Delete Dialog for Events */}
+          {showConfirmDeleteEvent && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+              <div className="rounded-lg p-6 shadow-xl border bg-white min-w-[320px]">
+                <div className="mb-4 text-lg font-semibold">
+                  {lang === "en" 
+                    ? "Are you sure you want to delete this event? This action cannot be undone." 
+                    : "ይህንን ክስተት ማጥፋት እርግጠኛ ነዎት? ይህ እርምጃ ሊመለስ አይችልም።"}
+                </div>
+                <div className="flex flex-row gap-4 justify-end w-full">
+                  <Button 
+                    onClick={confirmDeleteEvent}
+                    className="bg-red-600 text-white hover:bg-red-700"
+                  >
+                    {lang === "en" ? "Delete" : "ያስወግዱ"}
+                  </Button>
+                  <Button 
+                    onClick={() => setShowConfirmDeleteEvent(false)}
+                    className="bg-gray-500 text-white hover:bg-gray-600"
+                  >
+                    {lang === "en" ? "Cancel" : "ተወው"}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Event Edit Form Modal */}
+          {showEventForm && editingEvent && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div className="p-4 border-b flex items-center justify-between">
+                  <h2 className="text-xl font-semibold">
+                    {lang === "en"
+                      ? `Edit ${formType.charAt(0).toUpperCase() + formType.slice(1)} Event`
+                      : `${formType} ክስተት አርትዖት`}
+                  </h2>
+                  <Button
+                    onClick={() => {
+                      setShowEventForm(false);
+                      setEditingEvent(null);
+                    }}
+                    className="bg-gray-600 hover:bg-gray-700 text-white"
+                  >
+                    {lang === "en" ? "Close" : "ዝጋ"}
+                  </Button>
+                </div>
+                <div className="p-4">
+                  <FormSelector
+                    user={user}
+                    setUser={setUser}
+                    formType={formType}
+                    onSubmit={handleEventFormSubmit}
+                    editingEvent={editingEvent}
+                  />
+                </div>
+              </div>
+            </div>
           )}
 
 			{/* Modal content removed in favor of in-page details view */}

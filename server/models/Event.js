@@ -53,6 +53,22 @@ const eventSchema = new mongoose.Schema(
       },
     ],
 
+    corrections: [
+      {
+        requestedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+        details: { type: String, required: true },
+        status: {
+          type: String,
+          enum: ["pending", "approved", "rejected"],
+          default: "pending",
+        },
+        requestedAt: { type: Date, default: Date.now },
+        response: { type: String },
+        resolvedAt: { type: Date },
+        resolvedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      },
+    ],
+
     // Special registration requests
     specialRegistration: {
       requestedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },

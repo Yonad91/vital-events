@@ -104,6 +104,78 @@ const reportPeriods = [
   { key: "yearly", labelEn: "Past 12 months", labelAm: "ባለፉት 12 ወራት" },
 ];
 
+const EVENT_TYPE_OPTIONS = [
+  { value: "all", labelEn: "All types", labelAm: "ሁሉም አይነቶች" },
+  { value: "marriage", labelEn: "Marriage", labelAm: "ጋብቻ" },
+  { value: "death", labelEn: "Death", labelAm: "ሞት" },
+  { value: "birth", labelEn: "Birth", labelAm: "ትውልድ" },
+  { value: "divorce", labelEn: "Divorce", labelAm: "ፍቺ" },
+];
+
+const SEARCH_NAME_FIELDS = [
+  "data.childNameEn",
+  "data.childNameAm",
+  "data.childFullNameEn",
+  "data.childFullNameAm",
+  "data.husbandNameEn",
+  "data.husbandNameAm",
+  "data.husbandFullNameEn",
+  "data.husbandFullNameAm",
+  "data.wifeNameEn",
+  "data.wifeNameAm",
+  "data.wifeFullNameEn",
+  "data.wifeFullNameAm",
+  "data.deceasedNameEn",
+  "data.deceasedNameAm",
+  "data.deceasedFullNameEn",
+  "data.deceasedFullNameAm",
+  "data.requesterName",
+  "data.parentNameEn",
+  "data.parentNameAm",
+];
+
+const SEARCH_ID_FIELDS = [
+  "data.childIdNumberAm",
+  "data.husbandIdNumberAm",
+  "data.wifeIdNumberAm",
+  "data.deceasedIdNumberAm",
+  "data.requesterIdNumber",
+  "data.idCardNumber",
+  "data.motherIdOrPassport",
+  "data.fatherIdOrPassportAm",
+  "data.birthInfoNumberAm",
+  "data.registrarBureauIdNumber",
+  "data.divorceSpouse1IdAm",
+  "data.divorceSpouse2IdAm",
+];
+
+const getValueByPath = (obj, path) => {
+  if (!obj || !path) return undefined;
+  return path.split(".").reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined), obj);
+};
+
+const eventMatchesSearchTerm = (event, term) => {
+  if (!event || !term) return false;
+  const text = term.toLowerCase();
+
+  const registrationId = (event.registrationId || "").toLowerCase();
+  if (registrationId.includes(text)) return true;
+
+  const registrationNumber = (event.data?.registrationNumber || "").toLowerCase();
+  if (registrationNumber.includes(text)) return true;
+
+  const nameMatch = SEARCH_NAME_FIELDS.some((field) => {
+    const value = getValueByPath(event, field);
+    return value && String(value).trim().toLowerCase().includes(text);
+  });
+  if (nameMatch) return true;
+
+  return SEARCH_ID_FIELDS.some((field) => {
+    const value = getValueByPath(event, field);
+    return value && String(value).trim().toLowerCase().includes(text);
+  });
+};
+
 const getPeriodStartDate = (periodKey) => {
   const now = new Date();
   const start = new Date(now);
@@ -155,6 +227,41 @@ const MosqueDashboard = ({ user, setUser }) => {
   const [templatesLoading, setTemplatesLoading] = useState(false);
   const [letterForm, setLetterForm] = useState({ title: "", content: "" });
   const [sendingLetter, setSendingLetter] = useState(false);
+  const [eventTypeFilter, setEventTypeFilter] = useState("all");
+  const [searchInput, setSearchInput] = useState("");
+  const [searchActive, setSearchActive] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchMessage, setSearchMessage] = useState("");
+  const [searchingEvents, setSearchingEvents] = useState(false);
+
+  const filteredEvents = useMemo(() => {
+    let list = events;
+    if (eventTypeFilter !== "all") {
+      list = list.filter((event) => event.type === eventTypeFilter);
+    }
+    if (searchActive) {
+      if (searchResults.length === 0) {
+        list = [];
+      } else {
+        const ids = new Set(searchResults);
+        list = list.filter((event) => ids.has(event._id || event.id));
+      }
+    }
+    return list;
+  }, [events, eventTypeFilter, searchActive, searchResults]);
+
+  const paginatedEvents = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredEvents.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredEvents, currentPage, itemsPerPage]);
+
+  const totalEventPages = Math.max(1, Math.ceil(filteredEvents.length / itemsPerPage) || 1);
+
+  useEffect(() => {
+    if (currentPage > totalEventPages) {
+      setCurrentPage(totalEventPages);
+    }
+  }, [currentPage, totalEventPages]);
 
   // Handle hash-based navigation for register new event and dashboard options
   useEffect(() => {
@@ -186,6 +293,20 @@ const MosqueDashboard = ({ user, setUser }) => {
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+
+  useEffect(() => {
+    if (searchActive && searchInput.trim()) {
+      const normalized = searchInput.trim().toLowerCase();
+      const matches = events
+        .filter((event) => eventMatchesSearchTerm(event, normalized))
+        .map((event) => event._id || event.id);
+      setSearchResults(matches);
+    }
+  }, [events, searchActive, searchInput]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [eventTypeFilter, searchActive, searchResults]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -406,6 +527,46 @@ const MosqueDashboard = ({ user, setUser }) => {
     }
   };
 
+  const handleEventSearch = (e) => {
+    e.preventDefault();
+    const term = (searchInput || "").trim();
+    if (!term) {
+      setSearchActive(false);
+      setSearchResults([]);
+      setSearchMessage(
+        lang === "en"
+          ? "Enter a full name or ID number to search."
+          : "ሙሉ ስም ወይም የመታወቂያ ቁጥር አስገብተው ይፈልጉ።"
+      );
+      return;
+    }
+    setSearchingEvents(true);
+    const normalized = term.toLowerCase();
+    const matches = events
+      .filter((event) => eventMatchesSearchTerm(event, normalized))
+      .map((event) => event._id || event.id);
+    setSearchActive(true);
+    setSearchResults(matches);
+    setSearchMessage(
+      matches.length > 0
+        ? lang === "en"
+          ? `${matches.length} event${matches.length === 1 ? "" : "s"} found.`
+          : `${matches.length} ክስተቶች ተገኝተዋል።`
+        : lang === "en"
+        ? `No events found for "${term}".`
+        : `"${term}" ተብሎ ክስተት አልተገኘም።`
+    );
+    setSearchingEvents(false);
+  };
+
+  const handleResetSearch = () => {
+    setSearchInput("");
+    setSearchResults([]);
+    setSearchActive(false);
+    setSearchMessage("");
+    setSearchingEvents(false);
+  };
+
   const handleSubmitAllToManager = async () => {
     try {
       const drafts = events.filter((e) => e.status === "draft");
@@ -561,9 +722,83 @@ const MosqueDashboard = ({ user, setUser }) => {
             </CardHeader>
             {showEvents && (
             <CardContent>
+            <div className="space-y-4 mb-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    {translate(lang, "Filter by event type", "በክስተት አይነት ይለዩ")}
+                  </label>
+                  <select
+                    value={eventTypeFilter}
+                    onChange={(e) => setEventTypeFilter(e.target.value)}
+                    className="w-full border rounded px-3 py-2 text-sm"
+                  >
+                    {EVENT_TYPE_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {translate(lang, option.labelEn, option.labelAm)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <form onSubmit={handleEventSearch} className="flex flex-col gap-2">
+                  <label className="text-sm font-medium">
+                    {translate(
+                      lang,
+                      "Search by full name or identification number",
+                      "በሙሉ ስም ወይም በመታወቂያ ቁጥር ይፈልጉ"
+                    )}
+                  </label>
+                  <div className="flex flex-col md:flex-row gap-2">
+                    <input
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
+                      className="flex-1 border rounded px-3 py-2 text-sm"
+                      placeholder={
+                        lang === "en"
+                          ? "e.g. Ahmed Ali or 12-3456789"
+                          : "ለምሳሌ አህመድ አሊ ወይም 12-3456789"
+                      }
+                    />
+                    <div className="flex gap-2">
+                      <Button
+                        type="submit"
+                        disabled={searchingEvents}
+                        className="bg-blue-600 text-white whitespace-nowrap"
+                      >
+                        {searchingEvents
+                          ? translate(lang, "Searching...", "በመፈለግ ላይ...")
+                          : translate(lang, "Search", "ፈልግ")}
+                      </Button>
+                      {(searchActive || searchInput.trim()) && (
+                        <Button
+                          type="button"
+                          onClick={handleResetSearch}
+                          className="bg-gray-200 text-gray-700 whitespace-nowrap"
+                        >
+                          {translate(lang, "Clear", "አጽዳ")}
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </form>
+              </div>
+              {searchMessage && (
+                <div
+                  className={`text-sm ${
+                    searchActive
+                      ? searchResults.length > 0
+                        ? "text-green-700"
+                        : "text-red-600"
+                      : "text-gray-600"
+                  }`}
+                >
+                  {searchMessage}
+                </div>
+              )}
+            </div>
               {loading ? (
                 <p>{translate(lang, "Loading...", "በመጫን ላይ...")}</p>
-              ) : events.length === 0 ? (
+            ) : filteredEvents.length === 0 ? (
                 <p>{translate(lang, "No events found", "ክስተት አልተገኘም")}</p>
               ) : (
               <div className="overflow-x-auto">
@@ -587,13 +822,8 @@ const MosqueDashboard = ({ user, setUser }) => {
                         </TableHead>
                     </TableRow>
                   </TableHeader>
-                  <TableBody>
-                      {(() => {
-                        const totalPages = Math.ceil(events.length / itemsPerPage);
-                        const startIndex = (currentPage - 1) * itemsPerPage;
-                        const endIndex = startIndex + itemsPerPage;
-                        const paginatedEvents = events.slice(startIndex, endIndex);
-                        return paginatedEvents.map((event) => (
+                <TableBody>
+                    {paginatedEvents.map((event) => (
                         <TableRow key={event._id || event.id}>
                           <TableCell>{event.registrationId}</TableCell>
                           <TableCell>
@@ -670,25 +900,21 @@ const MosqueDashboard = ({ user, setUser }) => {
                             </div>
                             </TableCell>
                           </TableRow>
-                        ));
-                      })()}
+                      ))}
                   </TableBody>
                 </Table>
               </div>
               )}
-              {events.length > 0 && (() => {
-                const totalPages = Math.ceil(events.length / itemsPerPage);
-                return (
-                  <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={setCurrentPage}
-                    itemsPerPage={itemsPerPage}
-                    totalItems={events.length}
-                    lang={lang}
-                  />
-                );
-              })()}
+            {filteredEvents.length > 0 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalEventPages}
+                onPageChange={setCurrentPage}
+                itemsPerPage={itemsPerPage}
+                totalItems={filteredEvents.length}
+                lang={lang}
+              />
+            )}
             </CardContent>
             )}
           </Card>

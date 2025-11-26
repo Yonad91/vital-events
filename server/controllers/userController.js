@@ -37,6 +37,31 @@ const sendSseNotification = (userId, payload) => {
 // We must not drop, transform, or hide any fields, including empty values.
 const sanitizeData = (obj) => obj;
 
+// Build query clauses for registrant-owned events (used in multiple endpoints)
+const buildRegistrantOwnershipQuery = (user) => {
+  const name = user.name;
+  const nameFields = [
+    "data.childNameEn",
+    "data.childNameAm",
+    "data.husbandNameEn",
+    "data.wifeNameEn",
+    "data.deceasedNameEn",
+    "data.deceasedNameAm",
+    "data.requesterName",
+    "data.parentNameEn",
+    "data.parentNameAm",
+  ];
+  const nameClauses = nameFields.map((f) => ({ [f]: name }));
+  return {
+    $or: [
+      { "requestedCertificates.requestedBy": user.id },
+      { "data.requesterId": user.id },
+      { "data.submittedBy": name },
+      ...nameClauses,
+    ],
+  };
+};
+
 // Check if a value is empty (null, undefined, empty string, or whitespace only)
 const isEmpty = (value) => {
   if (value === null || value === undefined) return true;
@@ -1910,6 +1935,105 @@ export const updateEvent = async (req, res) => {
   }
 };
 
+// Manager update event (can update any event)
+export const managerUpdateEvent = async (req, res) => {
+  try {
+    // Allow multipart/form-data updates with files
+    let updatePayload = req.body;
+    if (req.is('multipart/form-data')) {
+      try {
+        updatePayload = JSON.parse(req.body.data || '{}');
+      } catch (e) {
+        return res.status(400).json({ message: 'Invalid form data' });
+      }
+      if (Array.isArray(req.files)) {
+        updatePayload.data = updatePayload.data || {};
+        req.files.forEach((f) => {
+          updatePayload.data[f.fieldname] = f.filename;
+        });
+      }
+    }
+
+    // sanitize and apply registration fallbacks prior to update
+    if (updatePayload && updatePayload.data) {
+      updatePayload.data = sanitizeData(updatePayload.data);
+      const currentType = updatePayload.type || undefined;
+      updatePayload.data = applyRegistrationFallbacks(updatePayload.data, currentType);
+    }
+
+    // Get the current event to determine its type
+    const currentEvent = await Event.findById(req.params.eventId);
+    if (!currentEvent) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    const eventType = updatePayload.type || currentEvent.type;
+    const baseData =
+      typeof currentEvent.toObject === 'function'
+        ? (currentEvent.toObject().data || {})
+        : (currentEvent.data || {});
+    const mergedData = {
+      ...baseData,
+      ...(updatePayload.data || {}),
+    };
+
+    if (eventType === 'marriage') {
+      const sexError = await validateMarriageSexAssignments(mergedData);
+      if (sexError) {
+        return res.status(400).json({
+          message: sexMismatchMessage(sexError.expectedSex),
+          details: sexError,
+        });
+      }
+    }
+
+    // Check for duplicate ID card numbers (excluding current event)
+    const dataToCheck = mergedData;
+    const duplicates = await checkDuplicateIdNumbers(eventType, dataToCheck, req.params.eventId);
+    if (duplicates.length > 0) {
+      const duplicateMessages = duplicates.map(dup => {
+        const fieldLabel = dup.field === 'childIdNumberAm' ? 'Child ID Number' :
+                          dup.field === 'deceasedIdNumberAm' ? 'Deceased ID Number' :
+                          dup.field === 'wifeIdNumberAm' ? 'Wife ID Number' :
+                          dup.field === 'husbandIdNumberAm' ? 'Husband ID Number' :
+                          dup.field === 'divorceSpouse1IdAm' ? 'Spouse 1 ID Number' :
+                          dup.field === 'divorceSpouse2IdAm' ? 'Spouse 2 ID Number' :
+                          dup.field;
+        return `${fieldLabel} (${dup.idNumber}) is already registered with Registration ID: ${dup.existingRegistrationId}`;
+      });
+      return res.status(409).json({ 
+        message: "Duplicate ID card number detected",
+        details: duplicateMessages,
+        duplicates: duplicates
+      });
+    }
+
+    // Manager can update any event without ownership check
+    const event = await Event.findByIdAndUpdate(
+      req.params.eventId,
+      {
+        ...updatePayload,
+        status: "approved",
+        approvedBy: req.user.id,
+        approvedAt: new Date(),
+        rejectionReason: undefined,
+        rejectedAt: undefined,
+        rejectedBy: undefined,
+        lastModifiedBy: req.user.id,
+        lastModifiedAt: new Date(),
+      },
+      { new: true }
+    );
+    if (!event)
+      return res.status(404).json({ message: "Event not found" });
+    res.json({ message: "Event updated", event });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Error updating event", error: err.message });
+  }
+};
+
 // Delete event (only for draft or rejected status, and only by the event owner)
 export const deleteEvent = async (req, res) => {
   try {
@@ -1959,6 +2083,44 @@ export const deleteEvent = async (req, res) => {
   } catch (err) {
     console.error('[DELETE EVENT] Error:', err);
     console.error('[DELETE EVENT] Error stack:', err.stack);
+    res.status(500).json({ 
+      message: 'Error deleting event', 
+      error: err.message,
+      details: process.env.NODE_ENV === 'development' ? err.stack : undefined
+    });
+  }
+};
+
+// Manager delete event (can delete any event regardless of status)
+export const managerDeleteEvent = async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    const userId = req.user.id;
+    const userRole = req.user.role;
+
+    console.log(`[MANAGER DELETE EVENT] Attempting to delete event ${eventId} by manager ${userId} (${userRole})`);
+
+    if (!eventId) {
+      return res.status(400).json({ message: 'Event ID is required' });
+    }
+
+    // Find the event
+    const event = await Event.findById(eventId);
+    if (!event) {
+      console.log(`[MANAGER DELETE EVENT] Event not found: ${eventId}`);
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    console.log(`[MANAGER DELETE EVENT] Found event: status=${event.status}, registrarId=${event.registrarId}`);
+
+    // Manager can delete any event regardless of status or ownership
+    await Event.findByIdAndDelete(eventId);
+    console.log(`[MANAGER DELETE EVENT] Successfully deleted event ${eventId}`);
+
+    res.json({ message: 'Event deleted successfully' });
+  } catch (err) {
+    console.error('[MANAGER DELETE EVENT] Error:', err);
+    console.error('[MANAGER DELETE EVENT] Error stack:', err.stack);
     res.status(500).json({ 
       message: 'Error deleting event', 
       error: err.message,
@@ -2369,34 +2531,7 @@ export const mosqueRegisterEvent = async (req, res) => {
  */
 export const viewMyRecords = async (req, res) => {
   try {
-    // Build a query that tries several common ownership signals so registrants
-    // can see records they are associated with. This includes matching by
-    // - explicit requester id stored on data (data.requesterId)
-    // - any previously created certificate request made by the user
-    // - the registrant's name appearing in common name fields (child/husband/wife/deceased)
-    const name = req.user.name;
-    const nameFields = [
-      'data.childNameEn',
-      'data.childNameAm',
-      'data.husbandNameEn',
-      'data.wifeNameEn',
-      'data.deceasedNameEn',
-      'data.deceasedNameAm',
-      'data.requesterName',
-      'data.parentNameEn',
-      'data.parentNameAm',
-    ];
-
-    const nameClauses = nameFields.map((f) => ({ [f]: name }));
-
-    const q = {
-      $or: [
-        { 'requestedCertificates.requestedBy': req.user.id },
-        { 'data.requesterId': req.user.id },
-        { 'data.submittedBy': name },
-        ...nameClauses,
-      ],
-    };
+    const q = buildRegistrantOwnershipQuery(req.user);
 
     const events = await Event.find(q)
       .populate("registrarId", "name role")
@@ -2570,10 +2705,14 @@ export const requestCorrection = async (req, res) => {
     if (!details || !details.trim()) return res.status(400).json({ message: 'Correction details are required' });
     const event = await Event.findById(eventId);
     if (!event) return res.status(404).json({ message: 'Event not found' });
-    // Ensure the requesting user is the owner or related
-    if (String(event.registrarId) !== String(req.user.id)) {
-      return res.status(403).json({ message: 'You can only request corrections for your own events' });
+    
+    if (req.user.role !== 'registrant') {
+      const isOwner = String(event.registrarId) === String(req.user.id);
+      if (!isOwner) {
+        return res.status(403).json({ message: 'You can only request corrections for your own events' });
+      }
     }
+    
     event.corrections = event.corrections || [];
     event.corrections.push({ requestedBy: req.user.id, details, status: 'pending', requestedAt: new Date() });
     await event.save();
@@ -3328,6 +3467,181 @@ export const getReportingUsers = async (req, res) => {
     res.json(users);
   } catch (err) {
     res.status(500).json({ message: "Error fetching users", error: err.message });
+  }
+};
+
+export const listCorrectionRequests = async (req, res) => {
+  try {
+    const { status = "pending" } = req.query;
+    const matchStatus = status.toLowerCase();
+
+    const events = await Event.find({ "corrections.0": { $exists: true } })
+      .select(
+        "type registrationId data corrections registrarId status createdAt updatedAt"
+      )
+      .populate("registrarId", "name role")
+      .populate("corrections.requestedBy", "name email role")
+      .sort({ updatedAt: -1 })
+      .lean();
+
+    const correctionItems = [];
+    events.forEach((event) => {
+      (event.corrections || []).forEach((correction) => {
+        const corrStatus = (correction.status || "pending").toLowerCase();
+        if (
+          matchStatus !== "all" &&
+          corrStatus !== matchStatus
+        ) {
+          return;
+        }
+        correctionItems.push({
+          eventId: event._id,
+          eventType: event.type,
+          eventStatus: event.status,
+          registrationId: event.registrationId,
+          eventData: event.data,
+          registrar: event.registrarId,
+          correctionId: correction._id,
+          correction,
+        event,
+        });
+      });
+    });
+
+    res.json(correctionItems);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Error fetching correction requests", error: err.message });
+  }
+};
+
+// Manager functions for managing agents (registrar, hospital, church, mosque)
+export const getManagerAgents = async (req, res) => {
+  try {
+    const { role } = req.query;
+    const filter = {};
+    if (role && REPORTING_ROLES.includes(role)) {
+      filter.role = role;
+    } else {
+      filter.role = { $in: REPORTING_ROLES };
+    }
+
+    const users = await User.find(filter)
+      .select("-password")
+      .sort({ name: 1 })
+      .lean();
+
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching agents", error: err.message });
+  }
+};
+
+export const createManagerAgent = async (req, res) => {
+  try {
+    const { name, email, password, role } = req.body;
+
+    // Validate role is in REPORTING_ROLES
+    if (!role || !REPORTING_ROLES.includes(role)) {
+      return res.status(400).json({ 
+        message: `Role must be one of: ${REPORTING_ROLES.join(", ")}` 
+      });
+    }
+
+    // Validate email format
+    const validEmail = /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com)$/.test(email);
+    if (!validEmail) {
+      return res.status(400).json({ message: "Email must end with @gmail.com or @yahoo.com" });
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "User with this email already exists" });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create user
+    const user = new User({
+      name,
+      email,
+      password: hashedPassword,
+      role,
+      active: true,
+    });
+
+    await user.save();
+
+    const userResponse = await User.findById(user._id).select("-password");
+
+    res.status(201).json({
+      message: "Agent created successfully",
+      user: userResponse,
+    });
+  } catch (err) {
+    console.error("Create agent error:", err);
+    res.status(500).json({ message: "Error creating agent", error: err.message });
+  }
+};
+
+export const deleteManagerAgent = async (req, res) => {
+  try {
+    const { agentId } = req.params;
+    
+    // Verify the user is an agent (in REPORTING_ROLES)
+    const agent = await User.findById(agentId);
+    if (!agent) {
+      return res.status(404).json({ message: "Agent not found" });
+    }
+
+    if (!REPORTING_ROLES.includes(agent.role)) {
+      return res.status(403).json({ message: "Can only delete agents (registrar, hospital, church, mosque)" });
+    }
+
+    await User.findByIdAndDelete(agentId);
+    res.json({ message: "Agent deleted successfully" });
+  } catch (err) {
+    console.error("Delete agent error:", err);
+    res.status(500).json({ message: "Error deleting agent", error: err.message });
+  }
+};
+
+export const changeManagerAgentRole = async (req, res) => {
+  try {
+    const { agentId } = req.params;
+    const { role } = req.body;
+
+    // Validate role is in REPORTING_ROLES
+    if (!role || !REPORTING_ROLES.includes(role)) {
+      return res.status(400).json({ 
+        message: `Role must be one of: ${REPORTING_ROLES.join(", ")}` 
+      });
+    }
+
+    // Verify the user is an agent
+    const agent = await User.findById(agentId);
+    if (!agent) {
+      return res.status(404).json({ message: "Agent not found" });
+    }
+
+    if (!REPORTING_ROLES.includes(agent.role)) {
+      return res.status(403).json({ message: "Can only modify agents (registrar, hospital, church, mosque)" });
+    }
+
+    // Update role
+    const updatedUser = await User.findByIdAndUpdate(
+      agentId,
+      { role },
+      { new: true }
+    ).select("-password");
+
+    res.json({ message: "Agent role updated successfully", user: updatedUser });
+  } catch (err) {
+    console.error("Change agent role error:", err);
+    res.status(500).json({ message: "Error changing agent role", error: err.message });
   }
 };
 

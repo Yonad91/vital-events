@@ -212,6 +212,12 @@ const ProfileSidebar = ({ user, setUser, className = "", onNavigateToMyRecords, 
 						</button>
 						<button
 							className="w-full bg-white text-left px-3 py-2 rounded border hover:bg-gray-50"
+							onClick={() => { window.location.hash = '#corrections'; }}
+						>
+							{t("Event Correction Requests", "የክስተት ማስተካከያ ጥያቄዎች")}
+						</button>
+						<button
+							className="w-full bg-white text-left px-3 py-2 rounded border hover:bg-gray-50"
 							onClick={() => { window.location.hash = '#agents'; }}
 						>
 							{t("Agents Management", "የወኪሎች አስተዳደር")}
